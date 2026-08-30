@@ -1,832 +1,488 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>PULSO 2026 — Central de Operação & Inteligência Política</title>
-  <meta name="description" content="Sua equipe continua na rua pelo WhatsApp. O PULSO organiza o movimento e devolve ao comando uma visão objetiva do que merece decisão.">
-  
-  <!-- PWA & WebApp Capabilities -->
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#0a1128">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="PULSO 2026">
-  <link rel="apple-touch-icon" href="assets/pulso-logo.jpg">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0B1D33">
+  <meta name="description" content="PULSO transforma a operação de rua e o WhatsApp em pessoas organizadas, visão territorial, prioridades e execução.">
+  <meta property="og:title" content="PULSO — Central de Operação e Inteligência">
+  <meta property="og:description" content="Da rua à decisão. Sua campanha sob controle.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <title>PULSO — Central de Operação e Inteligência</title>
 
-  <!-- Leaflet CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-  
-  <!-- Master Design System -->
-  <link rel="stylesheet" href="pulso.css?v=9.0.0">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="assets/pulso-mark.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/pulso-app-icon-192.png">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="anonymous">
+  <link rel="stylesheet" href="pulso.css?v=10.0.0">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="anonymous" defer></script>
+  <script src="pulso.js?v=10.0.0" defer></script>
 </head>
 <body>
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
 
-  <!-- Top Navigation Header (Apple Frosted Glass) -->
-  <header class="pulso-header">
-    <a href="#" class="header-brand" aria-label="PULSO 2026 Início">
-      <img src="assets/pulso-logo.jpg" alt="PULSO Logo" class="brand-logo-img" width="38" height="38">
-      <div class="brand-title-wrap">
-        <span class="brand-title">PULSO <span style="font-size:0.82rem; font-weight:800; color:var(--apple-blue);">2026</span></span>
-        <span class="brand-subtitle">Central de Operação & Inteligência</span>
+  <svg class="icon-sprite" aria-hidden="true">
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="m8 5 11 7-11 7V5Z"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M9 5v14M15 5v14"/></symbol>
+    <symbol id="i-reset" viewBox="0 0 24 24"><path d="M4 7v5h5M20 17v-5h-5M6.1 17A8 8 0 0 0 19 14M17.9 7A8 8 0 0 0 5 10"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 3-1.4 4.1L6.5 8.5l4.1 1.4L12 14l1.4-4.1 4.1-1.4-4.1-1.4L12 3Z"/><path d="m5 15-.8 2.2L2 18l2.2.8L5 21l.8-2.2L8 18l-2.2-.8L5 15ZM19 14l-.6 1.4L17 16l1.4.6L19 18l.6-1.4L21 16l-1.4-.6L19 14Z"/></symbol>
+    <symbol id="i-map" viewBox="0 0 24 24"><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3V6Z"/><path d="M9 3v15M15 6v15"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M8 13h8M8 17h6"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-message" viewBox="0 0 24 24"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3 1.6-4.8A7 7 0 0 1 3 13V8a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v7Z"/></symbol>
+    <symbol id="i-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v7c0 1.7 4 3 9 3s9-1.3 9-3V5M3 12v7c0 1.7 4 3 9 3s9-1.3 9-3v-7"/></symbol>
+    <symbol id="i-activity" viewBox="0 0 24 24"><path d="M3 12h4l2-7 4 14 2-7h6"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 21h16"/></symbol>
+    <symbol id="i-warning" viewBox="0 0 24 24"><path d="m12 3 10 18H2L12 3Z"/><path d="M12 9v5M12 18h.01"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9"/><path d="M18 13v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h6"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4 20-7Z"/><path d="M22 2 11 13"/></symbol>
+  </svg>
+
+  <header class="site-header" id="topo">
+    <div class="header-inner wrap">
+      <a class="brand" href="#topo" aria-label="PULSO — início">
+        <img src="assets/pulso-mark.svg" alt="" width="42" height="42">
+        <span class="brand-copy">
+          <strong>PULSO</strong>
+          <small>Operação &amp; inteligência</small>
+        </span>
+      </a>
+
+      <nav class="site-nav" id="site-nav" aria-label="Navegação principal">
+        <a href="#demonstracao">Demonstração</a>
+        <a href="#sala-situacao">Sala de Situação</a>
+        <a href="#governanca">Governança</a>
+        <a href="#implantacao">Implantação</a>
+      </nav>
+
+      <div class="header-actions">
+        <span class="demo-badge"><span aria-hidden="true"></span> Dados simulados</span>
+        <a class="button button-primary header-cta" href="#demonstracao">Ver em ação</a>
+        <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Abrir menu">
+          <svg><use href="#i-menu"></use></svg>
+        </button>
       </div>
-    </a>
-
-    <nav class="nav-links" aria-label="Navegação Principal">
-      <a href="#pitch-reta-final" class="nav-item">Apresentação</a>
-      <a href="#simulador" class="nav-item">Simulador Operacional</a>
-      <a href="#mapa" class="nav-item">Geointeligência</a>
-      <a href="#war-room" class="nav-item">Sala de Situação</a>
-      <a href="#comercial" class="nav-item">Modelo Comercial</a>
-    </nav>
-
-    <div class="header-actions">
-      <div class="pulse-badge">
-        <div class="pulse-dot"></div>
-        <span>AO VIVO · ELEIÇÕES 2026</span>
-      </div>
-      <button class="btn-primary btn-install btn-install-trigger" onclick="installPWA()" aria-label="Instalar WebApp no seu dispositivo">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        <span>Instalar WebApp</span>
-      </button>
-      <button class="btn-primary btn-apple-blue" onclick="openDataExplorer()" aria-label="Acessar Base de Dados Eleitorais 2026">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
-        <span>Acessar Base de Dados</span>
-      </button>
     </div>
   </header>
 
-  <!-- ========================================================================= -->
-  <!-- SLIDE 1: PITCH RETA FINAL (Navy Blue Constellation Network)                -->
-  <!-- ========================================================================= -->
-  <section id="pitch-reta-final" class="slide-deck-section slide-navy">
-    <div class="slide-container">
-      
-      <!-- Top Meta Bar -->
-      <div class="slide-top-bar">
-        <div class="slide-badge-gold">
-          <span class="gold-dash"></span>
-          <span>RETA FINAL</span>
-        </div>
-        <div class="slide-center-badge">
-          <span>COORDENAÇÃO / 147 MENSAGENS</span>
-        </div>
-        <div class="slide-page-num">
-          <span>01 / 02</span>
-        </div>
-      </div>
-
-      <!-- Main Split Content -->
-      <div class="slide-grid">
-        <!-- Left Column: The Problem & Tension -->
-        <div class="slide-col-left">
-          <h1 class="slide-main-title">
-            Quanto maior a campanha, <br>
-            <span class="slide-highlight-gold">mais difícil enxergar</span> <br>
-            o que realmente acontece.
-          </h1>
-          <div class="gold-accent-line"></div>
-          <p class="slide-body-text">
-            Mais gente entra. Novos territórios se movem. Compromissos se multiplicam. 
-            A operação cresce mais rápido do que a informação chega ao comando.
-          </p>
+  <main id="conteudo">
+    <section class="hero">
+      <div class="hero-grid wrap">
+        <div class="hero-copy">
+          <span class="eyebrow"><span></span> Central de operação e inteligência</span>
+          <h1>Sua campanha <em>sob controle.</em></h1>
+          <p class="hero-lead">Sua equipe continua trabalhando como já trabalha — inclusive pelo WhatsApp. O PULSO organiza pessoas, território, tarefas e eventos, e mostra ao comando onde agir.</p>
+          <div class="hero-actions">
+            <a class="button button-gold" href="#demonstracao">
+              <svg><use href="#i-play"></use></svg>
+              Ver uma operação acontecer
+            </a>
+            <a class="text-link light" href="#sala-situacao">Explorar a Sala de Situação <svg><use href="#i-arrow"></use></svg></a>
+          </div>
+          <ul class="hero-trust" aria-label="Diferenciais da experiência">
+            <li><svg><use href="#i-message"></use></svg> Entrada familiar</li>
+            <li><svg><use href="#i-shield"></use></svg> Revisão humana</li>
+            <li><svg><use href="#i-activity"></use></svg> Decisão objetiva</li>
+          </ul>
         </div>
 
-        <!-- Right Column: Interactive Constellation & 3 Crucial Questions -->
-        <div class="slide-col-right">
-          <!-- Animated Interactive Constellation Network Diagram -->
-          <div class="constellation-wrap" aria-hidden="true">
-            <svg viewBox="0 0 540 180" class="constellation-svg">
-              <!-- Connecting Grid Lines -->
-              <line x1="90" y1="90" x2="220" y2="40" stroke="#d97706" stroke-opacity="0.4" stroke-width="1.5" stroke-dasharray="4 4" />
-              <line x1="220" y1="40" x2="380" y2="40" stroke="#d97706" stroke-opacity="0.4" stroke-width="1.5" />
-              <line x1="220" y1="40" x2="220" y2="130" stroke="#d97706" stroke-opacity="0.4" stroke-width="1.5" stroke-dasharray="4 4" />
-              <line x1="220" y1="130" x2="420" y2="130" stroke="#d97706" stroke-opacity="0.4" stroke-width="1.5" />
-              <line x1="380" y1="40" x2="460" y2="90" stroke="#d97706" stroke-opacity="0.5" stroke-width="1.5" />
-              <line x1="420" y1="130" x2="460" y2="90" stroke="#d97706" stroke-opacity="0.5" stroke-width="1.5" />
-
-              <!-- Nodes with Pulsing Halos -->
-              <circle cx="90" cy="90" r="14" fill="rgba(217,119,6,0.15)" />
-              <circle cx="90" cy="90" r="5" fill="#f59e0b" class="pulse-node" />
-              
-              <circle cx="220" cy="40" r="14" fill="rgba(217,119,6,0.15)" />
-              <circle cx="220" cy="40" r="5" fill="#f59e0b" class="pulse-node" />
-
-              <circle cx="220" cy="130" r="14" fill="rgba(217,119,6,0.15)" />
-              <circle cx="220" cy="130" r="5" fill="#f59e0b" class="pulse-node" />
-
-              <circle cx="380" cy="40" r="14" fill="rgba(217,119,6,0.15)" />
-              <circle cx="380" cy="40" r="5" fill="#f59e0b" class="pulse-node" />
-
-              <circle cx="420" cy="130" r="14" fill="rgba(217,119,6,0.15)" />
-              <circle cx="420" cy="130" r="5" fill="#f59e0b" class="pulse-node" />
-
-              <circle cx="460" cy="90" r="16" fill="rgba(217,119,6,0.2)" />
-              <circle cx="460" cy="90" r="6" fill="#fbbf24" class="pulse-node" />
+        <div class="executive-preview" aria-label="Prévia do briefing executivo PULSO">
+          <div class="preview-topbar">
+            <div class="preview-brand"><span class="pulse-orbit"><i></i></span> PULSO / HOJE</div>
+            <div class="preview-live"><span></span> Atualizado 22:01</div>
+          </div>
+          <div class="preview-question">
+            <span class="question-label">Pergunta no WhatsApp</span>
+            <p>“Como foi minha campanha hoje?”</p>
+          </div>
+          <div class="preview-kpis">
+            <div><span>Equipe ativa</span><strong>163</strong><small>28 municípios</small></div>
+            <div><span>Novos registros</span><strong>743</strong><small>qualificados hoje</small></div>
+            <div><span>Ações de campo</span><strong>214</strong><small>11 eventos</small></div>
+          </div>
+          <div class="preview-focus">
+            <div class="focus-copy">
+              <span class="focus-kicker"><svg><use href="#i-warning"></use></svg> Precisa da sua atenção</span>
+              <strong>União dos Palmares</strong>
+              <p>Atividade caiu 38% em quatro dias. Nove tarefas seguem vencidas.</p>
+              <button type="button" class="preview-action" data-open-flow="briefing">Entender e agir <svg><use href="#i-arrow"></use></svg></button>
+            </div>
+            <svg class="signal-map" viewBox="0 0 280 190" role="img" aria-label="Mapa abstrato com territórios em operação e um ponto de atenção">
+              <path d="M27 34 77 18l43 14 39-14 42 19 49 4 14 37-24 30 7 42-44 20-49-13-38 15-31-31-49-5-16-42 24-26Z"/>
+              <path d="M77 18 83 61l37-29 16 47 23-61M83 61l-39 7m39-7 33 55m20-37 65-42m-65 42 67 91m-87-54-31 25m31-25 87-8m-38-32 76 32"/>
+              <circle cx="44" cy="68" r="4"/><circle cx="83" cy="61" r="4"/><circle cx="120" cy="32" r="4"/><circle cx="136" cy="79" r="4"/><circle cx="159" cy="18" r="4"/><circle cx="201" cy="37" r="4"/><circle cx="240" cy="108" r="4"/><circle cx="203" cy="170" r="4"/><circle cx="116" cy="116" r="5" class="signal-attention"/><circle cx="85" cy="141" r="4"/>
+              <circle cx="116" cy="116" r="13" class="signal-ring"/>
             </svg>
-
-            <!-- Floating Label Badges -->
-            <div class="const-tag tag-pos-1">COORDENAÇÃO / 147 MENSAGENS</div>
-            <div class="const-tag tag-pos-2">RETORNO / PENDENTE</div>
-            <div class="const-tag tag-pos-3">AGENDA / ATUALIZADA</div>
-            <div class="const-tag tag-pos-4">ATIVIDADE / CONCLUÍDA</div>
           </div>
-
-          <!-- 3 Critical Executive Questions -->
-          <div class="slide-questions-list">
-            <div class="slide-q-item">
-              <span class="q-num">01</span>
-              <span class="q-text">Onde estamos avançando de verdade?</span>
-            </div>
-            <div class="slide-q-item">
-              <span class="q-num">02</span>
-              <span class="q-text">O que foi combinado e ainda não virou execução?</span>
-            </div>
-            <div class="slide-q-item">
-              <span class="q-num">03</span>
-              <span class="q-text">Onde minha atenção é necessária amanhã?</span>
-            </div>
+          <div class="preview-foot">
+            <span><svg><use href="#i-spark"></use></svg> Recomendação com evidências</span>
+            <span>Demonstração · dados sintéticos</span>
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- Slide 1 Bottom Dual Anchor -->
-      <div class="slide-bottom-anchors">
-        <div class="anchor-left">
-          <p class="anchor-lead-text">Na reta final, informação atrasada <br>vira decisão atrasada.</p>
+    <section class="journey" aria-label="Da rua ao comando">
+      <div class="journey-inner wrap">
+        <div class="journey-intro">
+          <span>Da rua à decisão</span>
+          <strong>O trabalho não muda.<br>O que muda é o controle.</strong>
         </div>
-        <div class="anchor-right">
-          <div class="anchor-gold-border"></div>
-          <p class="anchor-provoke-text">E se tudo o que acontece na rua <br>chegasse organizado até você?</p>
-        </div>
+        <ol class="journey-steps">
+          <li><span>01</span><div><strong>Rua + WhatsApp</strong><small>A equipe registra.</small></div></li>
+          <li><span>02</span><div><strong>PULSO</strong><small>A operação ganha estrutura.</small></div></li>
+          <li><span>03</span><div><strong>Mapa + indicadores</strong><small>O território fica visível.</small></div></li>
+          <li><span>04</span><div><strong>Comando</strong><small>Você sabe onde agir.</small></div></li>
+        </ol>
       </div>
+    </section>
 
-    </div>
-  </section>
-
-  <!-- ========================================================================= -->
-  <!-- SLIDE 2: SUA CAMPANHA SOB CONTROLE (PULSO Executive Solution)             -->
-  <!-- ========================================================================= -->
-  <section id="pitch-pulso" class="slide-deck-section slide-offwhite">
-    <div class="slide-container">
-      
-      <!-- Top Header Bar -->
-      <div class="slide-top-bar-offwhite">
-        <div class="pulso-brand-lockup">
-          <div class="target-pulse-icon">
-            <div class="pulse-ring"></div>
-            <div class="pulse-center"></div>
-          </div>
+    <section class="demo-section" id="demonstracao">
+      <div class="wrap">
+        <div class="section-heading split-heading">
           <div>
-            <span class="pulso-title-text">PULSO</span>
-            <span class="pulso-subtitle-text">CENTRAL DE OPERAÇÃO E INTELIGÊNCIA</span>
+            <span class="eyebrow dark"><span></span> Demonstração guiada</span>
+            <h2>Uma mensagem entra.<br><em>A operação inteira responde.</em></h2>
           </div>
-        </div>
-        <div class="slide-tag-right">
-          <span>DA RUA À DECISÃO &nbsp;|&nbsp; 02 / 02</span>
-        </div>
-      </div>
-
-      <!-- Main Grid -->
-      <div class="slide2-grid">
-        <!-- Left: Strategy & Operational Process -->
-        <div class="slide2-col-left">
-          <h2 class="slide2-main-title">Sua campanha sob controle.</h2>
-          <p class="slide2-subtitle">
-            Sua equipe continua trabalhando como já trabalha. <strong>Inclusive pelo WhatsApp</strong>. <br>
-            PULSO organiza o movimento e devolve ao comando uma visão objetiva do que merece atenção.
-          </p>
-
-          <!-- 4-Step Linear Journey Process Bar -->
-          <div class="journey-flow-bar">
-            <div class="journey-step">
-              <div class="journey-node active">
-                <span class="j-dot"></span>
-              </div>
-              <div class="journey-label-wrap">
-                <span class="j-title">RUA + WHATSAPP</span>
-                <span class="j-sub">A equipe registra.</span>
-              </div>
-            </div>
-
-            <div class="journey-line-connector"></div>
-
-            <div class="journey-step">
-              <div class="journey-node active">
-                <span class="j-dot"></span>
-              </div>
-              <div class="journey-label-wrap">
-                <span class="j-title">PULSO</span>
-                <span class="j-sub">A operação ganha estrutura.</span>
-              </div>
-            </div>
-
-            <div class="journey-line-connector"></div>
-
-            <div class="journey-step">
-              <div class="journey-node">
-                <span class="j-dot"></span>
-              </div>
-              <div class="journey-label-wrap">
-                <span class="j-title">MAPA + INDICADORES</span>
-                <span class="j-sub">O território fica visível.</span>
-              </div>
-            </div>
-
-            <div class="journey-line-connector"></div>
-
-            <div class="journey-step">
-              <div class="journey-node finish">
-                <span class="j-dot"></span>
-              </div>
-              <div class="journey-label-wrap">
-                <span class="j-title">COMANDO</span>
-                <span class="j-sub">Você sabe onde agir.</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- 6 Operational Pillars -->
-          <div class="pillars-pills-bar">
-            <span>PESSOAS</span> · <span>TERRITÓRIO</span> · <span>OPERAÇÃO</span> · <span>MOBILIZAÇÃO</span> · <span>DEMANDAS</span> · <span>INTELIGÊNCIA</span>
-          </div>
-
-          <!-- 1 Hour Weekly Meeting Commitment Box -->
-          <div class="advisory-gold-card">
-            <div class="advisory-time-tag">1 HORA POR SEMANA</div>
-            <div class="advisory-text-wrap">
-              <strong>Reunião Semanal de Inteligência Operacional com nossa equipe.</strong>
-            </div>
-          </div>
-
-          <!-- Implementation 6-Step Sequence -->
-          <div class="implementation-timeline">
-            <span>DIAGNÓSTICO</span> ➔ <span>CONFIGURAÇÃO</span> ➔ <span>ORGANIZAÇÃO INICIAL</span> ➔ <span>IMPLANTAÇÃO</span> ➔ <span>TREINAMENTO</span> ➔ <span>ACOMPANHAMENTO</span>
-          </div>
-
-          <!-- Scarcity & Strict Capacity Notice -->
-          <p class="scarcity-text">
-            <strong>PULSO será implantado em um grupo restrito de campanhas nesta eleição.</strong> <br>
-            Novas campanhas serão aceitas até atingirmos a capacidade de implantação acompanhada.
-          </p>
+          <p>Escolha uma situação real de campanha e acompanhe, passo a passo, o que aparece no WhatsApp, no sistema e nos indicadores. Você pode pausar, avançar ou explorar o resultado.</p>
         </div>
 
-        <!-- Right: The 22h WhatsApp Briefing Simulation Card -->
-        <div class="slide2-col-right">
-          <div class="executive-briefing-mockup">
-            <div class="briefing-prompt-bar">
-              <span class="prompt-kicker">PERGUNTE NO WHATSAPP</span>
-              <p class="prompt-text">&ldquo;Como foi minha campanha hoje?&rdquo;</p>
-            </div>
-
-            <div class="briefing-response-body">
-              <div class="briefing-header-tag">
-                <span>BRIEFING PULSO · SIMULAÇÃO</span>
-              </div>
-
-              <ul class="briefing-bullets">
-                <li>
-                  <span class="bullet-dot">●</span>
-                  <strong>38</strong> equipes registraram atividade
-                </li>
-                <li>
-                  <span class="bullet-dot">●</span>
-                  <strong>12</strong> municípios tiveram mobilização
-                </li>
-                <li>
-                  <span class="bullet-dot warning">●</span>
-                  <strong>3</strong> regiões perderam ritmo
-                </li>
-                <li>
-                  <span class="bullet-dot">●</span>
-                  <strong>7</strong> tarefas críticas vencem amanhã
-                </li>
-                <li>
-                  <span class="bullet-dot">●</span>
-                  <strong>2</strong> eventos aguardam confirmação
-                </li>
-              </ul>
-
-              <!-- Activity Trend Sparkline -->
-              <div class="briefing-sparkline-wrap">
-                <svg viewBox="0 0 280 40" class="sparkline-svg">
-                  <path d="M 0 32 Q 40 30, 80 18 T 160 22 T 240 8 T 280 15" fill="none" stroke="#0071e3" stroke-width="2.5" />
-                  <circle cx="80" cy="18" r="3.5" fill="#0071e3" />
-                  <circle cx="160" cy="22" r="3.5" fill="#0071e3" />
-                  <circle cx="240" cy="8" r="4.5" fill="#10b981" />
-                </svg>
-              </div>
-
-              <p class="briefing-footer-lead">
-                Em segundos, você vê o que antes exigia horas e várias pessoas.
-              </p>
-
-              <a href="#simulador" class="btn-deck-cta">
-                <span>VEJA SUA CAMPANHA DENTRO DO PULSO</span>
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ========================================================================= -->
-  <!-- SECTION 1: LIVE INTERACTIVE SIMULATOR (3-COLUMN WORKBENCH)                -->
-  <!-- ========================================================================= -->
-  <section id="simulador" class="section-container">
-    <div class="section-header">
-      <div class="section-eyebrow">Simulador Operacional em Tempo Real</div>
-      <h2 class="section-title">A operação acontece no WhatsApp. A inteligência no PULSO.</h2>
-      <p class="section-desc">Selecione uma jornada na barra lateral esquerda para acompanhar a conversão instantânea de dados de rua em relatórios executivos.</p>
-    </div>
-
-    <div class="simulator-workbench">
-      <!-- COLUMN 1: Flow Sidebar Selector -->
-      <div class="flow-sidebar">
-        <div style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.08em; font-weight:700; color:var(--text-muted); margin-bottom:0.25rem;">
-          Jornadas Operacionais
-        </div>
-
-        <!-- Flow Card 1 -->
-        <div class="flow-sidebar-card active" id="flow-card-1" onclick="initFlowSimulator(1)">
-          <div class="flow-card-header">
-            <span class="flow-step-num">ETAPA 01</span>
-            <div class="flow-icon-wrap">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/></svg>
-            </div>
-          </div>
-          <div class="flow-card-title">Cadastro em Campo</div>
-          <div class="flow-card-sub">OCR de documentos, georreferenciamento e árvore de liderança.</div>
-        </div>
-
-        <!-- Flow Card 2 -->
-        <div class="flow-sidebar-card" id="flow-card-2" onclick="initFlowSimulator(2)">
-          <div class="flow-card-header">
-            <span class="flow-step-num">ETAPA 02</span>
-            <div class="flow-icon-wrap">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
-            </div>
-          </div>
-          <div class="flow-card-title">Gestão de Carreata</div>
-          <div class="flow-card-sub">Compliance legal, ofícios PM/TRE automáticos e controle de veículos.</div>
-        </div>
-
-        <!-- Flow Card 3 -->
-        <div class="flow-sidebar-card" id="flow-card-3" onclick="initFlowSimulator(3)">
-          <div class="flow-card-header">
-            <span class="flow-step-num">ETAPA 03</span>
-            <div class="flow-icon-wrap">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
-            </div>
-          </div>
-          <div class="flow-card-title">Inteligência Executiva</div>
-          <div class="flow-card-sub">Consulta das 22h, alertas de atenção e criação de tarefas na hora.</div>
-        </div>
-
-        <!-- PWA Install Card -->
-        <div class="pwa-widget">
-          <strong style="font-size:0.85rem; color:var(--text-primary); display:block; margin-bottom:0.25rem;">PULSO WebApp</strong>
-          <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:0.85rem;">Instale no iPhone, Android ou PC para operação em tela cheia.</p>
-          <button class="btn-primary btn-apple-blue" style="font-size:0.78rem; padding:0.5rem 1rem; width:100%; justify-content:center;" onclick="installPWA()" aria-label="Baixar aplicativo PULSO 2026">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            <span>Baixar Aplicativo</span>
+        <div class="scenario-tabs" role="tablist" aria-label="Cenários da demonstração">
+          <button type="button" class="scenario-tab active" id="scenario-registration" role="tab" aria-selected="true" aria-controls="demo-stage" tabindex="0" data-scenario="registration">
+            <span>01</span><div><strong>Cadastro em campo</strong><small>Da conversa à base</small></div>
+          </button>
+          <button type="button" class="scenario-tab" id="scenario-carreata" role="tab" aria-selected="false" aria-controls="demo-stage" tabindex="-1" data-scenario="carreata">
+            <span>02</span><div><strong>Gestão de carreata</strong><small>Do pedido ao acompanhamento</small></div>
+          </button>
+          <button type="button" class="scenario-tab" id="scenario-briefing" role="tab" aria-selected="false" aria-controls="demo-stage" tabindex="-1" data-scenario="briefing">
+            <span>03</span><div><strong>Inteligência executiva</strong><small>Do sinal à ação</small></div>
           </button>
         </div>
-      </div>
 
-      <!-- COLUMN 2: Smartphone WhatsApp Mockup -->
-      <div class="phone-mockup">
-        <div class="phone-notch-bar">
-          <span>09:41</span>
-          <span>●●● 5G 100%</span>
+        <div class="mobile-surface-switch" role="group" aria-label="Superfície da demonstração">
+          <button type="button" class="active" aria-pressed="true" data-surface="conversation">Conversa</button>
+          <button type="button" aria-pressed="false" data-surface="result">Resultado</button>
         </div>
 
-        <div class="wa-header">
-          <div class="wa-avatar">P</div>
-          <div class="wa-contact-info">
-            <div class="wa-contact-name">PULSO Bot · Gabinete 2026</div>
-            <div class="wa-contact-status">● online · processando inteligência</div>
+        <div class="demo-stage" id="demo-stage" role="tabpanel" aria-labelledby="scenario-registration" data-mobile-surface="conversation">
+          <article class="conversation-surface" aria-labelledby="conversation-title">
+            <div class="surface-bar conversation-bar">
+              <div class="avatar-mark">P</div>
+              <div><strong id="conversation-title">PULSO · Grupo Operacional</strong><span><i></i> online · revisão assistida</span></div>
+              <span class="surface-time">09:41</span>
+            </div>
+            <div class="chat-area" id="demo-chat"></div>
+            <div class="chat-input" aria-hidden="true">
+              <span>Mensagem, áudio, foto ou localização…</span>
+              <span class="send-dot"><svg><use href="#i-send"></use></svg></span>
+            </div>
+          </article>
+
+          <div class="causal-connector" aria-hidden="true">
+            <span></span><i></i><span></span>
+            <small>interpreta<br>organiza<br>propaga</small>
           </div>
+
+          <article class="product-surface" aria-labelledby="product-title">
+            <div class="surface-bar product-bar">
+              <div class="product-context">
+                <img src="assets/pulso-mark.svg" alt="" width="28" height="28">
+                <div><strong id="product-title">PULSO</strong><span id="product-breadcrumb">Pessoas / Novo registro</span></div>
+              </div>
+              <div class="product-source"><span></span><span id="product-updated">Fonte: WhatsApp · agora</span></div>
+            </div>
+            <div class="result-area" id="demo-result"></div>
+          </article>
         </div>
 
-        <div class="wa-chat-body" id="wa-chat-body">
-          <!-- Dynamically injected -->
-        </div>
-
-        <div class="wa-input-bar">
-          <input type="text" class="wa-input-box" placeholder="Mensagem ou áudio de campo..." readonly value="Comandos automáticos via bot...">
-          <button class="wa-send-btn" aria-label="Enviar mensagem simulada">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-          </button>
-        </div>
-      </div>
-
-      <!-- COLUMN 3: Live Reactive Intelligence Screen -->
-      <div class="simulator-display">
-        <div class="glass-panel intelligence-card">
-          <div id="intel-display-content">
-            <!-- Dynamically injected -->
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========================================================================= -->
-  <!-- SECTION 2: CARTOGRAFIA MULTI-ESCALA & MAPA DE ATENÇÃO                     -->
-  <!-- ========================================================================= -->
-  <section id="mapa" class="section-container section-with-bg bg-topo">
-    <div class="section-header">
-      <div class="section-eyebrow">Geointeligência Territorial Multi-Escala</div>
-      <h2 class="section-title">Nenhum território fica no escuro.</h2>
-      <p class="section-desc">Do panorama nacional (27 UFs) aos 102 municípios de Alagoas e os 48 bairros de Maceió com polígonos contínuos e mapa de calor operacional.</p>
-    </div>
-
-    <div class="map-view-container">
-      <!-- Left: Territorial List & Fast Search -->
-      <div class="glass-panel map-sidebar">
-        <div style="padding:1.25rem 1rem; border-bottom:1px solid var(--border-glass);">
-          <strong style="font-size:0.9rem; color:var(--text-primary); display:block;">Territórios Mapeados</strong>
-          <span style="font-size:0.75rem; color:var(--text-muted);">Selecione para focar ou ver lideranças</span>
-        </div>
-        <div id="map-territory-list" style="display:flex; flex-direction:column; gap:0.5rem; padding:0.75rem 1rem;">
-          <!-- List items injected dynamically -->
-        </div>
-      </div>
-
-      <!-- Center: Main Leaflet Interactive Map -->
-      <div class="map-wrapper glass-panel">
-        <div class="map-lod-bar">
-          <div class="lod-pills">
-            <button class="lod-pill" id="lod-btn-brasil" onclick="setMapLOD('brasil')" aria-label="Visualizar Brasil 27 UFs">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-              <span>Brasil (27 UFs)</span>
+        <div class="demo-controls">
+          <div class="control-buttons">
+            <button class="control-button primary" type="button" id="demo-play">
+              <svg><use href="#i-play"></use></svg><span>Reproduzir</span>
             </button>
-            <button class="lod-pill" id="lod-btn-alagoas" onclick="setMapLOD('alagoas')" aria-label="Visualizar Alagoas 102 Cidades">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/></svg>
-              <span>Alagoas (102 Cidades)</span>
+            <button class="control-button" type="button" id="demo-next">
+              Próximo passo <svg><use href="#i-arrow"></use></svg>
             </button>
-            <button class="lod-pill active" id="lod-btn-maceio" onclick="setMapLOD('maceio')" aria-label="Visualizar Maceió 48 Bairros">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              <span>Maceió (48 Bairros)</span>
-            </button>
-            <button class="lod-pill attention-mode" id="lod-btn-atencao" onclick="setMapLOD('atencao')" aria-label="Visualizar Mapa de Atenção Operacional">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-              <span>Mapa de Atenção</span>
+            <button class="control-button icon-only" type="button" id="demo-reset" aria-label="Reiniciar demonstração" title="Reiniciar demonstração">
+              <svg><use href="#i-reset"></use></svg>
             </button>
           </div>
-          <div style="font-size:0.75rem; color:var(--emerald-dark); font-weight:700; display:flex; align-items:center; gap:0.4rem;">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            <span>Polígonos Cartográficos Oficiais</span>
+          <div class="step-progress">
+            <span id="demo-step-label">Passo 1 de 4</span>
+            <div class="step-dots" id="demo-step-dots" aria-hidden="true"></div>
           </div>
+          <p><svg><use href="#i-shield"></use></svg> Pessoas, telefones, documentos e localizações desta demonstração são fictícios ou mascarados.</p>
+        </div>
+        <p class="sr-only" id="demo-announcer" aria-live="polite" aria-atomic="true"></p>
+      </div>
+    </section>
+
+    <section class="command-section" id="sala-situacao">
+      <div class="wrap">
+        <div class="section-heading split-heading on-dark">
+          <div>
+            <span class="eyebrow light"><span></span> Sala de Situação</span>
+            <h2>O comando vê o que mudou.<br><em>E o que exige atenção.</em></h2>
+          </div>
+          <p>Menos painel por vaidade. Mais contexto para decidir: atividade, território, pendências e próxima ação em uma única leitura.</p>
         </div>
 
-        <div id="leaflet-map" aria-label="Mapa Territorial Interativo"></div>
-      </div>
+        <div class="command-shell">
+          <div class="command-topbar">
+            <div class="command-brand"><img src="assets/pulso-mark.svg" alt="" width="32" height="32"><span><strong>PULSO</strong><small>Visão executiva · hoje</small></span></div>
+            <button class="command-query" type="button" data-open-flow="briefing" aria-label="Abrir demonstração de consulta em linguagem natural"><svg><use href="#i-search"></use></svg><span>Pergunte ao PULSO…</span><kbd>⌘ K</kbd></button>
+            <span class="sync-label"><i></i> Sincronizado 22:01</span>
+          </div>
 
-      <!-- Right: Detailed Enhanced Territorial Briefing -->
-      <div class="glass-panel briefing-card-enhanced">
+          <div class="command-kpis" aria-label="Indicadores do dia">
+            <div><span>Integrantes ativos</span><strong>163</strong><small>em 28 municípios</small></div>
+            <div><span>Novos registros válidos</span><strong>743</strong><small>+18% vs. média</small></div>
+            <div><span>Ações registradas</span><strong>214</strong><small>11 eventos realizados</small></div>
+            <div class="attention"><span>Tarefas atrasadas</span><strong>23</strong><small>3 responsáveis concentram 61%</small></div>
+          </div>
+
+          <div class="command-main-grid">
+            <div class="map-card">
+              <div class="card-toolbar">
+                <div><span class="card-kicker">Território · Alagoas</span><strong>Atividade operacional agregada</strong></div>
+                <label class="territory-picker"><span class="sr-only">Escolher município</span><select id="territory-picker" aria-label="Escolher município"><option value="">Escolher município</option></select></label>
+                <div class="layer-switch" role="group" aria-label="Camada do mapa">
+                  <button type="button" class="active" aria-pressed="true" data-map-layer="operation">Operação</button>
+                  <button type="button" aria-pressed="false" data-map-layer="attention">Atenção</button>
+                </div>
+              </div>
+              <div id="campaign-map" class="campaign-map" aria-label="Mapa agregado da operação em Alagoas">
+                <div class="map-loading"><span></span> Carregando território…</div>
+              </div>
+              <div class="map-legend" id="map-legend">
+                <span><i class="legend-high"></i> Atividade alta</span>
+                <span><i class="legend-mid"></i> Atividade regular</span>
+                <span><i class="legend-low"></i> Abaixo do esperado</span>
+                <small>Visão agregada · sem endereços individuais</small>
+              </div>
+            </div>
+
+            <aside class="territory-card" aria-labelledby="territory-title">
+              <div class="territory-card-head">
+                <span class="card-kicker">Briefing territorial</span>
+                <span class="status-pill alert"><i></i> Atenção</span>
+              </div>
+              <div id="territory-content">
+                <h3 id="territory-title">União dos Palmares</h3>
+                <p class="territory-delta"><strong>↓ 38%</strong> de atividade nos últimos quatro dias</p>
+                <dl class="territory-metrics">
+                  <div><dt>Equipes cadastradas</dt><dd>7</dd></div>
+                  <div><dt>Ativas hoje</dt><dd>2</dd></div>
+                  <div><dt>Demandas abertas</dt><dd>18</dd></div>
+                  <div><dt>Tarefas vencidas</dt><dd>9</dd></div>
+                </dl>
+                <div class="evidence-box">
+                  <span><svg><use href="#i-spark"></use></svg> Leitura PULSO</span>
+                  <p>A queda coincide com menos usuários ativos e tarefas acumuladas sob a mesma coordenação.</p>
+                  <small>Fontes: atividades, tarefas e acessos · 27–30/08</small>
+                </div>
+                <button class="button button-primary full" type="button" data-action="create-task">Criar ação corretiva <svg><use href="#i-arrow"></use></svg></button>
+              </div>
+            </aside>
+          </div>
+
+          <div class="command-bottom-grid">
+            <div class="agenda-strip">
+              <div class="agenda-title"><svg><use href="#i-calendar"></use></svg><span><strong>Amanhã</strong><small>7 eventos programados</small></span></div>
+              <div class="agenda-item"><span class="event-time">09:00</span><div><strong>Reunião de coordenação</strong><small>Arapiraca · confirmada</small></div><span class="status-pill success">Pronto</span></div>
+              <div class="agenda-item"><span class="event-time">14:00</span><div><strong>Carreata Maceió</strong><small>Assinatura e protocolo pendentes</small></div><span class="status-pill alert">2 pendências</span></div>
+            </div>
+            <div class="demand-radar">
+              <div><span class="card-kicker">Demandas recebidas hoje</span><strong>Radar temático</strong></div>
+              <div class="demand-bars">
+                <span style="--value: 31%"><i>Saúde</i><b>31%</b></span>
+                <span style="--value: 26%"><i>Infraestrutura</i><b>26%</b></span>
+                <span style="--value: 18%"><i>Emprego</i><b>18%</b></span>
+                <span style="--value: 11%"><i>Transporte</i><b>11%</b></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="governance-section" id="governanca">
+      <div class="wrap">
+        <div class="governance-lead">
+          <span class="eyebrow dark"><span></span> Governança desde o desenho</span>
+          <h2>A inteligência só vale<br><em>quando é confiável.</em></h2>
+          <p>O PULSO organiza fatos registrados. Não inventa opinião política, propensão de voto ou atributos sensíveis. Ações relevantes passam por pessoas autorizadas e deixam rastro.</p>
+        </div>
+
+        <div class="governance-grid">
+          <article>
+            <span class="governance-number">01</span>
+            <svg><use href="#i-shield"></use></svg>
+            <h3>Revisão humana</h3>
+            <p>Cadastros, comunicações, documentos e tarefas consequenciais têm confirmação explícita antes de serem executados.</p>
+          </article>
+          <article>
+            <span class="governance-number">02</span>
+            <svg><use href="#i-lock"></use></svg>
+            <h3>Privacidade visível</h3>
+            <p>Origem, finalidade, opt-in de comunicação, acesso, retenção e revogação aparecem no próprio fluxo — não ficam escondidos.</p>
+          </article>
+          <article>
+            <span class="governance-number">03</span>
+            <svg><use href="#i-file"></use></svg>
+            <h3>Regras versionadas</h3>
+            <p>Checklists jurídicos registram município, versão, fonte e responsável. Documento gerado é rascunho até a validação jurídica.</p>
+          </article>
+          <article>
+            <span class="governance-number">04</span>
+            <svg><use href="#i-activity"></use></svg>
+            <h3>Evidência e auditoria</h3>
+            <p>Cada conclusão mostra fonte e horário. Quem confirmou, alterou ou notificou fica registrado na trilha da operação.</p>
+          </article>
+        </div>
+
+        <div class="compliance-note">
+          <div>
+            <svg><use href="#i-warning"></use></svg>
+            <p><strong>Exemplo da carreata:</strong> a demonstração usa comunicação prévia mínima de 24 horas à Polícia Militar e, quando houver custeio de combustível, à Justiça Eleitoral. Requisitos adicionais dependem do evento e do município.</p>
+          </div>
+          <a href="https://www.tse.jus.br/comunicacao/noticias/2026/Julho/por-dentro-das-eleicoes-conheca-as-regras-estabelecidas-para-a-propaganda-eleitoral" target="_blank" rel="noopener noreferrer">Consultar fonte oficial do TSE <svg><use href="#i-external"></use></svg></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="delivery-section" id="implantacao">
+      <div class="wrap delivery-grid">
+        <div class="delivery-copy">
+          <span class="eyebrow light"><span></span> Implantação acompanhada</span>
+          <h2>Software é só<br><em>metade da entrega.</em></h2>
+          <p>O valor está em fazer a operação funcionar: organizar a base, desenhar os fluxos, configurar os territórios, treinar a equipe e transformar dados em rotina de decisão.</p>
+          <button class="button button-gold" type="button" data-open-dialog="scope-dialog">Montar um escopo de demonstração <svg><use href="#i-arrow"></use></svg></button>
+        </div>
+
+        <div class="delivery-timeline">
+          <ol>
+            <li><span>01</span><div><strong>Diagnóstico</strong><p>Operação, bases, pessoas, território e prioridades.</p></div></li>
+            <li><span>02</span><div><strong>Configuração</strong><p>Fluxos, permissões, regras, indicadores e integrações.</p></div></li>
+            <li><span>03</span><div><strong>Implantação + treinamento</strong><p>Migração assistida, validação e equipe pronta para operar.</p></div></li>
+            <li><span>04</span><div><strong>Operação acompanhada</strong><p>Ajustes contínuos e leitura executiva da campanha.</p></div></li>
+          </ol>
+          <div class="weekly-room">
+            <span>1 hora por semana</span>
+            <div><strong>Reunião de Inteligência Operacional</strong><p>Nossa equipe cruza os sinais de campo com o comando, identifica gargalos e transforma achados em ações.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta">
+      <div class="wrap final-cta-inner">
         <div>
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <span style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--apple-blue); font-weight:700;">Briefing Estratégico</span>
-            <span style="font-size:0.72rem; color:var(--emerald-dark); font-weight:700;">Ativo</span>
-          </div>
-          <h3 id="briefing-title" style="font-size:1.45rem; margin:0.35rem 0 0.75rem 0; color:var(--text-primary);">Ponta Verde</h3>
-          
-          <div id="briefing-dynamic-content">
-            <!-- Dynamically injected -->
+          <span class="eyebrow dark"><span></span> Da rua à decisão</span>
+          <h2>Veja sua campanha<br><em>dentro do PULSO.</em></h2>
+        </div>
+        <div>
+          <p>Uma demonstração guiada, construída sobre a realidade da sua operação — sem promessa genérica e sem software de prateleira.</p>
+          <div class="final-actions">
+            <button class="button button-primary" type="button" data-open-dialog="scope-dialog">Preparar demonstração <svg><use href="#i-arrow"></use></svg></button>
+            <button class="text-link dark" type="button" data-open-flow="briefing">Rever o momento “Como foi meu dia?”</button>
           </div>
         </div>
       </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <a class="brand footer-brand" href="#topo" aria-label="PULSO — voltar ao início">
+        <img src="assets/pulso-mark.svg" alt="" width="38" height="38">
+        <span class="brand-copy"><strong>PULSO</strong><small>Central de Operação e Inteligência</small></span>
+      </a>
+      <p>Demonstração conceitual com dados sintéticos. Funcionalidades, integrações e regras são configuradas por projeto.</p>
+      <nav aria-label="Links do rodapé"><a href="#demonstracao">Demonstração</a><a href="#governanca">Governança</a><a href="#implantacao">Implantação</a></nav>
     </div>
-  </section>
-
-  <!-- ========================================================================= -->
-  <!-- SECTION 3: SALA DE SITUAÇÃO & WAR ROOM                                    -->
-  <!-- ========================================================================= -->
-  <section id="war-room" class="section-container">
-    <div class="section-header">
-      <div class="section-eyebrow">War Room Executivo</div>
-      <h2 class="section-title">Decisão com base em fatos, não em palpites.</h2>
-      <p class="section-desc">Acompanhe eventos de rua, radar de demandas populares e produtividade dos coordenadores em tempo real.</p>
-    </div>
-
-    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:1.5rem;">
-      <!-- Event Compliance Card -->
-      <div class="glass-panel" style="padding:1.85rem;">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
-          <strong style="font-size:1.05rem; color:var(--text-primary); display:flex; align-items:center; gap:0.5rem;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold-dark)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            <span>Gestão de Eventos</span>
-          </strong>
-          <span class="score-badge" style="color:var(--gold); border-color:rgba(217,119,6,0.3); background:var(--gold-subtle);">72% Concluído</span>
-        </div>
-        <h4 style="font-size:1.2rem; color:var(--gold-dark);">Carreata Maceió — 05/09</h4>
-        <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0.25rem;">Concentração 14h Praça X ➔ Saída 15h ➔ 120 Carros</p>
-
-        <div style="margin:1.35rem 0; display:flex; flex-direction:column; gap:0.65rem;">
-          <div style="display:flex; justify-content:space-between; font-size:0.82rem;">
-            <span>Documentação Oficial</span>
-            <span style="color:var(--emerald-dark); font-weight:700;">Gerada</span>
-          </div>
-          <div style="display:flex; justify-content:space-between; font-size:0.82rem;">
-            <span>Ofício Polícia Militar (24h)</span>
-            <span style="color:var(--gold-dark); font-weight:700;">Pendente Protocolo</span>
-          </div>
-          <div style="display:flex; justify-content:space-between; font-size:0.82rem;">
-            <span>Veículos Confirmados</span>
-            <span style="color:var(--text-primary); font-family:var(--font-mono); font-weight:700;">91 / 120 (75%)</span>
-          </div>
-        </div>
-
-        <button class="btn-primary" style="width:100%; justify-content:center;" onclick="openDocModal('pm')" aria-label="Abrir Ofício PM e TRE Gerado">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-          <span>Ver Ofício PM / TRE Gerado</span>
-        </button>
-      </div>
-
-      <!-- Demands Radar Card -->
-      <div class="glass-panel" style="padding:1.85rem;">
-        <strong style="font-size:1.05rem; color:var(--text-primary); display:flex; align-items:center; gap:0.5rem; margin-bottom:1.15rem;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--apple-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-          <span>Radar de Demandas da População</span>
-        </strong>
-        
-        <div style="display:flex; flex-direction:column; gap:0.95rem;">
-          <div>
-            <div style="display:flex; justify-content:space-between; font-size:0.82rem; margin-bottom:0.35rem;">
-              <span>Saúde (Postos & Especialidades)</span>
-              <strong style="color:var(--emerald-dark);">31%</strong>
-            </div>
-            <div style="height:7px; background:#e2e8f0; border-radius:4px; overflow:hidden;">
-              <div style="width:31%; height:100%; background:var(--emerald);"></div>
-            </div>
-          </div>
-
-          <div>
-            <div style="display:flex; justify-content:space-between; font-size:0.82rem; margin-bottom:0.35rem;">
-              <span>Infraestrutura & Drenagem</span>
-              <strong style="color:var(--apple-blue);">26%</strong>
-            </div>
-            <div style="height:7px; background:#e2e8f0; border-radius:4px; overflow:hidden;">
-              <div style="width:26%; height:100%; background:var(--apple-blue);"></div>
-            </div>
-          </div>
-
-          <div>
-            <div style="display:flex; justify-content:space-between; font-size:0.82rem; margin-bottom:0.35rem;">
-              <span>Emprego & Capacitação Jovem</span>
-              <strong style="color:var(--gold);">18%</strong>
-            </div>
-            <div style="height:7px; background:#e2e8f0; border-radius:4px; overflow:hidden;">
-              <div style="width:18%; height:100%; background:var(--gold);"></div>
-            </div>
-          </div>
-
-          <div>
-            <div style="display:flex; justify-content:space-between; font-size:0.82rem; margin-bottom:0.35rem;">
-              <span>Transporte & Mobilidade</span>
-              <strong style="color:#8b5cf6;">11%</strong>
-            </div>
-            <div style="height:7px; background:#e2e8f0; border-radius:4px; overflow:hidden;">
-              <div style="width:11%; height:100%; background:#8b5cf6;"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Strategic Assessment Card -->
-      <div class="glass-panel" style="padding:1.85rem; border-color:rgba(217,119,6,0.3);">
-        <strong style="font-size:1.05rem; color:var(--gold-dark); display:flex; align-items:center; gap:0.5rem; margin-bottom:0.5rem;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold-dark)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          <span>Assessoria Estratégica Semanal</span>
-        </strong>
-        <p style="font-size:0.84rem; color:var(--text-secondary); line-height:1.55;">
-          A cada semana, <strong>1 hora dedicada de War Room</strong> com nossa equipe e o comando político para cruzar dados de campo, identificar gargalos e traçar a rota da vitória.
-        </p>
-        <div style="margin-top:1.5rem; padding:1rem; background:rgba(217,119,6,0.06); border-radius:8px; border:1px dashed var(--gold);">
-          <span style="font-size:0.78rem; color:var(--gold-dark); font-weight:600;">Vagas estritamente limitadas por cargo para garantir exclusividade e confidencialidade.</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========================================================================= -->
-  <!-- SECTION 4: MODELO COMERCIAL 2026                                          -->
-  <!-- ========================================================================= -->
-  <section id="comercial" class="section-container">
-    <div class="section-header">
-      <div class="section-eyebrow">Modelo Comercial 2026</div>
-      <h2 class="section-title">Plano Único Flexível com Escopo Sob Medida.</h2>
-      <p class="section-desc">Não vendemos software de prateleira. Entregamos diagnóstico, implantação completa, operação via WhatsApp e assessoria estratégica semanal.</p>
-    </div>
-
-    <!-- Cargo Selectors Grid -->
-    <div class="cargo-selector-grid">
-      <div class="cargo-card" id="cargo-card-estadual" onclick="selectCargo('estadual')">
-        <div class="cargo-card-title">Deputado Estadual</div>
-        <div class="cargo-card-price">R$ 45.000</div>
-        <div class="cargo-card-piso">Piso: R$ 30.000</div>
-      </div>
-
-      <div class="cargo-card selected" id="cargo-card-federal" onclick="selectCargo('federal')">
-        <div class="cargo-card-title">Deputado Federal</div>
-        <div class="cargo-card-price">R$ 65.000</div>
-        <div class="cargo-card-piso">Piso: R$ 45.000</div>
-      </div>
-
-      <div class="cargo-card" id="cargo-card-senador" onclick="selectCargo('senador')">
-        <div class="cargo-card-title">Senador</div>
-        <div class="cargo-card-price">R$ 105.000</div>
-        <div class="cargo-card-piso">Piso: R$ 75.000</div>
-      </div>
-
-      <div class="cargo-card" id="cargo-card-governador" onclick="selectCargo('governador')">
-        <div class="cargo-card-title">Governador</div>
-        <div class="cargo-card-price">R$ 160.000</div>
-        <div class="cargo-card-piso">Piso: R$ 120.000</div>
-      </div>
-    </div>
-
-    <div class="calc-wrapper">
-      <!-- Left: Modulable Scope Switcher -->
-      <div class="glass-panel" style="padding:2.25rem;">
-        <h3 style="font-size:1.2rem; margin-bottom:0.5rem; color:var(--text-primary);">Módulos Removíveis & Ajuste de Investimento</h3>
-        <p style="font-size:0.84rem; color:var(--text-secondary); margin-bottom:1.75rem;">O cliente inicia pelo pacote completo. Se houver necessidade orçamentária, removemos módulos específicos até o piso legal da categoria.</p>
-
-        <div class="modules-list">
-          <!-- Module 1 -->
-          <div class="module-item">
-            <div class="module-info">
-              <div class="module-icon-box">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
-              </div>
-              <div>
-                <div class="module-title">IA Gerencial e Consultas em Linguagem Natural</div>
-                <div class="module-desc">Consultas via WhatsApp ("Como foi minha campanha hoje?").</div>
-              </div>
-            </div>
-            <div class="module-switch">
-              <span class="discount-val" id="disc-ai_gerencial">- R$ 4.000</span>
-              <label class="switch-box" aria-label="Habilitar IA Gerencial">
-                <input type="checkbox" checked onchange="toggleModule('ai_gerencial')">
-                <span class="slider-round"></span>
-              </label>
-            </div>
-          </div>
-
-          <!-- Module 2 -->
-          <div class="module-item">
-            <div class="module-info">
-              <div class="module-icon-box">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-              </div>
-              <div>
-                <div class="module-title">Alertas Inteligentes & Morning Briefing Diário</div>
-                <div class="module-desc">Alertas de queda de atividade, gargalos e tarefas críticas matinais.</div>
-              </div>
-            </div>
-            <div class="module-switch">
-              <span class="discount-val" id="disc-alertas_briefing">- R$ 3.000</span>
-              <label class="switch-box" aria-label="Habilitar Alertas Inteligentes">
-                <input type="checkbox" checked onchange="toggleModule('alertas_briefing')">
-                <span class="slider-round"></span>
-              </label>
-            </div>
-          </div>
-
-          <!-- Module 3 -->
-          <div class="module-item">
-            <div class="module-info">
-              <div class="module-icon-box">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              </div>
-              <div>
-                <div class="module-title">Geointeligência Avançada & Mapa de Calor</div>
-                <div class="module-desc">Camadas cartográficas contínuas de bairros e municípios.</div>
-              </div>
-            </div>
-            <div class="module-switch">
-              <span class="discount-val" id="disc-geointeligencia">- R$ 4.000</span>
-              <label class="switch-box" aria-label="Habilitar Geointeligência">
-                <input type="checkbox" checked onchange="toggleModule('geointeligencia')">
-                <span class="slider-round"></span>
-              </label>
-            </div>
-          </div>
-
-          <!-- Module 4 -->
-          <div class="module-item">
-            <div class="module-info">
-              <div class="module-icon-box">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-              </div>
-              <div>
-                <div class="module-title">War Room / Sala de Situação Interativa</div>
-                <div class="module-desc">Painel visual para telão de comitê e acompanhamento ao vivo.</div>
-              </div>
-            </div>
-            <div class="module-switch">
-              <span class="discount-val" id="disc-war_room">- R$ 5.000</span>
-              <label class="switch-box" aria-label="Habilitar War Room">
-                <input type="checkbox" checked onchange="toggleModule('war_room')">
-                <span class="slider-round"></span>
-              </label>
-            </div>
-          </div>
-
-          <!-- Module 5 -->
-          <div class="module-item">
-            <div class="module-info">
-              <div class="module-icon-box">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-              </div>
-              <div>
-                <div class="module-title">Radar de Demandas & Data Quality Score</div>
-                <div class="module-desc">Classificação automática de prioridades da população por bairro.</div>
-              </div>
-            </div>
-            <div class="module-switch">
-              <span class="discount-val" id="disc-radar_demandas">- R$ 4.000</span>
-              <label class="switch-box" aria-label="Habilitar Radar de Demandas">
-                <input type="checkbox" checked onchange="toggleModule('radar_demandas')">
-                <span class="slider-round"></span>
-              </label>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Right: Real-time Dynamic Quote Box -->
-      <div class="glass-panel quote-box">
-        <span style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-muted); font-weight:700;">Simulação da Proposta</span>
-        <h4 id="calc-cargo-name" style="font-size:1.35rem; margin-top:0.25rem; color:var(--text-primary);">Deputado Federal</h4>
-        
-        <div class="quote-price-tag" id="calc-final-price">R$ 65.000</div>
-        <div id="calc-total-discount" style="font-size:0.85rem; color:var(--emerald-dark); font-weight:700;">Preço Cheio (Escopo Completo)</div>
-        
-        <div class="quote-advisory-pill">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-          <span>Inclui 1h semanal de assessoria e War Room estratégico</span>
-        </div>
-
-        <div style="margin-top:1.25rem; font-size:0.78rem; color:var(--text-muted);" id="calc-piso-notice">
-          Piso de Negociação: R$ 45.000
-        </div>
-
-        <div style="margin-top:1.75rem; display:flex; flex-direction:column; gap:0.75rem;">
-          <a href="https://wa.me/5582991050175?text=Ol%C3%A1%20Alcides!%20Gostaria%20de%20agendar%20uma%20demonstra%C3%A7%C3%A3o%20do%20PULSO%202026%20para%20nossa%20campanha." target="_blank" class="btn-primary btn-apple-blue" style="justify-content:center; text-align:center; padding:0.85rem;">Agendar Demonstração Executiva</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========================================================================= -->
-  <!-- DATA EXPLORER MODAL (CENTRAL DE DADOS 2026)                               -->
-  <!-- ========================================================================= -->
-  <div class="modal-backdrop" id="data-modal" role="dialog" aria-modal="true" aria-labelledby="data-modal-title">
-    <div class="modal-card">
-      <div class="modal-header">
-        <div style="display:flex; align-items:center; gap:0.6rem;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--apple-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
-          <strong id="data-modal-title" style="font-size:1.05rem; color:var(--text-primary);">Base de Dados Eleitorais 2026</strong>
-        </div>
-        <button onclick="closeDataModal()" style="background:transparent; border:none; color:var(--text-muted); font-size:1.2rem; cursor:pointer;" aria-label="Fechar janela">✕</button>
-      </div>
-      <div class="modal-body" id="data-modal-table-container">
-        <!-- Injected dynamically -->
-      </div>
-    </div>
-  </div>
-
-  <!-- DOCUMENT VIEWER MODAL -->
-  <div class="modal-backdrop" id="doc-modal" role="dialog" aria-modal="true">
-    <div class="modal-card">
-      <div class="modal-header">
-        <strong style="font-size:1rem; color:var(--text-primary);">Documento Oficial Gerado pelo PULSO</strong>
-        <button onclick="closeDocModal()" style="background:transparent; border:none; color:var(--text-muted); font-size:1.2rem; cursor:pointer;" aria-label="Fechar documento">✕</button>
-      </div>
-      <div class="modal-body" id="doc-modal-body">
-        <!-- Document paper injected dynamically -->
-      </div>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <footer class="pulso-footer">
-    <p class="footer-text">
-      <strong>PULSO 2026</strong> — Plataforma de Inteligência Territorial e Operação Política.<br>
-      Desenvolvido para Governança e Decisão de Campanhas · Todos os direitos reservados.
-    </p>
   </footer>
 
-  <!-- Leaflet JS -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  
-  <!-- Master Application Script -->
-  <script src="pulso.js?v=9.0.0"></script>
+  <dialog class="app-dialog record-dialog" id="record-dialog" aria-labelledby="record-dialog-title">
+    <div class="dialog-head">
+      <div><span class="dialog-kicker">Pessoa · dados sintéticos</span><h2 id="record-dialog-title">Maria José da Silva</h2></div>
+      <button type="button" class="dialog-close" data-close-dialog aria-label="Fechar"><svg><use href="#i-close"></use></svg></button>
+    </div>
+    <div class="dialog-body person-dialog-body">
+      <div class="person-summary">
+        <div class="person-avatar">MJ</div>
+        <div><strong>Tabuleiro do Martins · Maceió</strong><span>Cadastrada em 27/08 às 14:24</span></div>
+        <span class="status-pill success"><svg><use href="#i-check"></use></svg> Validada</span>
+      </div>
+      <dl class="person-fields">
+        <div><dt>WhatsApp</dt><dd>(82) 9••••-1234</dd></div>
+        <div><dt>Título</dt><dd>•••• •••• ••••</dd></div>
+        <div><dt>Origem</dt><dd>Reunião Tabuleiro · 27/08</dd></div>
+        <div><dt>Responsável</dt><dd>Carlos Santos</dd></div>
+        <div><dt>Estrutura de origem</dt><dd>João Ferreira</dd></div>
+        <div><dt>Qualidade</dt><dd>96 / 100</dd></div>
+      </dl>
+      <div class="consent-panel"><svg><use href="#i-shield"></use></svg><div><strong>Cadastro e opt-in registrados separadamente</strong><p>Finalidade e canal informados · confirmação em 27/08 às 14:22 · revogação disponível.</p></div></div>
+      <div class="timeline-block">
+        <h3>Histórico</h3>
+        <ol><li><time>27/08</time><span><strong>Cadastro confirmado</strong><small>Por Carlos Santos · WhatsApp</small></span></li><li><time>27/08</time><span><strong>Participação em reunião</strong><small>Evento Reunião Tabuleiro</small></span></li><li><time>30/08</time><span><strong>Demanda registrada</strong><small>Infraestrutura · aguardando triagem</small></span></li></ol>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="app-dialog document-dialog" id="document-dialog" aria-labelledby="document-dialog-title">
+    <div class="dialog-head">
+      <div><span class="dialog-kicker">Pacote de documentos · demonstração</span><h2 id="document-dialog-title">Carreata Maceió — 05/09</h2></div>
+      <button type="button" class="dialog-close" data-close-dialog aria-label="Fechar"><svg><use href="#i-close"></use></svg></button>
+    </div>
+    <div class="dialog-body document-body">
+      <div class="legal-review-banner"><svg><use href="#i-warning"></use></svg><div><strong>Rascunho para validação jurídica</strong><p>Gerado a partir do template Maceió/AL · versão 2026.08 · nenhuma comunicação foi protocolada.</p></div></div>
+      <div class="document-grid">
+        <div class="document-list">
+          <button type="button" class="active" data-document="pm" aria-pressed="true" aria-controls="document-preview"><svg><use href="#i-file"></use></svg><span><strong>Comunicação à Polícia Militar</strong><small>Rascunho · 2 páginas</small></span></button>
+          <button type="button" data-document="justica" aria-pressed="false" aria-controls="document-preview"><svg><use href="#i-file"></use></svg><span><strong>Comunicação à Justiça Eleitoral</strong><small>Aplicável se houver combustível</small></span></button>
+          <button type="button" data-document="percurso" aria-pressed="false" aria-controls="document-preview"><svg><use href="#i-map"></use></svg><span><strong>Descrição do percurso</strong><small>Praça X → Praça Y</small></span></button>
+          <button type="button" data-document="checklist" aria-pressed="false" aria-controls="document-preview"><svg><use href="#i-shield"></use></svg><span><strong>Checklist operacional</strong><small>8 de 11 itens concluídos</small></span></button>
+        </div>
+        <article class="paper-preview" id="document-preview" aria-live="polite">
+          <span>OFÍCIO Nº 014 / 2026</span>
+          <h3>COMUNICAÇÃO PRÉVIA DE ATO DE CAMPANHA</h3>
+          <p>À autoridade competente,</p>
+          <p>Comunicamos, para fins de organização e segurança, a realização de carreata demonstrativa no município de Maceió/AL, em 05 de setembro de 2026.</p>
+          <dl><div><dt>Concentração</dt><dd>14h · Praça X</dd></div><div><dt>Saída</dt><dd>15h</dd></div><div><dt>Encerramento</dt><dd>18h</dd></div><div><dt>Estimativa</dt><dd>120 veículos</dd></div></dl>
+          <p><strong>Percurso:</strong> Praça X → Avenida A → Avenida B → Rua C → Praça Y.</p>
+          <div class="signature-line">Assinatura do responsável</div>
+        </article>
+      </div>
+      <div class="dialog-actions"><button class="button button-secondary" type="button" data-close-dialog>Voltar</button><button class="button button-primary" type="button" data-action="simulate-download"><svg><use href="#i-download"></use></svg> Gerar prévia consolidada</button></div>
+    </div>
+  </dialog>
+
+  <dialog class="app-dialog scope-dialog" id="scope-dialog" aria-labelledby="scope-dialog-title">
+    <div class="dialog-head">
+      <div><span class="dialog-kicker">Preparar demonstração</span><h2 id="scope-dialog-title">Qual é a realidade da operação?</h2></div>
+      <button type="button" class="dialog-close" data-close-dialog aria-label="Fechar"><svg><use href="#i-close"></use></svg></button>
+    </div>
+    <form class="dialog-body scope-form" id="scope-form">
+      <fieldset><legend>Tipo de operação</legend><div class="choice-grid"><label><input type="radio" name="cargo" value="Deputado estadual" checked><span>Deputado estadual</span></label><label><input type="radio" name="cargo" value="Deputado federal"><span>Deputado federal</span></label><label><input type="radio" name="cargo" value="Senado"><span>Senado</span></label><label><input type="radio" name="cargo" value="Governo"><span>Governo</span></label></div></fieldset>
+      <fieldset><legend>O que você quer ver funcionando?</legend><div class="module-grid"><label><input type="checkbox" name="modules" value="Pessoas e relacionamentos" checked><span><svg><use href="#i-users"></use></svg><strong>Pessoas</strong><small>Cadastro, origem e histórico</small></span></label><label><input type="checkbox" name="modules" value="Território e mapa" checked><span><svg><use href="#i-map"></use></svg><strong>Território</strong><small>Mapa e atenção operacional</small></span></label><label><input type="checkbox" name="modules" value="Eventos e compliance" checked><span><svg><use href="#i-calendar"></use></svg><strong>Eventos</strong><small>Checklist, documentos e tarefas</small></span></label><label><input type="checkbox" name="modules" value="Inteligência gerencial" checked><span><svg><use href="#i-spark"></use></svg><strong>Inteligência</strong><small>Briefing, evidências e ação</small></span></label></div></fieldset>
+      <div class="scope-summary" id="scope-summary"><span>Demonstração sugerida</span><strong>Operação estadual · 4 módulos</strong><p>Roteiro de 75 minutos com cenário de campo, território, evento e briefing executivo.</p></div>
+      <div class="dialog-actions"><button class="button button-secondary" type="button" data-close-dialog>Agora não</button><button class="button button-primary" type="submit">Copiar briefing da demonstração <svg><use href="#i-arrow"></use></svg></button></div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"><svg><use href="#i-check"></use></svg><span></span></div>
 </body>
 </html>

@@ -1,0 +1,26 @@
+{
+  "product": "PULSO — Central de Operação e Inteligência",
+  "direction": "Da Mensagem ao Comando",
+  "foundations": {
+    "colors": {
+      "navy": "#0B1D33",
+      "sand": "#F5F3EE",
+      "gold": "#C8A86B",
+      "slate": "#24364A",
+      "white": "#FFFFFF"
+    },
+    "type": {
+      "marketing": "Cormorant Garamond",
+      "interface": "Inter"
+    }
+  },
+  "decisions": [
+    "PULSO is the sole primary brand; Eleitor CRM and Eleitor no Mapa are not competing identities.",
+    "The core demo synchronizes WhatsApp input with visible product outcomes to prove causality.",
+    "Gold is reserved for energy, focus and selected state; navy and sand carry the interface.",
+    "Marketing headlines may use Cormorant Garamond; application UI and data always use Inter.",
+    "Demo data is synthetic and visibly labeled; personal identifiers are masked by default.",
+    "AI conclusions show source and time, require human approval for consequential actions and never infer political preference.",
+    "Responsive layouts recompose into readable surfaces; phone mocks are never scaled down into illegibility."
+  ]
+}
