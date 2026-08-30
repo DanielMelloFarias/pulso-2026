@@ -831,8 +831,12 @@ const territoryProfiles = {
   },
 };
 
-let campaignMap;
-let geoLayer;
+const SVG_NS = "http://www.w3.org/2000/svg";
+const MAP_FRAME = { width: 1000, height: 620, padding: 34 };
+const mapFeatures = new Map();
+let mapSvg;
+let mapResizeObserver;
+let mapCurrentViewBox = { x: 0, y: 0, width: MAP_FRAME.width, height: MAP_FRAME.height };
 let currentMapLayer = "operation";
 let selectedTerritory = "União dos Palmares";
 
@@ -852,24 +856,6 @@ function activityLevel(feature) {
   if (score >= 82) return "high";
   if (score >= 70) return "mid";
   return "low";
-}
-
-function mapStyle(feature) {
-  const colors = {
-    high: { fill: "#1b8b66", stroke: "#ffffff" },
-    mid: { fill: "#c8a86b", stroke: "#ffffff" },
-    low: { fill: "#a94a52", stroke: "#ffffff" },
-    quiet: { fill: "#9aa8ad", stroke: "#ffffff" },
-  };
-  const level = activityLevel(feature);
-  const selected = feature.properties?.name === selectedTerritory;
-  return {
-    color: selected ? "#0b1d33" : colors[level].stroke,
-    weight: selected ? 2.4 : 0.75,
-    opacity: 0.95,
-    fillColor: colors[level].fill,
-    fillOpacity: selected ? 0.78 : level === "quiet" ? 0.25 : 0.55,
-  };
 }
 
 function profileForTerritory(name, properties = {}) {
@@ -912,21 +898,123 @@ function renderTerritory(name, properties = {}) {
     <button class="button button-primary full" type="button" data-action="create-task">${attention ? "Criar ação corretiva" : "Criar acompanhamento"} ${icon("i-arrow")}</button>`;
 }
 
-function selectTerritory(name, { fit = true, padding = [50, 50] } = {}) {
-  if (!geoLayer) return;
-  let selectedLayer = null;
-  geoLayer.eachLayer((layer) => {
-    if (layer.feature?.properties?.name === name) selectedLayer = layer;
-  });
-  if (!selectedLayer) return;
+function coordinatePairs(geometry) {
+  const pairs = [];
+  const walk = (node) => {
+    if (!Array.isArray(node)) return;
+    if (typeof node[0] === "number" && typeof node[1] === "number") {
+      pairs.push(node);
+      return;
+    }
+    node.forEach(walk);
+  };
+  walk(geometry?.coordinates);
+  return pairs;
+}
 
+function createMapProjection(data) {
+  const pairs = data.features.flatMap((feature) => coordinatePairs(feature.geometry));
+  const longitudes = pairs.map(([longitude]) => longitude);
+  const latitudes = pairs.map(([, latitude]) => latitude);
+  const minLongitude = Math.min(...longitudes);
+  const maxLongitude = Math.max(...longitudes);
+  const minLatitude = Math.min(...latitudes);
+  const maxLatitude = Math.max(...latitudes);
+  const longitudeRange = maxLongitude - minLongitude || 1;
+  const latitudeRange = maxLatitude - minLatitude || 1;
+  const scale = Math.min(
+    (MAP_FRAME.width - MAP_FRAME.padding * 2) / longitudeRange,
+    (MAP_FRAME.height - MAP_FRAME.padding * 2) / latitudeRange,
+  );
+  const mapWidth = longitudeRange * scale;
+  const mapHeight = latitudeRange * scale;
+  const offsetX = (MAP_FRAME.width - mapWidth) / 2;
+  const offsetY = (MAP_FRAME.height - mapHeight) / 2;
+  return ([longitude, latitude]) => [
+    offsetX + (longitude - minLongitude) * scale,
+    offsetY + (maxLatitude - latitude) * scale,
+  ];
+}
+
+function geometryPath(geometry, project) {
+  const ringPath = (ring) => ring.map((coordinate, index) => {
+    const [x, y] = project(coordinate);
+    return `${index === 0 ? "M" : "L"}${x.toFixed(2)} ${y.toFixed(2)}`;
+  }).join(" ") + " Z";
+  if (geometry?.type === "Polygon") return geometry.coordinates.map(ringPath).join(" ");
+  if (geometry?.type === "MultiPolygon") return geometry.coordinates.flatMap((polygon) => polygon.map(ringPath)).join(" ");
+  return "";
+}
+
+function projectedFeatureBounds(feature, project) {
+  const points = coordinatePairs(feature.geometry).map(project);
+  const xs = points.map(([x]) => x);
+  const ys = points.map(([, y]) => y);
+  const minX = Math.min(...xs);
+  const maxX = Math.max(...xs);
+  const minY = Math.min(...ys);
+  const maxY = Math.max(...ys);
+  return { minX, maxX, minY, maxY, width: maxX - minX, height: maxY - minY };
+}
+
+function setMapViewBox(viewBox) {
+  if (!mapSvg) return;
+  mapCurrentViewBox = viewBox;
+  mapSvg.setAttribute("viewBox", `${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`);
+  const renderedWidth = Math.max(mapSvg.clientWidth, 1);
+  const labelScale = (viewBox.width / renderedWidth) * 1.08;
+  mapFeatures.forEach((record) => {
+    if (!record.label) return;
+    record.label.setAttribute("transform", `translate(${record.label.dataset.x} ${record.label.dataset.y}) scale(${labelScale})`);
+  });
+}
+
+function focusMapBounds(bounds) {
+  const aspect = MAP_FRAME.width / MAP_FRAME.height;
+  let width = Math.max(bounds.width * 4.8, 270);
+  let height = Math.max(bounds.height * 4.8, 170);
+  if (width / height > aspect) height = width / aspect;
+  else width = height * aspect;
+  width = Math.min(width, MAP_FRAME.width);
+  height = Math.min(height, MAP_FRAME.height);
+  const centerX = (bounds.minX + bounds.maxX) / 2;
+  const centerY = (bounds.minY + bounds.maxY) / 2;
+  const x = Math.max(0, Math.min(MAP_FRAME.width - width, centerX - width / 2));
+  const y = Math.max(0, Math.min(MAP_FRAME.height - height, centerY - height / 2));
+  setMapViewBox({ x, y, width, height });
+}
+
+function zoomTerritoryMap(factor) {
+  const nextWidth = Math.max(220, Math.min(MAP_FRAME.width, mapCurrentViewBox.width * factor));
+  const nextHeight = nextWidth / (MAP_FRAME.width / MAP_FRAME.height);
+  const centerX = mapCurrentViewBox.x + mapCurrentViewBox.width / 2;
+  const centerY = mapCurrentViewBox.y + mapCurrentViewBox.height / 2;
+  const x = Math.max(0, Math.min(MAP_FRAME.width - nextWidth, centerX - nextWidth / 2));
+  const y = Math.max(0, Math.min(MAP_FRAME.height - nextHeight, centerY - nextHeight / 2));
+  setMapViewBox({ x, y, width: nextWidth, height: nextHeight });
+}
+
+function paintTerritoryMap() {
+  mapFeatures.forEach((record, name) => {
+    const level = activityLevel(record.feature);
+    const selected = name === selectedTerritory;
+    record.path.dataset.level = level;
+    record.path.classList.toggle("is-selected", selected);
+    record.path.setAttribute("aria-label", `${name} · ${level === "low" ? "abaixo do esperado" : level === "high" ? "atividade alta" : level === "mid" ? "atividade regular" : "sem alerta prioritário"}`);
+    record.label?.classList.toggle("is-selected", selected);
+  });
+}
+
+function selectTerritory(name, { fit = true } = {}) {
+  const record = mapFeatures.get(name);
+  if (!record) return;
   selectedTerritory = name;
-  geoLayer.setStyle(mapStyle);
-  selectedLayer.bringToFront();
-  renderTerritory(name, selectedLayer.feature.properties);
+  paintTerritoryMap();
+  record.path.parentNode?.append(record.path);
+  renderTerritory(name, record.feature.properties);
   const picker = $("#territory-picker");
   if (picker) picker.value = name;
-  if (fit && campaignMap) campaignMap.fitBounds(selectedLayer.getBounds(), { padding, maxZoom: 10, animate: !prefersReducedMotion });
+  if (fit) focusMapBounds(record.bounds);
 }
 
 function populateTerritoryPicker(data) {
@@ -943,54 +1031,88 @@ function updateMapLayer(layerName) {
     button.classList.toggle("active", active);
     button.setAttribute("aria-pressed", String(active));
   });
-  if (layerName === "attention" && geoLayer) {
-    selectTerritory("União dos Palmares", { padding: [60, 60] });
-  } else if (campaignMap && geoLayer) {
+  if (layerName === "attention" && mapFeatures.size) {
+    selectTerritory("União dos Palmares");
+  } else if (mapFeatures.size) {
     selectTerritory("Maceió", { fit: false });
-    campaignMap.fitBounds(geoLayer.getBounds(), { padding: [12, 12], animate: !prefersReducedMotion });
+    setMapViewBox({ x: 0, y: 0, width: MAP_FRAME.width, height: MAP_FRAME.height });
   }
 }
 
 async function initCampaignMap() {
   const container = $("#campaign-map");
   if (!container) return;
-  if (!window.L) {
-    container.innerHTML = `<div class="map-fallback">${icon("i-warning")} O mapa não pôde ser carregado. Os indicadores seguem disponíveis ao lado.</div>`;
-    return;
-  }
 
   try {
     const response = await fetch("geo_alagoas_municipios.json", { cache: "force-cache" });
     if (!response.ok) throw new Error(`GeoJSON ${response.status}`);
     const data = await response.json();
     populateTerritoryPicker(data);
-    container.innerHTML = "";
+    const project = createMapProjection(data);
+    const labeledTerritories = new Set(["Maceió", "Arapiraca", "Palmeira dos Índios", "Penedo", "União dos Palmares"]);
+    container.innerHTML = `
+      <svg class="territory-map-svg" viewBox="0 0 ${MAP_FRAME.width} ${MAP_FRAME.height}" role="img" aria-labelledby="territory-map-title territory-map-desc">
+        <title id="territory-map-title">Mapa operacional agregado de Alagoas</title>
+        <desc id="territory-map-desc">Os municípios são coloridos por nível de atividade. Use o seletor acima para consultar um território.</desc>
+        <g class="territory-map-layer"></g>
+        <g class="territory-map-label-layer" aria-hidden="true"></g>
+      </svg>
+      <div class="native-map-controls" role="group" aria-label="Zoom do mapa">
+        <button type="button" data-map-zoom="in" aria-label="Aproximar mapa">+</button>
+        <button type="button" data-map-zoom="out" aria-label="Afastar mapa">−</button>
+      </div>
+      <span class="native-map-badge">Base PULSO · 102 municípios</span>`;
 
-    campaignMap = L.map(container, {
-      zoomControl: true,
-      scrollWheelZoom: false,
-      minZoom: 6,
-      maxZoom: 12,
+    mapSvg = $(".territory-map-svg", container);
+    const layerGroup = $(".territory-map-layer", container);
+    const labelGroup = $(".territory-map-label-layer", container);
+    mapFeatures.clear();
+
+    data.features.forEach((feature) => {
+      const name = feature.properties?.name || "Território";
+      const bounds = projectedFeatureBounds(feature, project);
+      const path = document.createElementNS(SVG_NS, "path");
+      path.setAttribute("d", geometryPath(feature.geometry, project));
+      path.setAttribute("class", "territory-map-path");
+      path.setAttribute("fill-rule", "evenodd");
+      path.dataset.name = name;
+      const title = document.createElementNS(SVG_NS, "title");
+      title.textContent = name;
+      path.append(title);
+      path.addEventListener("click", () => selectTerritory(name));
+      layerGroup.append(path);
+
+      let label = null;
+      if (labeledTerritories.has(name)) {
+        const centerX = (bounds.minX + bounds.maxX) / 2;
+        const centerY = (bounds.minY + bounds.maxY) / 2;
+        const labelWidth = Math.min(154, Math.max(50, name.length * 6.2 + 18));
+        label = document.createElementNS(SVG_NS, "g");
+        label.setAttribute("class", "territory-map-label");
+        label.setAttribute("transform", `translate(${centerX.toFixed(2)} ${centerY.toFixed(2)})`);
+        label.dataset.x = centerX.toFixed(2);
+        label.dataset.y = centerY.toFixed(2);
+        const rect = document.createElementNS(SVG_NS, "rect");
+        rect.setAttribute("x", String(-labelWidth / 2));
+        rect.setAttribute("y", "-12");
+        rect.setAttribute("width", String(labelWidth));
+        rect.setAttribute("height", "24");
+        rect.setAttribute("rx", "7");
+        const text = document.createElementNS(SVG_NS, "text");
+        text.setAttribute("text-anchor", "middle");
+        text.setAttribute("y", "4");
+        text.textContent = name;
+        label.append(rect, text);
+        labelGroup.append(label);
+      }
+      mapFeatures.set(name, { feature, path, label, bounds });
     });
 
-    L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
-      maxZoom: 20,
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
-    }).addTo(campaignMap);
-
-    geoLayer = L.geoJSON(data, {
-      style: mapStyle,
-      onEachFeature(feature, layer) {
-        const name = feature.properties?.name || "Território";
-        layer.bindTooltip(name, { sticky: true, className: "pulso-map-tooltip" });
-        layer.on("click", () => selectTerritory(name));
-        layer.on("mouseover", () => layer.setStyle({ weight: 2, fillOpacity: 0.76 }));
-        layer.on("mouseout", () => geoLayer.resetStyle(layer));
-      },
-    }).addTo(campaignMap);
-
-    campaignMap.fitBounds(geoLayer.getBounds(), { padding: [12, 12] });
-    window.setTimeout(() => campaignMap.invalidateSize(), 200);
+    if ("ResizeObserver" in window) {
+      mapResizeObserver = new ResizeObserver(() => setMapViewBox(mapCurrentViewBox));
+      mapResizeObserver.observe(mapSvg);
+    }
+    paintTerritoryMap();
     updateMapLayer("attention");
   } catch (error) {
     console.error("Falha ao carregar mapa:", error);
@@ -1002,6 +1124,11 @@ function setupMapControls() {
   $$("[data-map-layer]").forEach((button) => button.addEventListener("click", () => updateMapLayer(button.dataset.mapLayer)));
   $("#territory-picker")?.addEventListener("change", (event) => {
     if (event.target.value) selectTerritory(event.target.value);
+  });
+  $("#campaign-map")?.addEventListener("click", (event) => {
+    const zoomButton = event.target.closest("[data-map-zoom]");
+    if (!zoomButton) return;
+    zoomTerritoryMap(zoomButton.dataset.mapZoom === "in" ? 0.78 : 1.28);
   });
 }
 

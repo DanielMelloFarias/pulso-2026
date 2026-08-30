@@ -13,8 +13,9 @@ Use an editorial marketing layer over a restrained operational interface. The ce
 - Navy `#0B1D33`, sand `#F5F3EE`, gold `#C8A86B`, blue-slate `#24364A`.
 - Cormorant Garamond only for prominent marketing headlines; Inter everywhere else.
 - Twelve-column layouts, asymmetric 55/45 or 60/40 compositions and generous negative space.
-- Thin territorial lines, nodes and pulse rings. No campaign photography, ECG motifs, ballot boxes, flags or megaphones.
-- Flat surfaces, precise borders and quiet shadows. Avoid decorative gradients, stacked glass cards and tiny labels.
+- Generated territorial relief, topographic texture and curved signal paths may create depth, always with calm negative space and strong text contrast. No campaign photography, ECG motifs, ballot boxes, flags or megaphones.
+- Use restrained navy/gold/emerald gradients and occasional translucent surfaces as hierarchy, not decoration. Operational text stays native HTML/SVG and never appears inside generated artwork.
+- Icons have three levels: 18–20px utility strokes, 20–22px module symbols inside a duotone shell, and compact filled status marks. Avoid generic glowing node constellations and tiny labels.
 
 ## Interaction and trust
 

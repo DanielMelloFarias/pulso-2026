@@ -1,13 +1,17 @@
-const CACHE_NAME = "pulso-v10";
+const CACHE_NAME = "pulso-v11";
 const APP_SHELL = [
   "./",
   "./index.html",
-  "./pulso.css?v=10.0.0",
-  "./pulso.js?v=10.0.0",
+  "./pulso.css?v=11.0.0",
+  "./pulso.js?v=11.0.0",
   "./manifest.json",
   "./assets/pulso-mark.svg",
   "./assets/pulso-app-icon-192.png",
   "./assets/pulso-app-icon-512.png",
+  "./assets/generated/pulso-territory-hero.avif",
+  "./assets/generated/pulso-territory-hero.webp",
+  "./assets/generated/pulso-paper-flow.avif",
+  "./assets/generated/pulso-paper-flow.webp",
   "./assets/fonts/inter-latin-ext.woff2",
   "./assets/fonts/cormorant-garamond-latin-ext.woff2",
   "./geo_alagoas_municipios.json",
