@@ -2,6 +2,8 @@
 
 Experiência comercial e painel executivo da Central de Operação e Inteligência PULSO.
 
+PULSO é a central de operação e inteligência da campanha. Organiza os registros do campo, transforma dados em prioridades para o comando e dá visibilidade à execução.
+
 O site mostra como uma mensagem de campo pode virar cadastro estruturado, gestão de evento, leitura territorial e ação gerencial. A narrativa principal é:
 
 **Campo → Dados → Inteligência → Decisão → Execução**
@@ -28,6 +30,18 @@ para testar essa etapa localmente, execute o projeto com `vercel dev`.
 - `geo_alagoas_municipios.json`: geometria agregada usada nas visões territoriais;
 - `sw.js` e `manifest.json`: instalação e funcionamento básico offline;
 - `.21st/`: decisões de design que orientam evoluções futuras.
+
+## Marca
+
+O símbolo PULSO transforma a letra `P` em um sinal que parte do campo e se expande até o comando. A haste representa estrutura, o ponto representa o registro e os arcos representam inteligência e direção.
+
+- `assets/pulso-mark.svg`: símbolo principal para fundos claros;
+- `assets/pulso-mark-inverse.svg`: símbolo para fundos escuros;
+- `assets/pulso-logo.svg`: lockup completo com assinatura;
+- `assets/pulso-logo-inverse.svg`: lockup completo para fundos escuros;
+- `assets/brand/`: arquivos rasterizados e conceito visual;
+- `assets/pulso-app-icon*.png`: ícones PWA, Apple e máscara adaptativa;
+- `assets/generated/pulso-social-1200x630.png`: imagem de compartilhamento social.
 
 ## Escopo da experiência
 

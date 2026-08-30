@@ -593,6 +593,8 @@ function paintMap() {
     const selected = name === state.territory;
     record.path.dataset.level = level;
     record.path.classList.toggle("is-selected", selected);
+    record.path.setAttribute("tabindex", selected ? "0" : "-1");
+    record.path.setAttribute("aria-pressed", String(selected));
     record.path.setAttribute("aria-label", name + " · " + (level === "low" ? "precisa de atenção" : level === "high" ? "ritmo alto" : level === "mid" ? "acompanhar" : "sem alerta prioritário"));
     if (record.label) record.label.classList.toggle("is-selected", selected);
   });
@@ -642,7 +644,7 @@ async function initMap() {
       path.setAttribute("class", "territory-map-path");
       path.setAttribute("fill-rule", "evenodd");
       path.setAttribute("role", "button");
-      path.setAttribute("tabindex", "0");
+      path.setAttribute("tabindex", "-1");
       const title = document.createElementNS(SVG_NS, "title");
       title.textContent = name;
       path.append(title);
@@ -776,9 +778,12 @@ function openMenu() {
   setTimeout(function () { $(".sidebar-nav a").focus(); }, 30);
 }
 
-function closeMenu() {
+function closeMenu(restoreFocus) {
+  const menuButton = $("[data-open-menu]");
+  const wasOpen = document.body.classList.contains("menu-open");
   document.body.classList.remove("menu-open");
-  $("[data-open-menu]").setAttribute("aria-expanded", "false");
+  menuButton.setAttribute("aria-expanded", "false");
+  if (restoreFocus && wasOpen) requestAnimationFrame(function () { menuButton.focus(); });
 }
 
 function setupNavigation() {
@@ -830,7 +835,7 @@ function setupEvents() {
       return;
     }
     if (event.target.closest("[data-close-menu]")) {
-      closeMenu();
+      closeMenu(true);
       return;
     }
     const closeButton = event.target.closest("[data-close-dialog]");
@@ -904,7 +909,7 @@ function setupEvents() {
       event.preventDefault();
       openCommand();
     }
-    if (event.key === "Escape" && document.body.classList.contains("menu-open")) closeMenu();
+    if (event.key === "Escape" && document.body.classList.contains("menu-open")) closeMenu(true);
   });
 }
 

@@ -8,6 +8,8 @@ PULSO turns field activity and WhatsApp messages into structured operation, terr
 
 Use an editorial marketing layer over a restrained operational interface. The central proof is a two-surface demo: a familiar conversation on one side and the product changing in direct response on the other. The user can replay, pause and explore each result.
 
+The primary mark is an abstract `P` built from a structural stem, one field node and two open signal arcs. Use the navy-and-gold master on light surfaces and the sand-and-gold inverse on navy surfaces. Do not return to concentric targets, map pins or ECG motifs.
+
 ## Visual language
 
 - Navy `#0B1D33`, sand `#F5F3EE`, gold `#C8A86B`, blue-slate `#24364A`.

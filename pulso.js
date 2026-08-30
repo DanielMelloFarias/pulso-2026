@@ -560,7 +560,7 @@ function setupHeader() {
   $$("a", nav).forEach((link) => link.addEventListener("click", closeMenu));
   window.addEventListener("resize", () => { if (window.innerWidth > 940) closeMenu(); }, { passive: true });
 
-  const sections = ["demonstracao", "sala-situacao", "governanca", "implantacao"]
+  const sections = ["o-pulso", "demonstracao", "sala-situacao", "governanca", "implantacao"]
     .map((id) => document.getElementById(id))
     .filter(Boolean);
   const observer = new IntersectionObserver((entries) => {

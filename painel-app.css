@@ -106,8 +106,9 @@ svg {
 }
 
 :focus-visible {
-  outline: 3px solid var(--gold);
-  outline-offset: 3px;
+  outline: 3px solid var(--navy);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px #fff;
 }
 
 .icon-sprite {
@@ -1653,4 +1654,100 @@ svg {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* PULSO brand system v13 */
+.app-brand img,
+.mobile-brand-mark,
+.app-footer-brand img,
+.dialog-title-lockup img {
+  display: block;
+  object-fit: contain;
+}
+
+.sidebar-definition {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 6px;
+  margin: 26px 8px 0;
+  padding: 13px 14px;
+  color: #c8d2d8;
+  background: rgba(255, 255, 255, 0.045);
+  border-left: 2px solid var(--gold);
+  border-radius: 0 10px 10px 0;
+}
+
+.sidebar-definition strong {
+  font-size: 0.6rem;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.sidebar-definition span {
+  color: #8397a4;
+  font-size: 0.51rem;
+  line-height: 1.5;
+}
+
+.sidebar-nav { margin-top: 30px; }
+
+.mobile-brand-mark { display: none; }
+
+.app-footer-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--navy);
+  letter-spacing: 0.14em;
+}
+
+.app-footer-brand img {
+  width: 26px;
+  height: 26px;
+}
+
+.dialog-title-lockup {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 12px;
+}
+
+.dialog-title-lockup > img {
+  width: 30px;
+  height: 30px;
+  flex: 0 0 auto;
+}
+
+.dialog-title-lockup > div { min-width: 0; }
+
+@media (max-width: 1040px) {
+  .topbar-context {
+    display: grid;
+    min-width: 0;
+    grid-template-columns: 30px minmax(0, 1fr);
+    column-gap: 9px;
+  }
+
+  .mobile-brand-mark {
+    display: block;
+    width: 30px;
+    height: 30px;
+    grid-row: 1 / span 2;
+    align-self: center;
+  }
+
+  .topbar-context span,
+  .topbar-context strong { grid-column: 2; }
+}
+
+@media (max-width: 820px) {
+  .topbar-context strong { align-self: center; margin-top: 0; }
+}
+
+@media (max-width: 540px) {
+  .app-footer-brand img { width: 24px; height: 24px; }
+  .dialog-title-lockup { gap: 9px; }
+  .dialog-title-lockup > img { width: 26px; height: 26px; }
 }

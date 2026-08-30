@@ -10,18 +10,23 @@
   <meta property="og:type" content="website">
   <meta property="og:locale" content="pt_BR">
   <meta property="og:url" content="https://demo-eleitor-gabinete.vercel.app/">
-  <meta property="og:image" content="https://demo-eleitor-gabinete.vercel.app/assets/generated/pulso-territory-hero.webp">
-  <meta property="og:image:width" content="1672">
-  <meta property="og:image:height" content="941">
+  <meta property="og:image" content="https://demo-eleitor-gabinete.vercel.app/assets/generated/pulso-social-1200x630.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="PULSO — Central de Operação e Inteligência. Sua campanha sob controle.">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="PULSO — Central de Operação e Inteligência">
+  <meta name="twitter:description" content="Do campo à decisão. Da decisão à execução.">
+  <meta name="twitter:image" content="https://demo-eleitor-gabinete.vercel.app/assets/generated/pulso-social-1200x630.png">
   <title>PULSO — Central de Operação e Inteligência</title>
 
   <link rel="manifest" href="manifest.json">
   <link rel="icon" href="assets/pulso-mark.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="assets/pulso-app-icon-192.png">
+  <link rel="alternate icon" href="assets/favicon.ico">
+  <link rel="apple-touch-icon" href="assets/pulso-app-icon-180.png">
   <link rel="preload" href="assets/generated/pulso-territory-hero.avif" as="image" type="image/avif" fetchpriority="high">
-  <link rel="stylesheet" href="pulso.css?v=12.0.0">
-  <script src="pulso.js?v=12.0.0" defer></script>
+  <link rel="stylesheet" href="pulso.css?v=13.0.0">
+  <script src="pulso.js?v=13.0.0" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
@@ -71,6 +76,7 @@
       </a>
 
       <nav class="site-nav" id="site-nav" aria-label="Navegação principal">
+        <a href="#o-pulso">O PULSO</a>
         <a href="#demonstracao">Demonstração</a>
         <a href="painel">Painel executivo</a>
         <a href="#governanca">Governança</a>
@@ -110,7 +116,7 @@
 
         <div class="executive-preview" aria-label="Prévia do briefing executivo PULSO">
           <div class="preview-topbar">
-            <div class="preview-brand"><span class="pulse-orbit"><i></i></span> PULSO / HOJE</div>
+            <div class="preview-brand"><img src="assets/pulso-mark-inverse.svg" alt="" width="22" height="22"> PULSO / HOJE</div>
             <div class="preview-live"><span></span> Atualizado 22:01</div>
           </div>
           <div class="preview-question">
@@ -160,6 +166,28 @@
             <span><svg><use href="#i-spark"></use></svg> Recomendação com evidências</span>
             <span>Visão executiva · 6 módulos</span>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pulso-definition" id="o-pulso" aria-labelledby="pulso-definition-title">
+      <div class="wrap pulso-definition-grid">
+        <div class="definition-symbol" aria-hidden="true">
+          <img src="assets/pulso-mark-inverse.svg" alt="" width="240" height="240">
+          <span>Campo</span><i></i><strong>Comando</strong>
+        </div>
+        <div class="definition-copy">
+          <span class="eyebrow dark"><span></span> O que é o PULSO</span>
+          <h2 id="pulso-definition-title">A central que transforma<br><em>movimento em comando.</em></h2>
+          <p class="definition-lead"><strong>PULSO é a central de operação e inteligência da campanha.</strong> Organiza os registros do campo, transforma dados em prioridades para o comando e dá visibilidade à execução.</p>
+          <p class="definition-note">Não é só CRM, mapa ou dashboard. É a camada que conecta registro, leitura e ação em uma operação acompanhável.</p>
+          <ol class="definition-flow" aria-label="Como o PULSO organiza a operação">
+            <li><span>01</span><strong>Campo</strong></li>
+            <li><span>02</span><strong>Dados</strong></li>
+            <li><span>03</span><strong>Inteligência</strong></li>
+            <li><span>04</span><strong>Decisão</strong></li>
+            <li><span>05</span><strong>Execução</strong></li>
+          </ol>
         </div>
       </div>
     </section>
@@ -238,7 +266,7 @@
         <div class="demo-stage" id="demo-stage" role="tabpanel" aria-labelledby="scenario-registration" data-mobile-surface="conversation">
           <article class="conversation-surface" aria-labelledby="conversation-title">
             <div class="surface-bar conversation-bar">
-              <div class="avatar-mark">P</div>
+              <div class="avatar-mark"><img src="assets/pulso-mark-inverse.svg" alt="" width="25" height="25"></div>
               <div><strong id="conversation-title">PULSO · Grupo Operacional</strong><span><i></i> online · revisão assistida</span></div>
               <span class="surface-time">09:41</span>
             </div>
@@ -466,17 +494,17 @@
   <footer class="site-footer">
     <div class="wrap footer-inner">
       <a class="brand footer-brand" href="#topo" aria-label="PULSO — voltar ao início">
-        <img src="assets/pulso-mark.svg" alt="" width="38" height="38">
+        <img src="assets/pulso-mark-inverse.svg" alt="" width="38" height="38">
         <span class="brand-copy"><strong>PULSO</strong><small>Central de Operação e Inteligência</small></span>
       </a>
       <p>Funcionalidades, integrações, territórios e regras são configurados para cada operação.</p>
-      <nav aria-label="Links do rodapé"><a href="painel">Painel</a><a href="#governanca">Governança</a><a href="#implantacao">Implantação</a></nav>
+      <nav aria-label="Links do rodapé"><a href="#o-pulso">O PULSO</a><a href="painel">Painel</a><a href="#governanca">Governança</a><a href="#implantacao">Implantação</a></nav>
     </div>
   </footer>
 
   <dialog class="app-dialog record-dialog" id="record-dialog" aria-labelledby="record-dialog-title">
     <div class="dialog-head">
-      <div><span class="dialog-kicker">Pessoa · visão protegida</span><h2 id="record-dialog-title">Maria José da Silva</h2></div>
+      <div class="dialog-title-lockup"><img src="assets/pulso-mark.svg" alt="" width="30" height="30"><div><span class="dialog-kicker">Pessoa · visão protegida</span><h2 id="record-dialog-title">Maria José da Silva</h2></div></div>
       <button type="button" class="dialog-close" data-close-dialog aria-label="Fechar"><svg><use href="#i-close"></use></svg></button>
     </div>
     <div class="dialog-body person-dialog-body">
@@ -503,7 +531,7 @@
 
   <dialog class="app-dialog document-dialog" id="document-dialog" aria-labelledby="document-dialog-title">
     <div class="dialog-head">
-      <div><span class="dialog-kicker">Pacote de documentos · prévia</span><h2 id="document-dialog-title">Carreata Maceió — 05/09</h2></div>
+      <div class="dialog-title-lockup"><img src="assets/pulso-mark.svg" alt="" width="30" height="30"><div><span class="dialog-kicker">Pacote de documentos · prévia</span><h2 id="document-dialog-title">Carreata Maceió — 05/09</h2></div></div>
       <button type="button" class="dialog-close" data-close-dialog aria-label="Fechar"><svg><use href="#i-close"></use></svg></button>
     </div>
     <div class="dialog-body document-body">
@@ -531,7 +559,7 @@
 
   <dialog class="app-dialog scope-dialog" id="scope-dialog" aria-labelledby="scope-dialog-title">
     <div class="dialog-head">
-      <div><span class="dialog-kicker">Diagnóstico PULSO</span><h2 id="scope-dialog-title">Onde o controle precisa começar?</h2></div>
+      <div class="dialog-title-lockup"><img src="assets/pulso-mark.svg" alt="" width="30" height="30"><div><span class="dialog-kicker">Diagnóstico PULSO</span><h2 id="scope-dialog-title">Onde o controle precisa começar?</h2></div></div>
       <button type="button" class="dialog-close" data-close-dialog aria-label="Fechar"><svg><use href="#i-close"></use></svg></button>
     </div>
     <form class="dialog-body scope-form" id="scope-form">

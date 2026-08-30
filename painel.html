@@ -7,11 +7,14 @@
   <meta name="description" content="Painel executivo PULSO para leitura territorial, operação, agenda, rede e demandas.">
   <meta name="robots" content="noindex">
   <title>PULSO — Painel Executivo</title>
+  <link rel="manifest" href="manifest.json">
   <link rel="icon" href="assets/pulso-mark.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="assets/favicon.ico">
+  <link rel="apple-touch-icon" href="assets/pulso-app-icon-180.png">
   <link rel="preload" href="assets/fonts/inter-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/cormorant-garamond-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="painel-app.css?v=12.0.0">
-  <script src="painel-app.js?v=12.0.0" defer></script>
+  <link rel="stylesheet" href="painel-app.css?v=13.0.0">
+  <script src="painel-app.js?v=13.0.0" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#app-content">Ir para o conteúdo</a>
@@ -42,9 +45,10 @@
   <div class="app-layout">
     <aside class="app-sidebar" id="app-sidebar" aria-label="Navegação do painel">
       <div class="sidebar-head">
-        <a class="app-brand" href="index.html" aria-label="PULSO — voltar ao site"><img src="assets/pulso-mark.svg" width="42" height="42" alt=""><span><strong>PULSO</strong><small>Painel executivo</small></span></a>
+        <a class="app-brand" href="index.html" aria-label="PULSO — voltar ao site"><img src="assets/pulso-mark-inverse.svg" width="42" height="42" alt=""><span><strong>PULSO</strong><small>Painel executivo</small></span></a>
         <button class="sidebar-close" type="button" data-close-menu aria-label="Fechar menu"><svg><use href="#p-i-close"></use></svg></button>
       </div>
+      <p class="sidebar-definition"><strong>Central de operação e inteligência da campanha</strong><span>Do campo à decisão. Da decisão à execução.</span></p>
       <nav class="sidebar-nav" aria-label="Áreas do painel">
         <span class="nav-caption">Comando</span>
         <a class="active" href="#visao-geral" data-nav-link aria-current="page"><svg><use href="#p-i-grid"></use></svg><span>Visão executiva</span></a>
@@ -61,7 +65,7 @@
     <div class="app-main">
       <header class="app-topbar">
         <button class="mobile-menu" type="button" data-open-menu aria-label="Abrir menu" aria-expanded="false" aria-controls="app-sidebar"><svg><use href="#p-i-menu"></use></svg></button>
-        <div class="topbar-context"><span>Central de comando</span><strong id="topbar-role">Visão do Governador</strong></div>
+        <div class="topbar-context"><img class="mobile-brand-mark" src="assets/pulso-mark.svg" alt="" width="30" height="30"><span>Central de comando</span><strong id="topbar-role">Visão do Governador</strong></div>
         <div class="role-switch" role="group" aria-label="Escolher visão executiva"><button class="active" type="button" data-role="governador" aria-pressed="true">Governador</button><button type="button" data-role="deputado" aria-pressed="false">Dep. Estadual</button></div>
         <button class="topbar-query" type="button" data-open-command><svg><use href="#p-i-search"></use></svg><span>Pergunte ao PULSO…</span><kbd>Ctrl K</kbd></button>
         <span class="day-status"><i></i> Ambiente de apresentação</span>
@@ -98,18 +102,18 @@
           <article class="panel network-panel"><header class="panel-head"><div><span class="panel-kicker" id="network-kicker">Estrutura operacional</span><h2 id="network-title">Rede em movimento</h2></div><svg class="panel-symbol"><use href="#p-i-network"></use></svg></header><div class="network-list" id="network-list"></div></article>
           <article class="panel decision-panel"><span class="decision-icon"><svg><use href="#p-i-spark"></use></svg></span><span class="panel-kicker">Recomendação</span><h2 id="decision-title">Comece pelas exceções.</h2><p id="decision-copy">Quatro municípios concentram a principal redução de atividade. Um contato objetivo pode destravar o dia.</p><button type="button" class="button primary" data-open-command>Entender e agir <svg><use href="#p-i-arrow"></use></svg></button></article>
         </section>
-        <footer class="app-footer"><span>PULSO · Operação &amp; inteligência</span><span>Indicadores operacionais · acesso conforme permissão</span></footer>
+        <footer class="app-footer"><span class="app-footer-brand"><img src="assets/pulso-mark.svg" alt="" width="26" height="26"><strong>PULSO</strong></span><span>Campo → Dados → Inteligência → Decisão → Execução</span><span>Indicadores operacionais · acesso conforme permissão</span></footer>
       </main>
     </div>
   </div>
 
   <dialog class="app-dialog command-dialog" id="command-dialog" aria-labelledby="command-title">
-    <div class="dialog-head"><div><span class="dialog-kicker"><svg><use href="#p-i-spark"></use></svg> Inteligência gerencial</span><h2 id="command-title">O que você quer entender?</h2></div><button class="dialog-close" type="button" data-close-dialog aria-label="Fechar"><svg><use href="#p-i-close"></use></svg></button></div>
+    <div class="dialog-head"><div class="dialog-title-lockup"><img src="assets/pulso-mark.svg" alt="" width="30" height="30"><div><span class="dialog-kicker"><svg><use href="#p-i-spark"></use></svg> Inteligência gerencial</span><h2 id="command-title">O que você quer entender?</h2></div></div><button class="dialog-close" type="button" data-close-dialog aria-label="Fechar"><svg><use href="#p-i-close"></use></svg></button></div>
     <div class="dialog-body"><form class="command-form" id="command-form"><label for="command-input">Pergunte sobre território, equipe, eventos ou tarefas</label><div class="command-input-wrap"><svg><use href="#p-i-search"></use></svg><input id="command-input" name="query" type="text" autocomplete="off" placeholder="Ex.: Onde preciso agir amanhã?" required><button type="submit">Analisar <svg><use href="#p-i-arrow"></use></svg></button></div></form><div class="prompt-list" id="prompt-list" aria-label="Perguntas sugeridas"></div><div class="command-result" id="command-result" aria-live="polite"><div class="result-empty"><svg><use href="#p-i-message"></use></svg><p>Escolha uma pergunta ou escreva com suas palavras.</p></div></div></div>
   </dialog>
 
   <dialog class="app-dialog action-dialog" id="action-dialog" aria-labelledby="action-dialog-title">
-    <div class="dialog-head"><div><span class="dialog-kicker"><svg><use href="#p-i-check"></use></svg> Confirmação humana</span><h2 id="action-dialog-title">Criar ação de acompanhamento</h2></div><button class="dialog-close" type="button" data-close-dialog aria-label="Fechar"><svg><use href="#p-i-close"></use></svg></button></div>
+    <div class="dialog-head"><div class="dialog-title-lockup"><img src="assets/pulso-mark.svg" alt="" width="30" height="30"><div><span class="dialog-kicker"><svg><use href="#p-i-check"></use></svg> Confirmação humana</span><h2 id="action-dialog-title">Criar ação de acompanhamento</h2></div></div><button class="dialog-close" type="button" data-close-dialog aria-label="Fechar"><svg><use href="#p-i-close"></use></svg></button></div>
     <form class="dialog-body action-form" id="action-form"><label>Tarefa<input id="action-name" name="name" type="text" required></label><div class="form-grid"><label>Território<select id="action-territory" name="territory" required></select></label><label>Responsável<select id="action-owner" name="owner" required><option>Coordenação estadual</option><option>Coordenação territorial</option><option>Operação</option><option>Relacionamento</option><option>Jurídico</option></select></label></div><label>Prazo<input id="action-due" name="due" type="text" value="Amanhã, 11h" required></label><p class="form-note"><svg><use href="#p-i-shield"></use></svg> Revise responsável, território e prazo antes de confirmar.</p><div class="dialog-actions"><button class="button secondary" type="button" data-close-dialog>Cancelar</button><button class="button primary" type="submit">Confirmar ação <svg><use href="#p-i-check"></use></svg></button></div></form>
   </dialog>
 

@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
   <title id="title">PULSO</title>
   <desc id="desc">Um P abstrato transforma um ponto de campo em ondas de inteligência.</desc>
-  <path d="M17.5 55V28.5c0-11.8 7.1-19.3 18.9-20.7" fill="none" stroke="#0B1D33" stroke-width="8.5" stroke-linecap="round"/>
+  <path d="M17.5 55V28.5c0-11.8 7.1-19.3 18.9-20.7" fill="none" stroke="#F5F3EE" stroke-width="8.5" stroke-linecap="round"/>
   <path d="M42.7 9.5a24.8 24.8 0 0 1 0 45M38.1 19.4a15 15 0 0 1 0 25.2" fill="none" stroke="#C8A86B" stroke-width="7.5" stroke-linecap="round"/>
   <circle cx="30.8" cy="32" r="5.3" fill="#C8A86B"/>
 </svg>
