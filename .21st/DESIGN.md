@@ -19,10 +19,10 @@ Use an editorial marketing layer over a restrained operational interface. The ce
 
 ## Interaction and trust
 
-- Every consequential simulated action has an explicit human confirmation.
+- Every consequential action shown in the experience has an explicit human confirmation.
 - Legal documents are drafts for legal review, never described as automatically compliant.
 - Communication opt-in is separate from record creation, reversible and time-stamped.
 - Political preference, vote propensity and sensitive attributes are never inferred.
-- Exact locations and identifiers remain masked in the public demo.
+- Exact locations and identifiers remain masked in the public experience.
 - Status always combines text and icon, never color alone.
 - Support keyboard navigation, visible focus, reduced motion, empty/error states and responsive reflow.

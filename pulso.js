@@ -8,7 +8,7 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
 const registrationMessages = [
   {
     type: "system",
-    html: "Demonstração · dados 100% sintéticos",
+    html: "Fluxo guiado · entrada protegida",
   },
   {
     type: "out",
@@ -32,13 +32,13 @@ const registrationConfirmedMessage = {
 const registrationDoneMessage = {
   type: "in",
   time: "14:24",
-  html: `<strong>Cadastro concluído.</strong><br><br>Maria foi adicionada à base demonstrativa. Território, origem, evento e indicadores foram atualizados. Identificadores seguem mascarados por padrão.`,
+    html: `<strong>Cadastro concluído.</strong><br><br>Maria foi adicionada à base operacional. Território, origem, evento e indicadores foram atualizados. Identificadores seguem mascarados por padrão.`,
 };
 
 const carreataMessages = [
   {
     type: "system",
-    html: "Demonstração · regras e documentos simulados",
+    html: "Fluxo de evento · revisão jurídica obrigatória",
   },
   {
     type: "out",
@@ -56,7 +56,7 @@ const carreataQuestionMessage = {
 const carreataVehicleMessage = {
   type: "out",
   time: "16:06",
-  html: `Carro de som: Van branca<br>Placa demonstrativa: QWE-0A26<br>Responsável: João Silva.`,
+    html: `Carro de som: Van branca<br>Placa: QWE-0A26<br>Responsável: João Silva.`,
 };
 
 const carreataDraftMessage = {
@@ -68,7 +68,7 @@ const carreataDraftMessage = {
 const briefingMessages = [
   {
     type: "system",
-    html: "Demonstração · resumo baseado em dados sintéticos",
+    html: "Resumo executivo · 6 dimensões operacionais",
   },
   {
     type: "out",
@@ -142,11 +142,11 @@ const resultTemplates = {
       <div class="quality-bar"><div><span>Qualidade estimada do registro</span><small>7 verificações concluídas · 1 revisão humana</small></div><strong>96/100</strong></div>
       <ul class="review-list">
         <li>${icon("i-check")}<span>Telefone e endereço normalizados</span><small>alta confiança</small></li>
-        <li>${icon("i-check")}<span>Nenhuma duplicidade exata encontrada</span><small>base demonstrativa</small></li>
+        <li>${icon("i-check")}<span>Nenhuma duplicidade exata encontrada</span><small>base operacional</small></li>
         <li>${icon("i-shield")}<span>Cadastro e opt-in de comunicação separados</span><small>registrados</small></li>
       </ul>
       <div class="result-callout">${icon("i-spark")}<span>A IA classifica somente fatos registrados. Nenhuma preferência política ou propensão de voto é inferida.</span></div>
-      <div class="result-actions"><button type="button" class="mini-button" data-demo-next>${icon("i-check")} Confirmar na demonstração</button></div>
+      <div class="result-actions"><button type="button" class="mini-button" data-demo-next>${icon("i-check")} Confirmar cadastro</button></div>
     </div>`,
 
   registrationPropagating: () => `
@@ -158,7 +158,7 @@ const resultTemplates = {
         ${processRow("i-users", "Estrutura de mobilização", "João Ferreira → Carlos Santos → Maria", "Concluído")}
         ${processRow("i-calendar", "Evento e indicadores", "Reunião Tabuleiro +1 registro", "Atualizando", true)}
       </div>
-      <div class="audit-note">${icon("i-activity")}<span>Trilha: confirmado por Carlos Santos às 14:24 · origem WhatsApp · registro sintético.</span></div>
+      <div class="audit-note">${icon("i-activity")}<span>Trilha: confirmado por Carlos Santos às 14:24 · origem WhatsApp · registro auditável.</span></div>
     </div>`,
 
   registrationDone: () => `
@@ -174,7 +174,7 @@ const resultTemplates = {
       </div>
       <div class="relationship-line"><span>Coordenação Maceió</span><b>→</b><span>João Ferreira</span><b>→</b><span>Carlos Santos</span><b>→</b><span>Maria José</span></div>
       <div class="tag-row" aria-label="Classificações baseadas nos fatos registrados"><span>#Maceió</span><span>#TabuleiroDoMartins</span><span>#ReuniaoTabuleiro2708</span><span>#CadastroPresencial</span><span>#ConsentimentoRegistrado</span></div>
-      <div class="result-actions"><button type="button" class="mini-button" data-open-dialog="record-dialog">${icon("i-users")} Abrir perfil sintético</button><button type="button" class="mini-button secondary" data-scroll-target="sala-situacao">${icon("i-map")} Ver visão agregada</button></div>
+      <div class="result-actions"><button type="button" class="mini-button" data-open-dialog="record-dialog">${icon("i-users")} Abrir perfil completo</button><button type="button" class="mini-button secondary" data-scroll-target="sala-situacao">${icon("i-map")} Ver visão agregada</button></div>
     </div>`,
 
   carreataReceived: () => `
@@ -203,7 +203,7 @@ const resultTemplates = {
         <li class="warning">${icon("i-warning")}<span>Identificação do veículo de som</span><small>obrigatório no template</small></li>
       </ul>
       <div class="result-callout">${icon("i-shield")}<span>Regra municipal configurada pelo jurídico · Maceió/AL · versão 2026.08.</span></div>
-      <div class="result-actions"><button type="button" class="mini-button" data-demo-next>${icon("i-plus")} Informar veículo na demo</button></div>
+      <div class="result-actions"><button type="button" class="mini-button" data-demo-next>${icon("i-plus")} Informar veículo</button></div>
     </div>`,
 
   carreataDrafting: () => `
@@ -229,12 +229,12 @@ const resultTemplates = {
         <li>${icon("i-map")}<span><strong>Operação · confirmar percurso</strong></span><small>48h antes</small></li>
       </ul>
       <div class="result-callout">${icon("i-activity")}<span>Sala de Situação: documentação gerada · assinatura pendente · protocolos pendentes · 91/120 veículos confirmados.</span></div>
-      <div class="result-actions"><button type="button" class="mini-button" data-open-dialog="document-dialog">${icon("i-file")} Abrir pacote demonstrativo</button><button type="button" class="mini-button secondary" data-action="event-proof">${icon("i-shield")} Simular comprovante</button></div>
+      <div class="result-actions"><button type="button" class="mini-button" data-open-dialog="document-dialog">${icon("i-file")} Abrir pacote documental</button><button type="button" class="mini-button secondary" data-action="event-proof">${icon("i-shield")} Anexar comprovante</button></div>
     </div>`,
 
   briefingReceived: () => `
     <div class="result-stage">
-      ${resultHead("Consulta gerencial", "Cruzando o dia da operação", "O PULSO busca mudanças, exceções e evidências antes de responder.", "Consultando 6 fontes", "info")}
+      ${resultHead("Consulta gerencial", "Cruzando o dia da operação", "O PULSO busca mudanças, exceções e evidências antes de responder.", "Analisando 6 dimensões", "info")}
       <div class="processing-list">
         ${processRow("i-users", "Pessoas e equipes", "Atividade e novos registros", "Concluído")}
         ${processRow("i-map", "Territórios", "Variação por município", "Concluído")}
@@ -274,7 +274,7 @@ const resultTemplates = {
         <li>${icon("i-clock")}<span>Tarefas por responsável</span><small>9 vencidas</small></li>
         <li>${icon("i-users")}<span>Usuários ativos da equipe</span><small>12 → 4</small></li>
       </ul>
-      <div class="result-actions"><button type="button" class="mini-button" data-demo-next>${icon("i-plus")} Criar tarefa na demo</button></div>
+      <div class="result-actions"><button type="button" class="mini-button" data-demo-next>${icon("i-plus")} Criar tarefa</button></div>
     </div>`,
 
   briefingTask: () => `
@@ -295,7 +295,7 @@ const resultTemplates = {
         <div class="propagation-item">${icon("i-users")}<div><strong>José</strong><small>Pendência adicionada</small></div></div>
         <div class="propagation-item">${icon("i-clock")}<div><strong>Briefing amanhã</strong><small>Cobrar retorno às 11h</small></div></div>
       </div>
-      <div class="audit-note">${icon("i-shield")}<span>Criada pelo usuário da demonstração às 22:03 · notificação simulada · ação reversível e auditável.</span></div>
+      <div class="audit-note">${icon("i-shield")}<span>Criada por usuário autorizado às 22:03 · notificação preparada · ação reversível e auditável.</span></div>
       <div class="result-actions"><button type="button" class="mini-button" data-scroll-target="sala-situacao">${icon("i-map")} Abrir Sala de Situação</button></div>
     </div>`,
 };
@@ -319,7 +319,7 @@ const scenarios = {
   },
   briefing: {
     steps: [
-      { breadcrumb: "Inteligência / Consulta", updated: "6 fontes · 22:00", messages: briefingMessages, result: "briefingReceived" },
+      { breadcrumb: "Inteligência / Consulta", updated: "6 dimensões · leitura diária", messages: briefingMessages, result: "briefingReceived" },
       { breadcrumb: "Inteligência / Hoje", updated: "Atualizado · 22:01", messages: [...briefingMessages, briefingSummaryMessage], result: "briefingSummary" },
       { breadcrumb: "Território / União dos Palmares", updated: "Evidências · 27–30/08", messages: [...briefingMessages, briefingSummaryMessage, ...briefingDrilldownMessages], result: "briefingDrilldown", requiresHuman: true },
       { breadcrumb: "Tarefas / Ação corretiva", updated: "Criada · 22:03", messages: [...briefingMessages, briefingSummaryMessage, ...briefingDrilldownMessages, ...briefingTaskMessages], result: "briefingTask" },
@@ -614,7 +614,7 @@ const documentPreviews = {
     <span>OFÍCIO Nº 014 / 2026</span>
     <h3>COMUNICAÇÃO PRÉVIA DE ATO DE CAMPANHA</h3>
     <p>À autoridade competente,</p>
-    <p>Comunicamos, para fins de organização e segurança, a realização de carreata demonstrativa no município de Maceió/AL, em 05 de setembro de 2026.</p>
+    <p>Comunicamos, para fins de organização e segurança, a realização de carreata no município de Maceió/AL, em 05 de setembro de 2026.</p>
     <dl><div><dt>Concentração</dt><dd>14h · Praça X</dd></div><div><dt>Saída</dt><dd>15h</dd></div><div><dt>Encerramento</dt><dd>18h</dd></div><div><dt>Estimativa</dt><dd>120 veículos</dd></div></dl>
     <p><strong>Percurso:</strong> Praça X → Avenida A → Avenida B → Rua C → Praça Y.</p>
     <div class="signature-line">Assinatura do responsável</div>`,
@@ -622,14 +622,14 @@ const documentPreviews = {
     <span>MINUTA Nº 015 / 2026 · APLICABILIDADE CONDICIONAL</span>
     <h3>COMUNICAÇÃO À JUSTIÇA ELEITORAL</h3>
     <p>À autoridade eleitoral competente,</p>
-    <p>Para o cenário em que houver custeio de combustível pela campanha, esta minuta organiza a comunicação prévia da carreata demonstrativa de 05 de setembro de 2026.</p>
-    <dl><div><dt>Município</dt><dd>Maceió/AL</dd></div><div><dt>Responsável</dt><dd>João Silva</dd></div><div><dt>Veículo de som</dt><dd>QWE-0A26 · fictícia</dd></div><div><dt>Situação</dt><dd>Validação jurídica pendente</dd></div></dl>
+    <p>Para o cenário em que houver custeio de combustível pela campanha, esta minuta organiza a comunicação prévia da carreata de 05 de setembro de 2026.</p>
+    <dl><div><dt>Município</dt><dd>Maceió/AL</dd></div><div><dt>Responsável</dt><dd>João Silva</dd></div><div><dt>Veículo de som</dt><dd>QWE-0A26</dd></div><div><dt>Situação</dt><dd>Validação jurídica pendente</dd></div></dl>
     <p><strong>Atenção:</strong> confirmar característica do custeio, destinatário e canal de protocolo antes da assinatura.</p>
     <div class="signature-line">Assinatura do responsável</div>`,
   percurso: `
     <span>ANEXO OPERACIONAL · VERSÃO 2026.08</span>
     <h3>DESCRIÇÃO OFICIAL DO PERCURSO</h3>
-    <p>Roteiro demonstrativo consolidado para conferência de operação, segurança e logística.</p>
+    <p>Roteiro consolidado para conferência de operação, segurança e logística.</p>
     <dl><div><dt>1 · Concentração</dt><dd>Praça X · 14h</dd></div><div><dt>2 · Saída</dt><dd>Praça X · 15h</dd></div><div><dt>3 · Trecho principal</dt><dd>Avenida A → Avenida B → Rua C</dd></div><div><dt>4 · Encerramento</dt><dd>Praça Y · até 18h</dd></div></dl>
     <p><strong>Pontos a validar:</strong> interdições previstas, apoio de trânsito, dispersão e rota alternativa.</p>
     <div class="signature-line">Confirmação da coordenação operacional</div>`,
@@ -682,22 +682,22 @@ function setupGlobalActions() {
         button.innerHTML = `${icon("i-check")} Ação criada · amanhã 11h`;
         button.disabled = true;
       }
-      showToast("Ação corretiva criada na demonstração e adicionada ao briefing de amanhã.");
+      showToast("Ação corretiva criada e adicionada ao briefing de amanhã.");
     } else if (action === "simulate-download") {
       showToast("Prévia consolidada gerada. Nenhum documento real foi protocolado.");
     } else if (action === "event-proof") {
       const button = event.target.closest("button");
       if (button) {
-        button.innerHTML = `${icon("i-calendar")} Simular encerramento`;
+        button.innerHTML = `${icon("i-calendar")} Encerrar evento`;
         button.dataset.action = "event-close";
       }
       const pmTask = $("#demo-result .task-list li:nth-child(3)");
       if (pmTask) pmTask.innerHTML = `${icon("i-check")}<span><strong>Mariana · protocolo na PM</strong></span><small>evidência · 10:14</small>`;
       const callout = $("#demo-result .result-callout");
-      if (callout && !$("#demo-result .proof-confirmation")) callout.insertAdjacentHTML("afterend", `<div class="audit-note proof-confirmation">${icon("i-shield")}<span><strong>PM: protocolado.</strong> Comprovante sintético reconhecido, vinculado ao evento e preservado na trilha.</span></div>`);
+      if (callout && !$("#demo-result .proof-confirmation")) callout.insertAdjacentHTML("afterend", `<div class="audit-note proof-confirmation">${icon("i-shield")}<span><strong>PM: protocolado.</strong> Comprovante reconhecido, vinculado ao evento e preservado na trilha.</span></div>`);
       const updated = $("#product-updated");
       if (updated) updated.textContent = "PM protocolada · evidência 10:14";
-      showToast("Comprovante sintético reconhecido e vinculado ao evento.");
+      showToast("Comprovante reconhecido e vinculado ao evento.");
     } else if (action === "event-close") {
       const button = event.target.closest("button");
       if (button) {
@@ -710,10 +710,10 @@ function setupGlobalActions() {
         status.innerHTML = `${icon("i-check")} Encerrado`;
       }
       const proof = $("#demo-result .proof-confirmation");
-      if (proof && !$("#demo-result .post-event-summary")) proof.insertAdjacentHTML("afterend", `<div class="extracted-grid post-event-summary"><div class="data-cell"><span>Veículos</span><strong>105 realizados</strong></div><div class="data-cell"><span>Ocorrências</span><strong>Nenhuma registrada</strong></div><div class="data-cell"><span>Evidências</span><strong>18 fotos vinculadas</strong></div><div class="data-cell"><span>Relatório</span><strong>Gerado · 18:12</strong></div></div><div class="audit-note">${icon("i-activity")}<span>Evento encerrado. Público, fotos, ocorrências e indicadores demonstrativos foram atualizados.</span></div>`);
+      if (proof && !$("#demo-result .post-event-summary")) proof.insertAdjacentHTML("afterend", `<div class="extracted-grid post-event-summary"><div class="data-cell"><span>Veículos</span><strong>105 realizados</strong></div><div class="data-cell"><span>Ocorrências</span><strong>Nenhuma registrada</strong></div><div class="data-cell"><span>Evidências</span><strong>18 fotos vinculadas</strong></div><div class="data-cell"><span>Relatório</span><strong>Gerado · 18:12</strong></div></div><div class="audit-note">${icon("i-activity")}<span>Evento encerrado. Público, fotos, ocorrências e indicadores foram atualizados.</span></div>`);
       const updated = $("#product-updated");
       if (updated) updated.textContent = "Encerrado · relatório 18:12";
-      showToast("Evento encerrado e relatório pós-evento gerado na demonstração.");
+      showToast("Evento encerrado e relatório pós-evento gerado.");
     }
   });
 
@@ -739,38 +739,173 @@ function setupGlobalActions() {
 function setupScopeForm() {
   const form = $("#scope-form");
   const summary = $("#scope-summary");
-  if (!form || !summary) return;
+  const steps = $$('[data-scope-step]', form);
+  const backButton = $('[data-scope-back]', form);
+  const nextButton = $('[data-scope-next]', form);
+  const submitButton = $('[data-scope-submit]', form);
+  const actions = $('.scope-actions', form);
+  const success = $('#scope-success', form);
+  const submitError = $('#scope-submit-error', form);
+  const progressLabel = $('#scope-step-label', form);
+  const progressDots = $$('.scope-progress i', form);
+  if (!form || !summary || !steps.length || !backButton || !nextButton || !submitButton || !success) return;
 
-  const update = () => {
-    const data = new FormData(form);
-    const cargo = data.get("cargo") || "Operação";
-    const modules = data.getAll("modules");
-    $("strong", summary).textContent = `${cargo} · ${modules.length} ${modules.length === 1 ? "módulo" : "módulos"}`;
-    $("p", summary).textContent = modules.length
-      ? `Roteiro guiado com ${modules.join(", ").toLowerCase()}.`
-      : "Selecione pelo menos um módulo para montar o roteiro.";
+  let currentStep = 0;
+  let diagnosisText = "";
+  let formStartedAt = Date.now();
+  const submitContent = submitButton.innerHTML;
+
+  const values = () => Object.fromEntries(new FormData(form).entries());
+
+  const renderStep = () => {
+    steps.forEach((step, index) => {
+      const active = index === currentStep;
+      step.hidden = !active;
+      step.classList.toggle("active", active);
+    });
+    if (progressLabel) progressLabel.textContent = `Pergunta ${currentStep + 1} de ${steps.length}`;
+    progressDots.forEach((dot, index) => dot.classList.toggle("active", index <= currentStep));
+    backButton.hidden = currentStep === 0;
+    nextButton.hidden = currentStep === steps.length - 1;
+    submitButton.hidden = currentStep !== steps.length - 1;
+    const heading = $("legend", steps[currentStep]);
+    window.setTimeout(() => heading?.focus?.({ preventScroll: true }), 30);
   };
 
-  form.addEventListener("change", update);
+  const validateStep = () => {
+    const step = steps[currentStep];
+    const required = $$('input[required]', step);
+    const radioNames = [...new Set(required.filter((input) => input.type === "radio").map((input) => input.name))];
+    for (const name of radioNames) {
+      if (!$(`input[name="${name}"]:checked`, step)) {
+        showToast("Escolha uma opção para continuar.");
+        $(`input[name="${name}"]`, step)?.focus();
+        return false;
+      }
+    }
+    for (const input of required.filter((item) => item.type !== "radio")) {
+      if (!input.checkValidity()) {
+        input.reportValidity();
+        return false;
+      }
+    }
+    return true;
+  };
+
+  const updateSummary = () => {
+    const data = values();
+    const title = data.cargo && data.alcance ? `${data.cargo} · ${data.alcance}` : "Pronto para personalizar";
+    const details = [data.equipe, data.prioridade].filter(Boolean).join(" · ");
+    $("strong", summary).textContent = title;
+    $("p", summary).textContent = details || "As respostas montam uma leitura inicial da operação.";
+  };
+
+  nextButton.addEventListener("click", () => {
+    if (!validateStep()) return;
+    currentStep = Math.min(steps.length - 1, currentStep + 1);
+    updateSummary();
+    renderStep();
+  });
+
+  backButton.addEventListener("click", () => {
+    currentStep = Math.max(0, currentStep - 1);
+    renderStep();
+  });
+
+  form.addEventListener("change", updateSummary);
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
-    const data = new FormData(form);
-    const cargo = data.get("cargo");
-    const modules = data.getAll("modules");
-    if (!modules.length) {
-      showToast("Selecione pelo menos um módulo para a demonstração.");
-      return;
-    }
-    const briefing = `Demonstração PULSO\nOperação: ${cargo}\nMódulos: ${modules.join(", ")}\nObjetivo: ver uma mensagem de campo virar dados, decisão e execução.`;
+    if (!validateStep()) return;
+    const data = values();
+    const profile = data.cargo === "Governador" ? "governador" : "deputado-estadual";
+    diagnosisText = [
+      "DIAGNÓSTICO PULSO",
+      `Nome: ${data.nome}`,
+      `WhatsApp: ${data.whatsapp}`,
+      data.email ? `E-mail: ${data.email}` : null,
+      `Operação: ${data.cargo}`,
+      `Alcance: ${data.alcance}`,
+      `Equipe: ${data.equipe}`,
+      `Prioridade: ${data.prioridade}`,
+      "Contato autorizado para conversar sobre este diagnóstico.",
+    ].filter(Boolean).join("\n");
+
+    if (submitError) submitError.hidden = true;
+    submitButton.disabled = true;
+    submitButton.setAttribute("aria-busy", "true");
+    submitButton.textContent = "Enviando…";
+
     try {
-      await navigator.clipboard.writeText(briefing);
-      showToast("Briefing da demonstração copiado.");
-    } catch {
-      showToast("Briefing preparado. A cópia automática não está disponível neste navegador.");
+      const response = await fetch("/api/interest", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...data,
+          consentimento: data.consentimento === "on",
+          profile,
+          pagePath: window.location.pathname,
+          startedAt: formStartedAt,
+          utm: Object.fromEntries(
+            [...new URLSearchParams(window.location.search).entries()]
+              .filter(([key]) => key.startsWith("utm_")),
+          ),
+        }),
+      });
+      const result = await response.json().catch(() => null);
+      if (!response.ok || !result?.success) {
+        throw new Error(result?.error || "Não foi possível enviar o diagnóstico.");
+      }
+    } catch (error) {
+      console.warn("Não foi possível enviar o diagnóstico:", error);
+      if (submitError) {
+        submitError.textContent = "Não conseguimos enviar agora. Confira sua conexão e tente novamente.";
+        submitError.hidden = false;
+      }
+      showToast("O diagnóstico não foi enviado. Tente novamente.");
+      return;
+    } finally {
+      submitButton.disabled = false;
+      submitButton.removeAttribute("aria-busy");
+      submitButton.innerHTML = submitContent;
     }
-    closeDialog($("#scope-dialog"));
+
+    steps.forEach((step) => { step.hidden = true; });
+    $(".scope-progress", form)?.setAttribute("hidden", "");
+    if (actions) actions.hidden = true;
+    success.hidden = false;
+    $("#scope-success-copy", success).textContent = `${data.nome}, a visão ${data.cargo === "Governador" ? "estadual" : "territorial"} combina melhor com o seu ponto de partida: ${data.prioridade.toLowerCase()}.`;
+    const panelLink = $("[data-open-matched-panel]", success);
+    if (panelLink) panelLink.href = `painel?perfil=${profile}`;
+    showToast("Diagnóstico enviado. A equipe já recebeu seu interesse.");
   });
-  update();
+
+  $("[data-copy-diagnosis]", success)?.addEventListener("click", async () => {
+    if (!diagnosisText) return;
+    try {
+      await navigator.clipboard.writeText(diagnosisText);
+      showToast("Diagnóstico copiado para compartilhar.");
+    } catch {
+      showToast("A cópia automática não está disponível neste navegador.");
+    }
+  });
+
+  $("#scope-dialog")?.addEventListener("close", () => {
+    window.setTimeout(() => {
+      form.reset();
+      currentStep = 0;
+      diagnosisText = "";
+      formStartedAt = Date.now();
+      success.hidden = true;
+      if (submitError) submitError.hidden = true;
+      $(".scope-progress", form)?.removeAttribute("hidden");
+      if (actions) actions.hidden = false;
+      updateSummary();
+      renderStep();
+    }, 180);
+  });
+
+  updateSummary();
+  renderStep();
 }
 
 const territoryProfiles = {
@@ -873,7 +1008,7 @@ function profileForTerritory(name, properties = {}) {
     insight: score < 70
       ? "O território apresenta redução de atividade e tarefas acumuladas; vale revisar responsáveis e agenda."
       : "O território opera dentro do esperado, com distribuição regular de atividades e responsáveis.",
-    source: "atividades, tarefas e acessos · dados demonstrativos",
+    source: "atividades, tarefas e acessos · últimos 4 dias",
   };
 }
 

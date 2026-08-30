@@ -20,8 +20,8 @@
   <link rel="icon" href="assets/pulso-mark.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="assets/pulso-app-icon-192.png">
   <link rel="preload" href="assets/generated/pulso-territory-hero.avif" as="image" type="image/avif" fetchpriority="high">
-  <link rel="stylesheet" href="pulso.css?v=11.0.0">
-  <script src="pulso.js?v=11.0.0" defer></script>
+  <link rel="stylesheet" href="pulso.css?v=12.0.0">
+  <script src="pulso.js?v=12.0.0" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
@@ -72,14 +72,14 @@
 
       <nav class="site-nav" id="site-nav" aria-label="Navegação principal">
         <a href="#demonstracao">Demonstração</a>
-        <a href="#sala-situacao">Sala de Situação</a>
+        <a href="painel">Painel executivo</a>
         <a href="#governanca">Governança</a>
         <a href="#implantacao">Implantação</a>
       </nav>
 
       <div class="header-actions">
-        <span class="demo-badge"><span aria-hidden="true"></span> Dados simulados</span>
-        <a class="button button-primary header-cta" href="#demonstracao">Ver em ação</a>
+        <span class="demo-badge"><span aria-hidden="true"></span> Ambiente executivo</span>
+        <a class="button button-primary header-cta" href="painel">Abrir painel</a>
         <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Abrir menu">
           <svg><use href="#i-menu"></use></svg>
         </button>
@@ -99,7 +99,7 @@
               <svg><use href="#i-play"></use></svg>
               Ver uma operação acontecer
             </a>
-            <a class="text-link light" href="#sala-situacao">Explorar a Sala de Situação <svg><use href="#i-arrow"></use></svg></a>
+            <a class="text-link light" href="painel">Explorar o painel executivo <svg><use href="#i-arrow"></use></svg></a>
           </div>
           <ul class="hero-trust" aria-label="Diferenciais da experiência">
             <li><svg><use href="#i-message"></use></svg> Entrada familiar</li>
@@ -158,7 +158,7 @@
           </div>
           <div class="preview-foot">
             <span><svg><use href="#i-spark"></use></svg> Recomendação com evidências</span>
-            <span>Demonstração · dados sintéticos</span>
+            <span>Visão executiva · 6 módulos</span>
           </div>
         </div>
       </div>
@@ -176,6 +176,35 @@
           <li><span class="journey-symbol"><svg><use href="#i-map"></use></svg><i>03</i></span><div><strong>Mapa + indicadores</strong><small>O território fica visível.</small></div></li>
           <li><span class="journey-symbol"><svg><use href="#i-command"></use></svg><i>04</i></span><div><strong>Comando</strong><small>Você sabe onde agir.</small></div></li>
         </ol>
+      </div>
+    </section>
+
+    <section class="role-showcase" aria-labelledby="role-showcase-title">
+      <div class="wrap role-showcase-grid">
+        <div class="role-showcase-copy">
+          <span class="eyebrow dark"><span></span> Painéis por nível de decisão</span>
+          <h2 id="role-showcase-title">Cada comando enxerga<br><em>o que precisa decidir.</em></h2>
+          <p>O mesmo trabalho de campo ganha leituras diferentes para quem governa a operação estadual e para quem cuida de uma base territorial mais próxima.</p>
+          <button class="text-link dark" type="button" data-open-dialog="scope-dialog">Descobrir a visão ideal para sua operação <svg><use href="#i-arrow"></use></svg></button>
+        </div>
+        <div class="role-cards">
+          <a class="role-card governor" href="painel?perfil=governador">
+            <span class="role-icon"><svg><use href="#i-command"></use></svg></span>
+            <span class="role-label">Visão estadual</span>
+            <h3>Governador</h3>
+            <p>Ritmo dos 102 municípios, coordenações regionais, eventos, gargalos e prioridades do dia.</p>
+            <ul><li>Mapa de atenção</li><li>Briefing do comando</li><li>Ações corretivas</li></ul>
+            <strong>Explorar painel <svg><use href="#i-arrow"></use></svg></strong>
+          </a>
+          <a class="role-card deputy" href="painel?perfil=deputado-estadual">
+            <span class="role-icon"><svg><use href="#i-network"></use></svg></span>
+            <span class="role-label">Visão de base</span>
+            <h3>Deputado Estadual</h3>
+            <p>Presença nos territórios, rede de lideranças, demandas, retornos e agenda de relacionamento.</p>
+            <ul><li>Rede territorial</li><li>Demandas abertas</li><li>Retornos pendentes</li></ul>
+            <strong>Explorar painel <svg><use href="#i-arrow"></use></svg></strong>
+          </a>
+        </div>
       </div>
     </section>
 
@@ -253,7 +282,7 @@
             <span id="demo-step-label">Passo 1 de 4</span>
             <div class="step-dots" id="demo-step-dots" aria-hidden="true"></div>
           </div>
-          <p><svg><use href="#i-shield"></use></svg> Pessoas, telefones, documentos e localizações desta demonstração são fictícios ou mascarados.</p>
+          <p><svg><use href="#i-shield"></use></svg> Pessoas, telefones, documentos e localizações permanecem protegidos e mascarados.</p>
         </div>
         <p class="sr-only" id="demo-announcer" aria-live="polite" aria-atomic="true"></p>
       </div>
@@ -386,7 +415,7 @@
         <div class="compliance-note">
           <div>
             <svg><use href="#i-warning"></use></svg>
-            <p><strong>Exemplo da carreata:</strong> a demonstração usa comunicação prévia mínima de 24 horas à Polícia Militar e, quando houver custeio de combustível, à Justiça Eleitoral. Requisitos adicionais dependem do evento e do município.</p>
+            <p><strong>No fluxo da carreata:</strong> a regra apresentada considera comunicação prévia mínima de 24 horas à Polícia Militar e, quando houver custeio de combustível, à Justiça Eleitoral. Requisitos adicionais dependem do evento e do município.</p>
           </div>
           <a href="https://www.tse.jus.br/comunicacao/noticias/2026/Julho/por-dentro-das-eleicoes-conheca-as-regras-estabelecidas-para-a-propaganda-eleitoral" target="_blank" rel="noopener noreferrer">Consultar fonte oficial do TSE <svg><use href="#i-external"></use></svg></a>
         </div>
@@ -399,7 +428,7 @@
           <span class="eyebrow light"><span></span> Implantação acompanhada</span>
           <h2>Software é só<br><em>metade da entrega.</em></h2>
           <p>O valor está em fazer a operação funcionar: organizar a base, desenhar os fluxos, configurar os territórios, treinar a equipe e transformar dados em rotina de decisão.</p>
-          <button class="button button-gold" type="button" data-open-dialog="scope-dialog">Montar um escopo de demonstração <svg><use href="#i-arrow"></use></svg></button>
+          <button class="button button-gold" type="button" data-open-dialog="scope-dialog">Fazer diagnóstico da operação <svg><use href="#i-arrow"></use></svg></button>
         </div>
 
         <div class="delivery-timeline">
@@ -424,10 +453,10 @@
           <h2>Veja sua campanha<br><em>dentro do PULSO.</em></h2>
         </div>
         <div>
-          <p>Uma demonstração guiada, construída sobre a realidade da sua operação — sem promessa genérica e sem software de prateleira.</p>
+          <p>Uma conversa objetiva, construída sobre a realidade da sua operação — sem promessa genérica e sem software de prateleira.</p>
           <div class="final-actions">
-            <button class="button button-primary" type="button" data-open-dialog="scope-dialog">Preparar demonstração <svg><use href="#i-arrow"></use></svg></button>
-            <button class="text-link dark" type="button" data-open-flow="briefing">Rever o momento “Como foi meu dia?”</button>
+            <button class="button button-primary" type="button" data-open-dialog="scope-dialog">Receber diagnóstico PULSO <svg><use href="#i-arrow"></use></svg></button>
+            <a class="text-link dark" href="painel">Abrir o painel executivo</a>
           </div>
         </div>
       </div>
@@ -440,14 +469,14 @@
         <img src="assets/pulso-mark.svg" alt="" width="38" height="38">
         <span class="brand-copy"><strong>PULSO</strong><small>Central de Operação e Inteligência</small></span>
       </a>
-      <p>Demonstração conceitual com dados sintéticos. Funcionalidades, integrações e regras são configuradas por projeto.</p>
-      <nav aria-label="Links do rodapé"><a href="#demonstracao">Demonstração</a><a href="#governanca">Governança</a><a href="#implantacao">Implantação</a></nav>
+      <p>Funcionalidades, integrações, territórios e regras são configurados para cada operação.</p>
+      <nav aria-label="Links do rodapé"><a href="painel">Painel</a><a href="#governanca">Governança</a><a href="#implantacao">Implantação</a></nav>
     </div>
   </footer>
 
   <dialog class="app-dialog record-dialog" id="record-dialog" aria-labelledby="record-dialog-title">
     <div class="dialog-head">
-      <div><span class="dialog-kicker">Pessoa · dados sintéticos</span><h2 id="record-dialog-title">Maria José da Silva</h2></div>
+      <div><span class="dialog-kicker">Pessoa · visão protegida</span><h2 id="record-dialog-title">Maria José da Silva</h2></div>
       <button type="button" class="dialog-close" data-close-dialog aria-label="Fechar"><svg><use href="#i-close"></use></svg></button>
     </div>
     <div class="dialog-body person-dialog-body">
@@ -474,7 +503,7 @@
 
   <dialog class="app-dialog document-dialog" id="document-dialog" aria-labelledby="document-dialog-title">
     <div class="dialog-head">
-      <div><span class="dialog-kicker">Pacote de documentos · demonstração</span><h2 id="document-dialog-title">Carreata Maceió — 05/09</h2></div>
+      <div><span class="dialog-kicker">Pacote de documentos · prévia</span><h2 id="document-dialog-title">Carreata Maceió — 05/09</h2></div>
       <button type="button" class="dialog-close" data-close-dialog aria-label="Fechar"><svg><use href="#i-close"></use></svg></button>
     </div>
     <div class="dialog-body document-body">
@@ -490,7 +519,7 @@
           <span>OFÍCIO Nº 014 / 2026</span>
           <h3>COMUNICAÇÃO PRÉVIA DE ATO DE CAMPANHA</h3>
           <p>À autoridade competente,</p>
-          <p>Comunicamos, para fins de organização e segurança, a realização de carreata demonstrativa no município de Maceió/AL, em 05 de setembro de 2026.</p>
+          <p>Comunicamos, para fins de organização e segurança, a realização de carreata no município de Maceió/AL, em 05 de setembro de 2026.</p>
           <dl><div><dt>Concentração</dt><dd>14h · Praça X</dd></div><div><dt>Saída</dt><dd>15h</dd></div><div><dt>Encerramento</dt><dd>18h</dd></div><div><dt>Estimativa</dt><dd>120 veículos</dd></div></dl>
           <p><strong>Percurso:</strong> Praça X → Avenida A → Avenida B → Rua C → Praça Y.</p>
           <div class="signature-line">Assinatura do responsável</div>
@@ -502,14 +531,43 @@
 
   <dialog class="app-dialog scope-dialog" id="scope-dialog" aria-labelledby="scope-dialog-title">
     <div class="dialog-head">
-      <div><span class="dialog-kicker">Preparar demonstração</span><h2 id="scope-dialog-title">Qual é a realidade da operação?</h2></div>
+      <div><span class="dialog-kicker">Diagnóstico PULSO</span><h2 id="scope-dialog-title">Onde o controle precisa começar?</h2></div>
       <button type="button" class="dialog-close" data-close-dialog aria-label="Fechar"><svg><use href="#i-close"></use></svg></button>
     </div>
     <form class="dialog-body scope-form" id="scope-form">
-      <fieldset><legend>Tipo de operação</legend><div class="choice-grid"><label><input type="radio" name="cargo" value="Deputado estadual" checked><span>Deputado estadual</span></label><label><input type="radio" name="cargo" value="Deputado federal"><span>Deputado federal</span></label><label><input type="radio" name="cargo" value="Senado"><span>Senado</span></label><label><input type="radio" name="cargo" value="Governo"><span>Governo</span></label></div></fieldset>
-      <fieldset><legend>O que você quer ver funcionando?</legend><div class="module-grid"><label><input type="checkbox" name="modules" value="Pessoas e relacionamentos" checked><span><svg><use href="#i-users"></use></svg><strong>Pessoas</strong><small>Cadastro, origem e histórico</small></span></label><label><input type="checkbox" name="modules" value="Território e mapa" checked><span><svg><use href="#i-map"></use></svg><strong>Território</strong><small>Mapa e atenção operacional</small></span></label><label><input type="checkbox" name="modules" value="Eventos e compliance" checked><span><svg><use href="#i-calendar"></use></svg><strong>Eventos</strong><small>Checklist, documentos e tarefas</small></span></label><label><input type="checkbox" name="modules" value="Inteligência gerencial" checked><span><svg><use href="#i-spark"></use></svg><strong>Inteligência</strong><small>Briefing, evidências e ação</small></span></label></div></fieldset>
-      <div class="scope-summary" id="scope-summary"><span>Demonstração sugerida</span><strong>Operação estadual · 4 módulos</strong><p>Roteiro de 75 minutos com cenário de campo, território, evento e briefing executivo.</p></div>
-      <div class="dialog-actions"><button class="button button-secondary" type="button" data-close-dialog>Agora não</button><button class="button button-primary" type="submit">Copiar briefing da demonstração <svg><use href="#i-arrow"></use></svg></button></div>
+      <div class="scope-progress"><span id="scope-step-label" role="status" aria-live="polite" aria-atomic="true">Pergunta 1 de 5</span><div aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div></div>
+
+      <section class="scope-step active" data-scope-step="0">
+        <fieldset><legend tabindex="-1"><span>01</span> Qual é a disputa?</legend><div class="choice-grid choice-grid-five"><label><input type="radio" name="cargo" value="Governador" required><span>Governador</span></label><label><input type="radio" name="cargo" value="Deputado estadual"><span>Deputado estadual</span></label><label><input type="radio" name="cargo" value="Deputado federal"><span>Deputado federal</span></label><label><input type="radio" name="cargo" value="Senado"><span>Senado</span></label><label><input type="radio" name="cargo" value="Outra operação"><span>Outra</span></label></div></fieldset>
+      </section>
+
+      <section class="scope-step" data-scope-step="1" hidden>
+        <fieldset><legend tabindex="-1"><span>02</span> Qual é o alcance territorial?</legend><div class="answer-list"><label><input type="radio" name="alcance" value="Até 10 municípios" required><span><svg><use href="#i-target"></use></svg><strong>Até 10 municípios</strong><small>Operação concentrada</small></span></label><label><input type="radio" name="alcance" value="De 11 a 30 municípios"><span><svg><use href="#i-map"></use></svg><strong>11 a 30 municípios</strong><small>Operação regional</small></span></label><label><input type="radio" name="alcance" value="De 31 a 60 municípios"><span><svg><use href="#i-layers"></use></svg><strong>31 a 60 municípios</strong><small>Operação multirregional</small></span></label><label><input type="radio" name="alcance" value="Todo o estado"><span><svg><use href="#i-command"></use></svg><strong>Todo o estado</strong><small>Comando estadual</small></span></label></div></fieldset>
+      </section>
+
+      <section class="scope-step" data-scope-step="2" hidden>
+        <fieldset><legend tabindex="-1"><span>03</span> Quantas pessoas precisam operar ou coordenar?</legend><div class="choice-grid"><label><input type="radio" name="equipe" value="Até 25 pessoas" required><span>Até 25</span></label><label><input type="radio" name="equipe" value="De 26 a 100 pessoas"><span>26 a 100</span></label><label><input type="radio" name="equipe" value="De 101 a 300 pessoas"><span>101 a 300</span></label><label><input type="radio" name="equipe" value="Mais de 300 pessoas"><span>Mais de 300</span></label></div></fieldset>
+      </section>
+
+      <section class="scope-step" data-scope-step="3" hidden>
+        <fieldset><legend tabindex="-1"><span>04</span> O que mais precisa entrar no controle agora?</legend><div class="answer-list"><label><input type="radio" name="prioridade" value="Organizar pessoas e relacionamentos" required><span><svg><use href="#i-users"></use></svg><strong>Pessoas e relacionamentos</strong><small>Origem, responsáveis e histórico</small></span></label><label><input type="radio" name="prioridade" value="Enxergar o território"><span><svg><use href="#i-map"></use></svg><strong>Território</strong><small>Presença, ritmo e pontos de atenção</small></span></label><label><input type="radio" name="prioridade" value="Coordenar tarefas e eventos"><span><svg><use href="#i-calendar"></use></svg><strong>Tarefas e eventos</strong><small>Prazos, responsáveis e evidências</small></span></label><label><input type="radio" name="prioridade" value="Dar clareza ao comando"><span><svg><use href="#i-spark"></use></svg><strong>Inteligência executiva</strong><small>Resumo, exceções e próxima ação</small></span></label></div></fieldset>
+      </section>
+
+      <section class="scope-step" data-scope-step="4" hidden>
+        <fieldset><legend tabindex="-1"><span>05</span> Como podemos falar com você?</legend><div class="contact-grid"><label><span>Nome</span><input type="text" name="nome" autocomplete="name" placeholder="Seu nome" required></label><label><span>WhatsApp</span><input type="tel" name="whatsapp" autocomplete="tel" inputmode="tel" placeholder="(82) 99999-9999" required></label><label class="contact-email"><span>E-mail</span><input type="email" name="email" autocomplete="email" placeholder="voce@campanha.com.br" required></label></div><input class="scope-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-label="Não preencher" aria-hidden="true"><label class="consent-check"><input type="checkbox" name="consentimento" required><span><svg><use href="#i-shield"></use></svg><span><strong>Quero conversar sobre o PULSO</strong><small>Autorizo a Transforme Tech a usar estes dados para entrar em contato sobre o diagnóstico. Posso revogar a qualquer momento. <a href="https://www.transformetech.com/privacidade" target="_blank" rel="noopener noreferrer">Privacidade</a></small></span></span></label></fieldset>
+        <div class="scope-summary" id="scope-summary"><span>Seu diagnóstico</span><strong>Pronto para personalizar</strong><p>As respostas montam uma leitura inicial da operação.</p></div>
+        <p class="scope-submit-error" id="scope-submit-error" role="alert" aria-live="assertive" hidden></p>
+      </section>
+
+      <section class="scope-success" id="scope-success" hidden aria-live="polite">
+        <span class="success-mark"><svg><use href="#i-check"></use></svg></span>
+        <span class="dialog-kicker">Diagnóstico recebido</span>
+        <h3>A conversa já tem um ponto de partida.</h3>
+        <p id="scope-success-copy">Seu interesse e o contexto da operação chegaram à equipe.</p>
+        <div class="scope-success-actions"><button class="button button-secondary" type="button" data-copy-diagnosis>Copiar diagnóstico</button><a class="button button-primary" href="painel" data-open-matched-panel>Ver painel recomendado <svg><use href="#i-arrow"></use></svg></a></div>
+      </section>
+
+      <div class="dialog-actions scope-actions"><button class="button button-secondary" type="button" data-scope-back hidden>Voltar</button><span></span><button class="button button-primary" type="button" data-scope-next>Continuar <svg><use href="#i-arrow"></use></svg></button><button class="button button-primary" type="submit" data-scope-submit hidden>Enviar diagnóstico <svg><use href="#i-arrow"></use></svg></button></div>
     </form>
   </dialog>
 

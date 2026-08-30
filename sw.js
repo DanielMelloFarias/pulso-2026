@@ -1,9 +1,12 @@
-const CACHE_NAME = "pulso-v11";
+const CACHE_NAME = "pulso-v12";
 const APP_SHELL = [
   "./",
   "./index.html",
-  "./pulso.css?v=11.0.0",
-  "./pulso.js?v=11.0.0",
+  "./pulso.css?v=12.0.0",
+  "./pulso.js?v=12.0.0",
+  "./painel.html",
+  "./painel-app.css?v=12.0.0",
+  "./painel-app.js?v=12.0.0",
   "./manifest.json",
   "./assets/pulso-mark.svg",
   "./assets/pulso-app-icon-192.png",
@@ -39,7 +42,9 @@ self.addEventListener("fetch", (event) => {
   if (isNavigation) {
     event.respondWith(
       fetch(event.request)
-        .catch(() => caches.match("./index.html"))
+        .catch(() => requestUrl.pathname.replace(/\/$/, "").endsWith("/painel")
+          ? caches.match("./painel.html")
+          : caches.match("./index.html"))
     );
     return;
   }
