@@ -75,7 +75,7 @@ module.exports = async function interestHandler(request, response) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "User-Agent": "PULSO/1.0 (+https://demo-eleitor-gabinete.vercel.app)",
+        "User-Agent": "PULSO/1.0 (+https://pulso-2026.vercel.app)",
       },
       body: JSON.stringify(payload),
     });

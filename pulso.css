@@ -496,10 +496,26 @@ h2 em {
 
 .hero-lead {
   max-width: 600px;
-  margin-top: 28px;
+  margin-top: 18px;
   color: #c2ced8;
   font-size: clamp(1rem, 1.5vw, 1.13rem);
   line-height: 1.7;
+}
+
+.hero-impact {
+  max-width: 590px;
+  margin-top: 28px;
+  padding-left: 17px;
+  border-left: 2px solid var(--gold);
+  color: var(--gold-2);
+  font-size: clamp(1rem, 1.35vw, 1.08rem);
+  line-height: 1.52;
+  text-wrap: balance;
+}
+
+.hero-impact strong {
+  color: var(--white);
+  font-weight: 700;
 }
 
 .hero-actions {
