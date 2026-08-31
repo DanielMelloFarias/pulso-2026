@@ -45,6 +45,8 @@ O símbolo PULSO transforma a letra `P` em um sinal que parte do campo e se expa
 
 ## Escopo da experiência
 
+O painel executivo possui visões específicas para Governador e Deputado Estadual, mapa dos 102 municípios, fila de tarefas com filtros e detalhes, agenda por período, prontidão de eventos, radar de demandas e leitura da rede. A seleção territorial preserva a visão estadual; o zoom só acontece por comando explícito.
+
 Os fluxos exibidos são uma prova de conceito de interface. WhatsApp, OCR, geocodificação, autenticação, banco de dados, protocolos e notificações reais dependem das integrações do projeto de implantação.
 
 Pessoas, telefones, documentos e localizações permanecem mascarados na apresentação. Documentos eleitorais são apresentados como rascunhos para validação jurídica; nenhuma ação externa é executada pela experiência.

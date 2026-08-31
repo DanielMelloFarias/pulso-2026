@@ -24,6 +24,10 @@
     "Marketing headlines may use Cormorant Garamond; application UI and data always use Inter.",
     "Presentation scenarios use neutral operational language and never imply a live integration; personal identifiers remain masked by default.",
     "AI conclusions show source and time, require human approval for consequential actions and never infer political preference.",
-    "Responsive layouts recompose into readable surfaces; phone mocks are never scaled down into illegibility."
+    "Responsive layouts recompose into readable surfaces; phone mocks are never scaled down into illegibility.",
+    "Executive modules use restrained territorial shells: cool green for operation, warm sand for agenda and blue-slate for relationships; data cards remain solid and high-contrast.",
+    "The selected municipality is expressed by its actual polygon and label only. Keyboard focus reinforces that same shape and never draws a rectangular SVG bounding box.",
+    "Map selection preserves the statewide frame. Zoom is a separate, explicit action so a click never destroys geographic context.",
+    "Hover, focus and selected states preserve at least WCAG AA text contrast and mobile controls target at least 44 pixels."
   ]
 }

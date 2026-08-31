@@ -1,12 +1,12 @@
-const CACHE_NAME = "pulso-v13";
+const CACHE_NAME = "pulso-v14";
 const APP_SHELL = [
   "./",
   "./index.html",
   "./pulso.css?v=13.0.0",
   "./pulso.js?v=13.0.0",
   "./painel.html",
-  "./painel-app.css?v=13.0.0",
-  "./painel-app.js?v=13.0.0",
+  "./painel-app.css?v=14.0.0",
+  "./painel-app.js?v=14.0.0",
   "./manifest.json",
   "./assets/pulso-mark.svg",
   "./assets/pulso-mark-inverse.svg",

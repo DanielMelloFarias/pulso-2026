@@ -25,7 +25,7 @@ const PROFILE_DATA = {
       { icon: "users", label: "Integrantes ativos", value: "163", note: "em 28 municípios", tone: "success" },
       { icon: "user-plus", label: "Registros qualificados", value: "743", note: "+18% sobre a média diária", tone: "" },
       { icon: "activity", label: "Ações no território", value: "214", note: "11 eventos concluídos", tone: "" },
-      { icon: "clock", label: "Pendências críticas", value: "23", note: "3 responsáveis concentram 61%", tone: "attention" }
+      { icon: "clock", label: "Tarefas atrasadas", value: "23", note: "3 responsáveis concentram 61%", tone: "attention" }
     ],
     metricLabels: ["Equipes cadastradas", "Ativas hoje", "Demandas abertas", "Tarefas vencidas"],
     performanceKicker: "Leitura regional",
@@ -201,7 +201,7 @@ const PROFILE_DATA = {
         signals: "relacionamentos, demandas e agenda · últimos 7 dias", levels: { presenca: "high", relacoes: "high", pendencias: "low" }
       },
       "Arapiraca": {
-        state: "success", delta: "+18%", deltaText: "de atividade da rede nesta semana", metrics: ["1.946", "64", "9", "4"],
+        state: "success", delta: "+18%", deltaText: "de atividade da rede nesta semana", metrics: ["1.946", "64", "9", "1"],
         insight: "As lideranças mantêm continuidade depois das agendas e os retornos estão distribuídos entre responsáveis.",
         signals: "relacionamentos, agenda e tarefas · últimos 7 dias", levels: { presenca: "high", relacoes: "high", pendencias: "mid" }
       },
@@ -216,12 +216,12 @@ const PROFILE_DATA = {
         signals: "relacionamentos e tarefas · últimos 7 dias", levels: { presenca: "mid", relacoes: "mid", pendencias: "high" }
       },
       "Rio Largo": {
-        state: "attention", delta: "−11%", deltaText: "de atividade desde a última agenda", metrics: ["648", "22", "3", "6"],
-        insight: "Três relações relevantes perderam continuidade e seis retornos ainda não têm encaminhamento.",
+        state: "attention", delta: "−11%", deltaText: "de atividade desde a última agenda", metrics: ["648", "22", "3", "2"],
+        insight: "Três relações relevantes perderam continuidade e dois retornos ainda não têm encaminhamento.",
         signals: "relacionamentos, tarefas e agenda · últimos 5 dias", levels: { presenca: "mid", relacoes: "low", pendencias: "low" }
       },
       "Pilar": {
-        state: "stable", delta: "+6%", deltaText: "de atividade na última semana", metrics: ["512", "18", "4", "2"],
+        state: "stable", delta: "+6%", deltaText: "de atividade na última semana", metrics: ["512", "18", "4", "1"],
         insight: "A pauta de infraestrutura ganhou volume e pode orientar a próxima escuta territorial.",
         signals: "demandas, agenda e relacionamentos · últimos 7 dias", levels: { presenca: "mid", relacoes: "mid", pendencias: "mid" }
       }
@@ -258,20 +258,215 @@ const PROFILE_DATA = {
   }
 };
 
+const PANEL_DETAIL_DATA = {
+  governador: {
+    defaultTerritory: "Maceió",
+    scopeLabel: "Alagoas · consolidado",
+    operationStats: [
+      { icon: "check", label: "Concluídas hoje", value: "186", note: "+14% sobre ontem", tone: "success" },
+      { icon: "activity", label: "Em andamento", value: "41", note: "12 vencem hoje", tone: "neutral" },
+      { icon: "warning", label: "Atrasadas", value: "23", note: "7 são críticas", tone: "attention" },
+      { icon: "target", label: "Dentro do prazo", value: "82%", note: "meta operacional: 90%", tone: "regular" }
+    ],
+    tasks: [
+      { id: "gov-uniao", icon: "warning", title: "Reorganizar a operação em União", detail: "União dos Palmares · José Silva", owner: "José Silva · Coordenação territorial", territory: "União dos Palmares", due: "Amanhã, 10h", status: "critical", priority: "Alta", tone: "alert", source: "Leitura PULSO", checklist: [1, 3], evidence: 2, updated: "há 18 min" },
+      { id: "gov-carreata-docs", icon: "file", title: "Validar documentos da carreata", detail: "Maceió · Jurídico", owner: "Jurídico", territory: "Maceió", due: "Hoje, 17h", status: "critical", priority: "Alta", tone: "alert", source: "Evento · Carreata Maceió", checklist: [4, 6], evidence: 5, updated: "há 9 min" },
+      { id: "gov-veiculos", icon: "route", title: "Confirmar veículos e carro de som", detail: "Maceió · Operação", owner: "Operação", territory: "Maceió", due: "Hoje, 18h", status: "today", priority: "Média", tone: "today", source: "Checklist do evento", checklist: [2, 4], evidence: 1, updated: "há 27 min" },
+      { id: "gov-briefing", icon: "spark", title: "Consolidar briefing do Agreste", detail: "Arapiraca · Inteligência", owner: "Inteligência", territory: "Arapiraca", due: "Amanhã, 8h", status: "scheduled", priority: "Média", tone: "neutral", source: "Briefing gerencial", checklist: [2, 3], evidence: 3, updated: "há 34 min" },
+      { id: "gov-equipes", icon: "check", title: "Distribuir equipes da Metropolitana", detail: "Maceió · Coordenação estadual", owner: "Coordenação estadual", territory: "Maceió", due: "Concluída às 16h12", status: "done", priority: "Normal", tone: "success", source: "Plano do dia", checklist: [4, 4], evidence: 4, updated: "há 52 min", completed: true }
+    ],
+    eventStats: [
+      { icon: "calendar", label: "Eventos amanhã", value: "7", note: "5 territórios" },
+      { icon: "warning", label: "Com pendência", value: "2", note: "decisão até 12h", tone: "attention" },
+      { icon: "file", label: "Documentação", value: "5/7", note: "pacotes revisados", tone: "regular" },
+      { icon: "activity", label: "Carreata Maceió", value: "72%", note: "prontidão geral", tone: "attention" }
+    ],
+    agendaDefault: "amanha",
+    agendaTotals: { hoje: 5, amanha: 7, semana: 19 },
+    agenda: [
+      { id: "gov-coordenacao-hoje", day: "hoje", dayLabel: "Hoje", time: "18:00", title: "Reunião de fechamento", detail: "Sala de situação · coordenação estadual", territory: "Maceió", owner: "Coordenação estadual", status: "Pronto", tone: "success", readiness: 100, checklist: ["Pauta consolidada", "Indicadores atualizados", "Responsáveis confirmados"] },
+      { id: "gov-briefing-hoje", day: "hoje", dayLabel: "Hoje", time: "20:30", title: "Briefing regional", detail: "Agreste · transmissão confirmada", territory: "Arapiraca", owner: "Inteligência", status: "Confirmado", tone: "success", readiness: 94, checklist: ["Dados consolidados", "Síntese territorial", "Link enviado"] },
+      { id: "gov-reuniao-amanha", day: "amanha", dayLabel: "Amanhã", time: "09:00", title: "Reunião de coordenação", detail: "Arapiraca · equipe confirmada", territory: "Arapiraca", owner: "Coordenação regional", status: "Pronto", tone: "success", readiness: 96, checklist: ["Local confirmado", "Equipe confirmada", "Pauta distribuída"] },
+      { id: "gov-carreata-amanha", day: "amanha", dayLabel: "Amanhã", time: "14:00", title: "Carreata Maceió", detail: "Assinatura e protocolo em acompanhamento", territory: "Maceió", owner: "João Silva", status: "2 pendências", tone: "alert", readiness: 72, checklist: ["Percurso confirmado", "91 de 120 veículos", "Assinatura pendente", "Protocolo PM pendente"] },
+      { id: "gov-encontro-amanha", day: "amanha", dayLabel: "Amanhã", time: "17:30", title: "Encontro regional", detail: "Palmeira dos Índios · 8 equipes", territory: "Palmeira dos Índios", owner: "Coordenação Agreste", status: "Preparação", tone: "neutral", readiness: 84, checklist: ["Local confirmado", "Equipes em confirmação", "Material separado"] },
+      { id: "gov-escuta-semana", day: "semana", dayLabel: "Sexta", time: "10:00", title: "Escuta temática", detail: "Penedo · saúde e infraestrutura", territory: "Penedo", owner: "Mobilização", status: "Confirmado", tone: "success", readiness: 88, checklist: ["Convidados confirmados", "Pauta preparada", "Registro designado"] },
+      { id: "gov-plenario-semana", day: "semana", dayLabel: "Sábado", time: "16:00", title: "Plenária territorial", detail: "Delmiro Gouveia · responsável pendente", territory: "Delmiro Gouveia", owner: "Coordenação Sertão", status: "Atenção", tone: "alert", readiness: 58, checklist: ["Local reservado", "Responsável pendente", "Logística em revisão"] }
+    ],
+    route: {
+      progress: 72,
+      progressLabel: "Carreata Maceió",
+      progressNote: "Documentação, logística e equipe",
+      stops: [
+        ["Antes das 10h", "Alinhar União dos Palmares com a coordenação territorial"],
+        ["Até 12h", "Confirmar responsáveis dos dois eventos com pendência"],
+        ["Fim do dia", "Revisar retomada nos municípios sem atividade recente"]
+      ],
+      note: "A ordem prioriza impacto territorial, prazo e concentração de pendências."
+    },
+    networkStats: [
+      { icon: "users", label: "Responsáveis ativos", value: "163", note: "71 com atividade hoje", tone: "success" },
+      { icon: "map", label: "Municípios ativos", value: "28", note: "+4 nesta semana" },
+      { icon: "message", label: "Demandas hoje", value: "84", note: "31% em saúde", tone: "regular" },
+      { icon: "clock", label: "Sem encaminhamento", value: "18", note: "6 vencem hoje", tone: "attention" }
+    ],
+    demands: [
+      { label: "Saúde", percent: 31, count: 26, trend: "+6%", tone: "up", insight: "Saúde cresce em Maceió e Arapiraca; 11 registros citam acesso a consultas e exames." },
+      { label: "Infraestrutura", percent: 26, count: 22, trend: "+3%", tone: "up", insight: "Infraestrutura se concentra em Maceió, Pilar e Rio Largo, com atenção para drenagem e iluminação." },
+      { label: "Emprego", percent: 18, count: 15, trend: "−2%", tone: "down", insight: "Emprego recuou no volume relativo, mas mantém presença em nove municípios do Agreste." },
+      { label: "Transporte", percent: 11, count: 9, trend: "+1%", tone: "stable", insight: "Transporte aparece associado a acesso regional e horários de linhas na Zona da Mata." },
+      { label: "Outros", percent: 14, count: 12, trend: "—", tone: "stable", insight: "Os demais registros se distribuem entre educação, segurança, assistência e serviços locais." }
+    ],
+    network: [
+      { avatar: "MC", name: "Metropolitana", territory: "Maceió", detail: "62 responsáveis com atividade", value: "+18%", tone: "success", focus: "A rede cresce, mas sete retornos estão concentrados em duas agendas de Maceió." },
+      { avatar: "AG", name: "Agreste", territory: "Arapiraca", detail: "41 responsáveis com atividade", value: "+31%", tone: "success", focus: "Arapiraca sustenta o melhor ritmo e distribui as tarefas entre mais responsáveis." },
+      { avatar: "ZM", name: "Zona da Mata", territory: "União dos Palmares", detail: "19 responsáveis com atividade", value: "−19%", tone: "attention", focus: "Quatro municípios precisam de retomada e nove tarefas seguem vencidas." }
+    ]
+  },
+  deputado: {
+    scopeLabel: "Base estadual · consolidado",
+    operationStats: [
+      { icon: "check", label: "Retornos concluídos", value: "42", note: "+9 desde ontem", tone: "success" },
+      { icon: "activity", label: "Em andamento", value: "18", note: "7 vencem hoje", tone: "neutral" },
+      { icon: "warning", label: "Pendentes", value: "17", note: "12 em Maceió", tone: "attention" },
+      { icon: "target", label: "Dentro do prazo", value: "86%", note: "meta territorial: 90%", tone: "regular" }
+    ],
+    tasks: [
+      { id: "dep-retornos-maceio", icon: "message", title: "Responder demandas de Maceió", detail: "Maceió · Relacionamento", owner: "Relacionamento", territory: "Maceió", due: "Amanhã, 11h", status: "critical", priority: "Alta", tone: "alert", source: "Demandas sem retorno", checklist: [3, 12], evidence: 6, updated: "há 12 min" },
+      { id: "dep-rota", icon: "route", title: "Confirmar rota territorial", detail: "Maceió, Rio Largo e Pilar · Operação", owner: "Operação", territory: "Maceió", due: "Hoje, 18h", status: "today", priority: "Alta", tone: "today", source: "Agenda territorial", checklist: [2, 4], evidence: 2, updated: "há 21 min" },
+      { id: "dep-liderancas", icon: "users", title: "Reatribuir retornos de lideranças", detail: "União dos Palmares · Coordenação", owner: "Coordenação territorial", territory: "União dos Palmares", due: "Hoje, 16h30", status: "critical", priority: "Alta", tone: "alert", source: "Rede de relacionamento", checklist: [1, 3], evidence: 3, updated: "há 8 min" },
+      { id: "dep-agenda", icon: "calendar", title: "Revisar agenda de lideranças", detail: "Arapiraca · Coordenação territorial", owner: "Coordenação territorial", territory: "Arapiraca", due: "Amanhã, 9h", status: "scheduled", priority: "Média", tone: "neutral", source: "Agenda", checklist: [2, 3], evidence: 1, updated: "há 42 min" },
+      { id: "dep-sintese", icon: "check", title: "Consolidar síntese de infraestrutura", detail: "Pilar · Inteligência", owner: "Inteligência", territory: "Pilar", due: "Concluída às 15h48", status: "done", priority: "Normal", tone: "success", source: "Radar de demandas", checklist: [4, 4], evidence: 5, updated: "há 1h", completed: true }
+    ],
+    eventStats: [
+      { icon: "calendar", label: "Compromissos", value: "3", note: "nas próximas 24h" },
+      { icon: "map", label: "Territórios", value: "4", note: "na rota da semana" },
+      { icon: "users", label: "Confirmações", value: "18", note: "lideranças no café", tone: "success" },
+      { icon: "route", label: "Rota territorial", value: "86%", note: "prontidão geral", tone: "regular" }
+    ],
+    agendaDefault: "hoje",
+    agendaTotals: { hoje: 3, amanha: 4, semana: 11 },
+    agenda: [
+      { id: "dep-cafe-hoje", day: "hoje", dayLabel: "Hoje", time: "08:30", title: "Café com lideranças", detail: "Tabuleiro do Martins · 18 confirmações", territory: "Maceió", owner: "Ana C.", status: "Pronto", tone: "success", readiness: 100, checklist: ["Local confirmado", "18 confirmações", "Pauta distribuída"] },
+      { id: "dep-rota-hoje", day: "hoje", dayLabel: "Hoje", time: "13:00", title: "Rota comunitária", detail: "Rio Largo e Pilar · logística em revisão", territory: "Rio Largo", owner: "Operação", status: "Acompanhar", tone: "neutral", readiness: 78, checklist: ["Veículo confirmado", "Roteiro definido", "Logística em revisão"] },
+      { id: "dep-escuta-hoje", day: "hoje", dayLabel: "Hoje", time: "18:30", title: "Escuta temática", detail: "Arapiraca · saúde e infraestrutura", territory: "Arapiraca", owner: "Relacionamento", status: "Confirmado", tone: "success", readiness: 92, checklist: ["Convidados confirmados", "Pauta preparada", "Registro designado"] },
+      { id: "dep-visita-amanha", day: "amanha", dayLabel: "Amanhã", time: "09:00", title: "Visita territorial", detail: "Penedo · duas lideranças locais", territory: "Penedo", owner: "Coordenação territorial", status: "Pronto", tone: "success", readiness: 90, checklist: ["Rota confirmada", "Lideranças avisadas", "Demandas revisadas"] },
+      { id: "dep-reuniao-amanha", day: "amanha", dayLabel: "Amanhã", time: "15:00", title: "Reunião de base", detail: "Maceió · retorno de demandas", territory: "Maceió", owner: "Relacionamento", status: "1 pendência", tone: "alert", readiness: 74, checklist: ["Local confirmado", "Síntese pendente", "Responsável definido"] },
+      { id: "dep-plenario-semana", day: "semana", dayLabel: "Sexta", time: "17:00", title: "Plenária de bairro", detail: "Benedito Bentes · mobilização local", territory: "Maceió", owner: "Mobilização", status: "Preparação", tone: "neutral", readiness: 69, checklist: ["Local reservado", "Convites em andamento", "Material em separação"] }
+    ],
+    route: {
+      progress: 86,
+      progressLabel: "Rota territorial",
+      progressNote: "Maceió, Rio Largo e Pilar",
+      stops: [
+        ["Maceió", "Responder demandas e alinhar lideranças locais"],
+        ["Rio Largo", "Retomar três relacionamentos sem atividade recente"],
+        ["Pilar", "Conectar a agenda às demandas de infraestrutura"]
+      ],
+      note: "A rota combina proximidade geográfica, retornos pendentes e agendas confirmadas."
+    },
+    networkStats: [
+      { icon: "network", label: "Lideranças ativas", value: "384", note: "71 com atividade hoje", tone: "success" },
+      { icon: "map", label: "Territórios", value: "26", note: "9 com agenda próxima" },
+      { icon: "message", label: "Demandas na semana", value: "196", note: "34% em saúde", tone: "regular" },
+      { icon: "clock", label: "Retornos pendentes", value: "17", note: "12 em Maceió", tone: "attention" }
+    ],
+    demands: [
+      { label: "Saúde", percent: 34, count: 67, trend: "+8%", tone: "up", insight: "Saúde lidera a escuta em Maceió e Arapiraca, especialmente consultas, exames e atenção básica." },
+      { label: "Infraestrutura", percent: 28, count: 55, trend: "+5%", tone: "up", insight: "Infraestrutura cresce em Pilar e Rio Largo, com drenagem, pavimentação e iluminação." },
+      { label: "Educação", percent: 17, count: 33, trend: "Estável", tone: "stable", insight: "Educação mantém volume estável e se concentra em três agendas comunitárias da semana." },
+      { label: "Emprego", percent: 12, count: 24, trend: "−2%", tone: "down", insight: "Emprego perdeu participação relativa, mas continua recorrente entre jovens da região metropolitana." },
+      { label: "Outros", percent: 9, count: 17, trend: "—", tone: "stable", insight: "Os demais registros reúnem transporte, segurança, assistência e serviços comunitários." }
+    ],
+    network: [
+      { avatar: "JS", name: "José S.", territory: "União dos Palmares", detail: "União dos Palmares · 3 retornos", value: "Hoje", tone: "attention", focus: "José concentra três retornos vencidos e sua equipe reduziu atividade nos últimos quatro dias." },
+      { avatar: "AC", name: "Ana C.", territory: "Maceió", detail: "Maceió · agenda confirmada", value: "+7 ações", tone: "success", focus: "Ana ampliou a mobilização no Tabuleiro do Martins e mantém todos os retornos dentro do prazo." },
+      { avatar: "MF", name: "Marcos F.", territory: "Arapiraca", detail: "Arapiraca · demanda encaminhada", value: "No prazo", tone: "success", focus: "Marcos distribuiu as demandas entre quatro responsáveis e mantém continuidade após a última agenda." }
+    ]
+  }
+};
+
+Object.keys(PANEL_DETAIL_DATA).forEach(function (role) {
+  Object.assign(PROFILE_DATA[role], PANEL_DETAIL_DATA[role]);
+});
+
 const SVG_NS = "http://www.w3.org/2000/svg";
 const MAP_FRAME = { width: 1000, height: 620, padding: 34 };
 const state = {
   role: "governador",
   layer: "atencao",
   territory: "União dos Palmares",
+  taskFilter: "all",
+  agendaView: "amanha",
+  demandIndex: 0,
+  networkIndex: 0,
   mapReady: false,
   mapData: null,
   mapSvg: null,
   mapFeatures: new Map(),
   viewBox: { x: 0, y: 0, width: MAP_FRAME.width, height: MAP_FRAME.height },
   createdActions: { governador: [], deputado: [] },
+  taskCompletion: { governador: {}, deputado: {} },
   toastTimer: null
 };
+
+const RESTORED_TASK_ICONS = new Set(["activity", "calendar", "check", "clock", "file", "message", "route", "spark", "users", "warning"]);
+const RESTORED_TASK_STATUS = new Set(["critical", "today", "scheduled"]);
+
+function isPlainObject(value) {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return false;
+  const prototype = Object.getPrototypeOf(value);
+  return prototype === Object.prototype || prototype === null;
+}
+
+function cleanString(value, maximum, fallback) {
+  if (typeof value !== "string") return fallback;
+  const normalized = value.replace(/[\u0000-\u001f\u007f]/g, " ").replace(/\s+/g, " ").trim();
+  return normalized ? normalized.slice(0, maximum) : fallback;
+}
+
+function normalizedChecklist(value) {
+  const rawDone = Array.isArray(value) ? Number(value[0]) : 0;
+  const rawTotal = Array.isArray(value) ? Number(value[1]) : 1;
+  const total = Number.isFinite(rawTotal) ? Math.max(1, Math.min(100, Math.trunc(rawTotal))) : 1;
+  const done = Number.isFinite(rawDone) ? Math.max(0, Math.min(total, Math.trunc(rawDone))) : 0;
+  return [done, total];
+}
+
+function sanitizeRestoredAction(item, role) {
+  if (!isPlainObject(item)) return null;
+  const id = cleanString(item.id, 80, "");
+  const title = cleanString(item.title, 180, "");
+  if (!new RegExp("^created-" + role + "-[0-9]{6,}$").test(id) || !title) return null;
+  const territory = cleanString(item.territory, 100, "Maceió");
+  const owner = cleanString(item.owner, 100, "Coordenação territorial");
+  const status = RESTORED_TASK_STATUS.has(item.status) ? item.status : "scheduled";
+  return {
+    id: id,
+    icon: RESTORED_TASK_ICONS.has(item.icon) ? item.icon : "clock",
+    title: title,
+    detail: territory + " · " + owner,
+    owner: owner,
+    territory: territory,
+    due: cleanString(item.due, 80, "Prazo a definir"),
+    status: status,
+    priority: cleanString(item.priority, 30, "Média"),
+    tone: status === "critical" ? "alert" : status === "today" ? "today" : "neutral",
+    source: cleanString(item.source, 80, "Criação manual"),
+    checklist: normalizedChecklist(item.checklist),
+    evidence: Number.isFinite(Number(item.evidence)) ? Math.max(0, Math.min(999, Math.trunc(Number(item.evidence)))) : 0,
+    updated: cleanString(item.updated, 40, "agora"),
+    created: true
+  };
+}
+
+function sanitizeCompletionMap(value) {
+  const clean = {};
+  if (!isPlainObject(value)) return clean;
+  Object.entries(value).forEach(function (entry) {
+    if (/^[a-z0-9-]{1,100}$/.test(entry[0]) && typeof entry[1] === "boolean") clean[entry[0]] = entry[1];
+  });
+  return clean;
+}
 
 function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, function (character) {
@@ -306,28 +501,117 @@ function renderKpis() {
   }).join("");
 }
 
+function renderStatStrip(selector, items) {
+  const container = $(selector);
+  if (!container) return;
+  container.innerHTML = items.map(function (item) {
+    return '<article class="module-stat ' + escapeHtml(item.tone || "neutral") + '"><span class="module-stat-icon">' + icon(item.icon || "activity") + '</span><div><span>' + escapeHtml(item.label) + '</span><strong>' + escapeHtml(item.value) + '</strong><small>' + escapeHtml(item.note) + '</small></div></article>';
+  }).join("");
+}
+
+function allTasks() {
+  return state.createdActions[state.role].concat(profile().tasks);
+}
+
+function isTaskDone(item) {
+  const completion = isPlainObject(state.taskCompletion[state.role]) ? state.taskCompletion[state.role] : {};
+  if (Object.prototype.hasOwnProperty.call(completion, item.id)) return completion[item.id];
+  return Boolean(item.completed || item.status === "done");
+}
+
+function taskVisualStatus(item, done) {
+  if (done) return "done";
+  if (item.status === "done") return "scheduled";
+  return RESTORED_TASK_STATUS.has(item.status) ? item.status : "scheduled";
+}
+
+function taskDueLabel(item, done) {
+  if (!done && item.status === "done") return "Prazo a redefinir";
+  return cleanString(item.due, 80, "Prazo a definir");
+}
+
+function taskChecklist(item, done) {
+  const checklist = normalizedChecklist(item.checklist);
+  return done ? [checklist[1], checklist[1]] : checklist;
+}
+
+function renderOperationSummary() {
+  const baseItems = profile().tasks;
+  const createdItems = state.createdActions[state.role];
+  const completionDelta = allTasks().reduce(function (total, item) {
+    const baseline = Boolean(item.completed || item.status === "done");
+    return total + (isTaskDone(item) ? 1 : 0) - (baseline ? 1 : 0);
+  }, 0);
+  const resolvedCritical = baseItems.filter(function (item) { return item.status === "critical" && isTaskDone(item); }).length;
+  const stats = profile().operationStats.map(function (item, index) {
+    const copy = Object.assign({}, item);
+    const numeric = Number.parseInt(String(item.value), 10);
+    if (index === 0 && Number.isFinite(numeric)) copy.value = String(numeric + completionDelta);
+    if (index === 1 && Number.isFinite(numeric)) copy.value = String(Math.max(0, numeric + createdItems.length - completionDelta));
+    if (index === 2 && Number.isFinite(numeric)) copy.value = String(Math.max(0, numeric - resolvedCritical));
+    return copy;
+  });
+  renderStatStrip("#operation-summary", stats);
+}
+
 function renderPerformance() {
   const data = profile();
   setText("#performance-kicker", data.performanceKicker);
   setText("#performance-title", data.performanceTitle);
   $("#performance-list").innerHTML = data.performance.map(function (item) {
-    return '<div class="performance-row ' + escapeHtml(item.tone) + '"><div><strong>' + escapeHtml(item.name) + '</strong><small>' + escapeHtml(item.note) + '</small></div><span class="progress-track" aria-label="Índice ' + item.score + ' de 100"><i style="--progress:' + item.score + '%"></i></span><span class="performance-value">' + escapeHtml(item.delta) + '</span></div>';
+    return '<article class="performance-row ' + escapeHtml(item.tone) + '"><div><strong>' + escapeHtml(item.name) + '</strong><small>' + escapeHtml(item.note) + '</small></div><span class="progress-track" role="progressbar" aria-label="Índice operacional de ' + escapeHtml(item.name) + '" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' + item.score + '"><i style="--progress:' + item.score + '%"></i></span><span class="performance-value"><strong>' + escapeHtml(item.delta) + '</strong><small>' + item.score + '/100</small></span></article>';
   }).join("");
 }
 
 function renderTasks() {
-  const items = state.createdActions[state.role].concat(profile().tasks);
-  $("#task-list").innerHTML = items.map(function (item) {
+  const items = allTasks();
+  const filtered = items.filter(function (item) {
+    const done = isTaskDone(item);
+    if (state.taskFilter === "critical") return item.status === "critical" && !done;
+    if (state.taskFilter === "today") return item.status === "today" && !done;
+    if (state.taskFilter === "done") return done;
+    return true;
+  });
+  $$('[data-task-filter]').forEach(function (button) {
+    const active = button.dataset.taskFilter === state.taskFilter;
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-pressed", String(active));
+  });
+  setText("#task-count", filtered.length + (filtered.length === 1 ? " destaque" : " destaques"));
+  const criticalCount = items.filter(function (item) { return item.status === "critical" && !isTaskDone(item); }).length;
+  const health = $("#task-health");
+  health.className = "status-pill " + (criticalCount ? "alert" : "success");
+  health.innerHTML = "<i></i>" + (criticalCount ? criticalCount + " críticas na fila" : "Fila em dia");
+  if (!filtered.length) {
+    $("#task-list").innerHTML = '<div class="module-empty">' + icon("check") + '<strong>Nenhuma tarefa neste filtro</strong><span>A fila está limpa para este recorte.</span></div>';
+    return;
+  }
+  $("#task-list").innerHTML = filtered.map(function (item) {
+    const done = isTaskDone(item);
+    const status = taskVisualStatus(item, done);
+    const statusLabel = done ? "Concluída" : item.status === "done" ? "Reaberta" : status === "critical" ? "Prioridade alta" : status === "today" ? "Vence hoje" : "Programada";
     const created = item.created ? " created" : "";
-    return '<div class="task-item' + created + '"><span class="task-status ' + escapeHtml(item.tone || "") + '">' + icon(item.icon || "check") + '</span><div><strong>' + escapeHtml(item.title) + '</strong><small>' + escapeHtml(item.detail) + '</small></div><span class="task-due">' + escapeHtml(item.due) + '</span></div>';
+    const checklist = taskChecklist(item, done);
+    const evidence = Number(item.evidence || 0);
+    const stateIcon = done ? "check" : status === "critical" ? "warning" : status === "today" ? "clock" : item.icon || "activity";
+    return '<article class="task-item task-' + escapeHtml(status) + created + '" role="listitem"><button class="task-check" type="button" data-task-toggle="' + escapeHtml(item.id) + '" aria-pressed="' + String(done) + '" aria-label="Revisar ' + (done ? "reabertura" : "conclusão") + ' da tarefa: ' + escapeHtml(item.title) + '">' + icon(stateIcon) + '</button><button class="task-main" type="button" data-task-open="' + escapeHtml(item.id) + '"><span class="task-title-line"><strong>' + escapeHtml(item.title) + '</strong><span class="task-priority ' + escapeHtml(status) + '">' + escapeHtml(statusLabel) + '</span></span><small>' + escapeHtml(item.detail) + '</small><span class="task-meta"><span>' + escapeHtml(item.source || "Operação") + '</span><span>' + checklist[0] + '/' + checklist[1] + ' etapas</span><span>' + evidence + (evidence === 1 ? ' evidência' : ' evidências') + '</span></span></button><div class="task-side"><span class="task-due ' + escapeHtml(status) + '">' + escapeHtml(taskDueLabel(item, done)) + '</span><button class="task-open" type="button" data-task-open="' + escapeHtml(item.id) + '" aria-label="Abrir detalhes de ' + escapeHtml(item.title) + '">' + icon("chevron") + '</button></div></article>';
   }).join("");
 }
 
 function renderAgenda() {
   const data = profile();
-  setText("#agenda-title", data.agendaTitle);
-  $("#agenda-list").innerHTML = data.agenda.map(function (item) {
-    return '<div class="agenda-item"><span class="agenda-time">' + escapeHtml(item.time) + '</span><div><strong>' + escapeHtml(item.title) + '</strong><small>' + escapeHtml(item.detail) + '</small></div><span class="status-pill ' + escapeHtml(item.tone) + '"><i></i>' + escapeHtml(item.status) + '</span></div>';
+  const items = state.agendaView === "semana" ? data.agenda : data.agenda.filter(function (item) { return item.day === state.agendaView; });
+  const total = data.agendaTotals[state.agendaView];
+  const periodLabel = state.agendaView === "hoje" ? "hoje" : state.agendaView === "amanha" ? "amanhã" : "nos próximos 7 dias";
+  setText("#agenda-title", items.length + (items.length === 1 ? " destaque" : " destaques") + " de " + total + " eventos");
+  setText("#agenda-count", total + " " + periodLabel);
+  $$('[data-agenda-view]').forEach(function (button) {
+    const active = button.dataset.agendaView === state.agendaView;
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-pressed", String(active));
+  });
+  $("#agenda-list").innerHTML = items.map(function (item) {
+    return '<button class="agenda-item" type="button" data-event-open="' + escapeHtml(item.id) + '"><span class="agenda-time"><small>' + escapeHtml(item.dayLabel) + '</small><strong>' + escapeHtml(item.time) + '</strong></span><div class="agenda-copy"><strong>' + escapeHtml(item.title) + '</strong><small>' + escapeHtml(item.detail) + '</small><span class="event-readiness"><span><i style="--progress:' + item.readiness + '%"></i></span><small>' + item.readiness + '% pronta</small></span></div><span class="status-pill ' + escapeHtml(item.tone) + '"><i></i>' + escapeHtml(item.status) + '</span>' + icon("chevron", "agenda-arrow") + '</button>';
   }).join("");
 }
 
@@ -335,7 +619,7 @@ function renderRoute() {
   const data = profile();
   setText("#route-kicker", data.routeKicker);
   setText("#route-title", data.routeTitle);
-  $("#route-content").innerHTML = '<div class="route-path">' + data.route.stops.map(function (stop) {
+  $("#route-content").innerHTML = '<div class="route-readiness"><div><span>Prontidão em foco</span><strong>' + escapeHtml(data.route.progressLabel) + '</strong><small>' + escapeHtml(data.route.progressNote) + '</small></div><b>' + data.route.progress + '%</b></div><span class="readiness-track" role="progressbar" aria-label="Prontidão de ' + escapeHtml(data.route.progressLabel) + '" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' + data.route.progress + '"><i style="--progress:' + data.route.progress + '%"></i></span><div class="route-path">' + data.route.stops.map(function (stop) {
     return '<div class="route-stop"><strong>' + escapeHtml(stop[0]) + '</strong><small>' + escapeHtml(stop[1]) + '</small></div>';
   }).join("") + '</div><div class="route-note">' + escapeHtml(data.route.note) + '</div>';
 }
@@ -343,18 +627,24 @@ function renderRoute() {
 function renderDemands() {
   const data = profile();
   setText("#demand-title", data.demandTitle);
-  $("#demand-bars").innerHTML = data.demands.map(function (item) {
-    return '<div class="demand-row"><span>' + escapeHtml(item[0]) + '</span><span class="demand-track"><i style="--value:' + item[1] + '%"></i></span><strong>' + item[1] + '%</strong></div>';
+  $("#demand-bars").innerHTML = data.demands.map(function (item, index) {
+    const active = index === state.demandIndex;
+    return '<button class="demand-row ' + (active ? "is-selected" : "") + '" type="button" data-demand-index="' + index + '" aria-pressed="' + String(active) + '"><span class="demand-label"><strong>' + escapeHtml(item.label) + '</strong><small>' + item.count + ' registros</small></span><span class="demand-track" role="progressbar" aria-label="Participação de ' + escapeHtml(item.label) + '" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' + item.percent + '"><i style="--value:' + item.percent + '%"></i></span><strong class="demand-percent">' + item.percent + '%</strong><span class="demand-trend ' + escapeHtml(item.tone) + '">' + escapeHtml(item.trend) + '</span></button>';
   }).join("");
+  const selected = data.demands[state.demandIndex] || data.demands[0];
+  $("#demand-insight").innerHTML = '<span>' + icon("spark") + ' Leitura da pauta</span><strong>' + escapeHtml(selected.label) + '</strong><p>' + escapeHtml(selected.insight) + '</p><button type="button" data-demand-action="' + escapeHtml(selected.label) + '">Criar encaminhamento' + icon("arrow") + '</button>';
 }
 
 function renderNetwork() {
   const data = profile();
   setText("#network-kicker", data.networkKicker);
   setText("#network-title", data.networkTitle);
-  $("#network-list").innerHTML = data.network.map(function (item) {
-    return '<div class="network-item"><span class="network-avatar">' + escapeHtml(item.avatar) + '</span><div><strong>' + escapeHtml(item.name) + '</strong><small>' + escapeHtml(item.detail) + '</small></div><span class="network-value">' + escapeHtml(item.value) + '</span></div>';
+  $("#network-list").innerHTML = data.network.map(function (item, index) {
+    const active = index === state.networkIndex;
+    return '<button class="network-item ' + (active ? "is-selected" : "") + '" type="button" data-network-index="' + index + '" aria-pressed="' + String(active) + '"><span class="network-avatar">' + escapeHtml(item.avatar) + '</span><span class="network-copy"><strong>' + escapeHtml(item.name) + '</strong><small>' + escapeHtml(item.detail) + '</small></span><span class="network-value ' + escapeHtml(item.tone || "neutral") + '">' + escapeHtml(item.value) + '</span>' + icon("chevron", "network-arrow") + '</button>';
   }).join("");
+  const selected = data.network[state.networkIndex] || data.network[0];
+  $("#network-focus").innerHTML = '<div class="network-chain" aria-label="Estrutura da rede"><span>Coordenação</span><i>→</i><span>Liderança</span><i>→</i><span>Equipe</span><i>→</i><span>Campo</span></div><span class="network-focus-kicker">' + icon("spark") + ' Foco recomendado · ' + escapeHtml(selected.name) + '</span><p>' + escapeHtml(selected.focus) + '</p><button type="button" data-network-action="' + escapeHtml(selected.name) + '" data-network-territory="' + escapeHtml(selected.territory || state.territory) + '">Criar retorno' + icon("arrow") + '</button>';
 }
 
 function renderPrompts() {
@@ -368,6 +658,10 @@ function renderRole(announce) {
   const data = profile();
   state.layer = data.defaultLayer;
   state.territory = data.defaultTerritory;
+  state.taskFilter = "all";
+  state.agendaView = data.agendaDefault;
+  state.demandIndex = 0;
+  state.networkIndex = 0;
   document.documentElement.dataset.profile = state.role;
   document.title = "PULSO — " + data.topbar;
   setText("#topbar-role", data.topbar);
@@ -379,6 +673,9 @@ function renderRole(announce) {
   setText("#sidebar-insight", data.sidebarInsight);
   setText("#decision-title", data.decisionTitle);
   setText("#decision-copy", data.decisionCopy);
+  ["#operation-scope", "#agenda-scope", "#network-scope"].forEach(function (selector) {
+    $(selector).innerHTML = "<i></i>" + escapeHtml(data.scopeLabel);
+  });
 
   $$('[data-role]').forEach(function (button) {
     const active = button.dataset.role === state.role;
@@ -387,6 +684,9 @@ function renderRole(announce) {
   });
 
   renderKpis();
+  renderOperationSummary();
+  renderStatStrip("#event-summary", data.eventStats);
+  renderStatStrip("#network-summary", data.networkStats);
   renderPerformance();
   renderTasks();
   renderAgenda();
@@ -430,6 +730,13 @@ function renderLayerSwitch() {
 function territoryLevel(name) {
   const configured = profile().territories[name];
   if (configured && configured.levels[state.layer]) return configured.levels[state.layer];
+  if (state.role === "governador" && state.layer === "atencao") {
+    const priorities = new Set(["União dos Palmares", "Delmiro Gouveia", "Rio Largo", "Santana do Ipanema"]);
+    const watch = new Set(["Maceió", "São Miguel dos Campos", "Coruripe", "Pão de Açúcar", "Marechal Deodoro", "Pilar"]);
+    if (priorities.has(name)) return "low";
+    if (watch.has(name)) return "mid";
+    return "quiet";
+  }
   const seed = hashText(name + state.role + state.layer) % 100;
   if (["atencao", "pendencias"].includes(state.layer)) {
     if (seed < 12) return "low";
@@ -487,7 +794,13 @@ function renderTerritory(name) {
     return "<div><dt>" + escapeHtml(label) + "</dt><dd>" + escapeHtml(territory.metrics[index]) + "</dd></div>";
   }).join("");
   const positive = territory.delta.indexOf("+") === 0;
-  $("#territory-briefing").innerHTML = '<h3 class="territory-name">' + escapeHtml(name) + '</h3><p class="territory-delta ' + (positive ? "positive" : "") + '"><strong>' + escapeHtml(territory.delta) + '</strong> ' + escapeHtml(territory.deltaText) + '</p><dl class="territory-metrics">' + metricHtml + '</dl><div class="evidence-box"><span>' + icon("spark") + ' Leitura PULSO</span><p>' + escapeHtml(territory.insight) + '</p><small>Sinais considerados: ' + escapeHtml(territory.signals) + '</small></div><button class="button primary briefing-action" type="button" data-brief-action>' + (territory.state === "attention" ? "Criar ação corretiva" : "Criar acompanhamento") + icon("arrow") + "</button>";
+  $("#territory-briefing").innerHTML = '<h3 class="territory-name">' + escapeHtml(name) + '</h3><p class="territory-delta ' + (positive ? "positive" : "") + '"><strong>' + escapeHtml(territory.delta) + '</strong> ' + escapeHtml(territory.deltaText) + '</p><dl class="territory-metrics">' + metricHtml + '</dl><div class="evidence-box"><span>' + icon("spark") + ' Leitura PULSO</span><p>' + escapeHtml(territory.insight) + '</p><small>Sinais considerados: ' + escapeHtml(territory.signals) + '</small></div><div class="briefing-actions"><button class="button primary" type="button" data-brief-action>' + (territory.state === "attention" ? "Criar ação corretiva" : "Criar acompanhamento") + icon("arrow") + '</button><button class="button secondary" type="button" data-map-focus>' + icon("target") + ' Aproximar no mapa</button></div>';
+}
+
+function mapLevelLabel(level) {
+  const layer = profile().layers.find(function (item) { return item.id === state.layer; });
+  const match = layer && layer.legend.find(function (item) { return item[0] === level; });
+  return match ? match[1] : "Sem sinal prioritário";
 }
 
 function coordinatePairs(geometry) {
@@ -598,6 +911,8 @@ function paintMap() {
     record.path.setAttribute("aria-label", name + " · " + (level === "low" ? "precisa de atenção" : level === "high" ? "ritmo alto" : level === "mid" ? "acompanhar" : "sem alerta prioritário"));
     if (record.label) record.label.classList.toggle("is-selected", selected);
   });
+  const selection = $("#map-selection");
+  if (selection) selection.innerHTML = icon("map") + " <strong>" + escapeHtml(state.territory) + "</strong> selecionado";
 }
 
 function selectTerritory(name, fit) {
@@ -630,7 +945,7 @@ async function initMap() {
     populateTerritorySelects(data);
     const project = createProjection(data);
     const labels = new Set(["Maceió", "Arapiraca", "Palmeira dos Índios", "Penedo", "União dos Palmares"]);
-    container.innerHTML = '<svg class="territory-map-svg" viewBox="0 0 1000 620" role="img" aria-labelledby="executive-map-title executive-map-description"><title id="executive-map-title">Mapa territorial de Alagoas</title><desc id="executive-map-description">Municípios coloridos conforme a camada escolhida. Selecione um município para abrir o briefing.</desc><g class="map-shapes"></g><g class="map-labels" aria-hidden="true"></g></svg><div class="map-controls" role="group" aria-label="Zoom do mapa"><button type="button" data-map-zoom="in" aria-label="Aproximar mapa">+</button><button type="button" data-map-zoom="out" aria-label="Afastar mapa">−</button></div><span class="map-count">102 municípios</span>';
+    container.innerHTML = '<svg class="territory-map-svg" viewBox="0 0 1000 620" role="img" aria-labelledby="executive-map-title executive-map-description"><title id="executive-map-title">Mapa territorial de Alagoas</title><desc id="executive-map-description">Municípios coloridos conforme a camada escolhida. Selecione um município para abrir o briefing. O mapa preserva a visão estadual até que o zoom seja solicitado.</desc><g class="map-shapes"></g><g class="map-labels" aria-hidden="true"></g></svg><div class="map-controls" role="group" aria-label="Controles do mapa"><button type="button" data-map-zoom="in" aria-label="Aproximar mapa">+</button><button type="button" data-map-zoom="out" aria-label="Afastar mapa">−</button><button type="button" data-map-zoom="reset" aria-label="Mostrar Alagoas inteiro">' + icon("map") + '</button></div><span class="map-count">102 municípios</span><span class="map-selection" id="map-selection" aria-live="polite"></span><div class="map-tooltip" id="map-tooltip" role="tooltip" hidden></div>';
     state.mapSvg = $(".territory-map-svg", container);
     const shapes = $(".map-shapes", container);
     const labelGroup = $(".map-labels", container);
@@ -648,13 +963,30 @@ async function initMap() {
       const title = document.createElementNS(SVG_NS, "title");
       title.textContent = name;
       path.append(title);
-      path.addEventListener("click", function () { selectTerritory(name, true); });
+      path.addEventListener("click", function () { selectTerritory(name, false); });
       path.addEventListener("keydown", function (event) {
         if (event.key === "Enter" || event.key === " ") {
           event.preventDefault();
-          selectTerritory(name, true);
+          selectTerritory(name, false);
         }
       });
+      path.addEventListener("pointerenter", function (event) {
+        const tooltip = $("#map-tooltip", container);
+        const level = territoryLevel(name);
+        tooltip.innerHTML = "<strong>" + escapeHtml(name) + "</strong><span>" + escapeHtml(mapLevelLabel(level)) + "</span>";
+        tooltip.hidden = false;
+        const rect = container.getBoundingClientRect();
+        tooltip.style.left = Math.max(12, Math.min(rect.width - 172, event.clientX - rect.left + 12)) + "px";
+        tooltip.style.top = Math.max(12, Math.min(rect.height - 70, event.clientY - rect.top + 12)) + "px";
+      });
+      path.addEventListener("pointermove", function (event) {
+        const tooltip = $("#map-tooltip", container);
+        if (tooltip.hidden) return;
+        const rect = container.getBoundingClientRect();
+        tooltip.style.left = Math.max(12, Math.min(rect.width - 172, event.clientX - rect.left + 12)) + "px";
+        tooltip.style.top = Math.max(12, Math.min(rect.height - 70, event.clientY - rect.top + 12)) + "px";
+      });
+      path.addEventListener("pointerleave", function () { $("#map-tooltip", container).hidden = true; });
       shapes.append(path);
 
       let label = null;
@@ -750,7 +1082,9 @@ function runCommand(query) {
 
 function openAction(config) {
   if (!$("#action-territory").options.length) {
-    const knownTerritories = Array.from(new Set(Object.keys(PROFILE_DATA.governador.territories).concat(Object.keys(PROFILE_DATA.deputado.territories)))).sort(function (a, b) { return a.localeCompare(b, "pt-BR"); });
+    const knownTerritories = state.mapData
+      ? state.mapData.features.map(function (feature) { return feature.properties && feature.properties.name; }).filter(Boolean).sort(function (a, b) { return a.localeCompare(b, "pt-BR"); })
+      : Array.from(new Set(Object.keys(PROFILE_DATA.governador.territories).concat(Object.keys(PROFILE_DATA.deputado.territories)))).sort(function (a, b) { return a.localeCompare(b, "pt-BR"); });
     $("#action-territory").innerHTML = knownTerritories.map(function (name) { return '<option value="' + escapeHtml(name) + '">' + escapeHtml(name) + "</option>"; }).join("");
   }
   const fallbackName = state.role === "governador" ? "Acompanhar operação em " + state.territory : "Organizar retorno em " + state.territory;
@@ -762,6 +1096,80 @@ function openAction(config) {
   owner.value = Array.from(owner.options).some(function (option) { return option.value === data.owner; }) ? data.owner : owner.options[0].value;
   openDialog($("#action-dialog"));
   setTimeout(function () { $("#action-name").focus(); }, 40);
+}
+
+function findTask(taskId) {
+  return allTasks().find(function (item) { return item.id === taskId; });
+}
+
+function findEvent(eventId) {
+  return profile().agenda.find(function (item) { return item.id === eventId; });
+}
+
+function persistPanelState() {
+  try {
+    localStorage.setItem("pulso-panel-actions-v1", JSON.stringify(state.createdActions));
+    localStorage.setItem("pulso-panel-completion-v1", JSON.stringify(state.taskCompletion));
+  } catch (error) {
+    void error;
+  }
+}
+
+function restorePanelState() {
+  try {
+    const actions = JSON.parse(localStorage.getItem("pulso-panel-actions-v1") || "null");
+    const completion = JSON.parse(localStorage.getItem("pulso-panel-completion-v1") || "null");
+    if (isPlainObject(actions) && Array.isArray(actions.governador) && Array.isArray(actions.deputado)) {
+      state.createdActions = {
+        governador: actions.governador.slice(0, 100).map(function (item) { return sanitizeRestoredAction(item, "governador"); }).filter(Boolean),
+        deputado: actions.deputado.slice(0, 100).map(function (item) { return sanitizeRestoredAction(item, "deputado"); }).filter(Boolean)
+      };
+    }
+    if (isPlainObject(completion)) {
+      state.taskCompletion = {
+        governador: sanitizeCompletionMap(completion.governador),
+        deputado: sanitizeCompletionMap(completion.deputado)
+      };
+    }
+  } catch (error) {
+    void error;
+  }
+}
+
+function toggleTask(taskId) {
+  const item = findTask(taskId);
+  if (!item) return;
+  if (!isPlainObject(state.taskCompletion[state.role])) state.taskCompletion[state.role] = {};
+  const nextState = !isTaskDone(item);
+  state.taskCompletion[state.role][taskId] = nextState;
+  persistPanelState();
+  renderTasks();
+  renderOperationSummary();
+  showToast(nextState ? "Tarefa concluída e indicadores atualizados." : "Tarefa reaberta na fila de execução.");
+}
+
+function openTask(taskId) {
+  const item = findTask(taskId);
+  if (!item) return;
+  const done = isTaskDone(item);
+  const checklist = taskChecklist(item, done);
+  const visualStatus = taskVisualStatus(item, done);
+  const statusLabel = done ? "Concluída" : item.status === "done" ? "Reaberta" : visualStatus === "critical" ? "Prioridade alta" : visualStatus === "today" ? "Vence hoje" : "Programada";
+  setText("#task-detail-title", item.title);
+  $("#task-detail-body").innerHTML = '<div class="detail-status-row"><span class="status-pill ' + (done ? "success" : visualStatus === "critical" ? "alert" : "neutral") + '"><i></i>' + escapeHtml(statusLabel) + '</span><span>Atualizada ' + escapeHtml(item.updated || "agora") + '</span></div><dl class="detail-facts"><div><dt>Território</dt><dd>' + escapeHtml(item.territory || state.territory) + '</dd></div><div><dt>Responsável</dt><dd>' + escapeHtml(item.owner || "Coordenação") + '</dd></div><div><dt>Prazo</dt><dd>' + escapeHtml(taskDueLabel(item, done)) + '</dd></div><div><dt>Origem</dt><dd>' + escapeHtml(item.source || "Operação") + '</dd></div></dl><div class="detail-progress"><div><span>Checklist</span><strong>' + checklist[0] + ' de ' + checklist[1] + ' etapas</strong></div><span role="progressbar" aria-label="Progresso do checklist" aria-valuemin="0" aria-valuemax="' + checklist[1] + '" aria-valuenow="' + checklist[0] + '"><i style="--progress:' + Math.round(checklist[0] / Math.max(1, checklist[1]) * 100) + '%"></i></span></div><div class="detail-evidence"><span>' + icon("file") + ' Evidências e histórico</span><p>' + Number(item.evidence || 0) + ' evidências anexadas. A origem, as mudanças de responsável e cada atualização permanecem na linha do tempo.</p></div><div class="dialog-actions"><button class="button secondary" type="button" data-close-dialog>Fechar</button><button class="button primary" type="button" data-task-toggle="' + escapeHtml(item.id) + '">' + (done ? "Reabrir tarefa" : "Confirmar conclusão") + icon(done ? "activity" : "check") + '</button></div>';
+  openDialog($("#task-dialog"));
+}
+
+function openEvent(eventId) {
+  const item = findEvent(eventId);
+  if (!item) return;
+  setText("#event-detail-title", item.title);
+  const checklist = item.checklist.map(function (entry) {
+    const pending = /pendente|revisão|andamento|confirmação|separação|\d+\s+de\s+\d+/i.test(entry);
+    return '<li class="' + (pending ? "pending" : "done") + '"><span>' + icon(pending ? "clock" : "check") + '</span><strong>' + escapeHtml(entry) + '</strong></li>';
+  }).join("");
+  $("#event-detail-body").innerHTML = '<div class="event-detail-hero"><div><span class="status-pill ' + escapeHtml(item.tone) + '"><i></i>' + escapeHtml(item.status) + '</span><h3>' + escapeHtml(item.dayLabel) + ' · ' + escapeHtml(item.time) + '</h3><p>' + escapeHtml(item.detail) + '</p></div><strong>' + item.readiness + '%<small>prontidão</small></strong></div><span class="readiness-track large" role="progressbar" aria-label="Prontidão do evento" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' + item.readiness + '"><i style="--progress:' + item.readiness + '%"></i></span><dl class="detail-facts"><div><dt>Município</dt><dd>' + escapeHtml(item.territory) + '</dd></div><div><dt>Responsável</dt><dd>' + escapeHtml(item.owner) + '</dd></div><div><dt>Status</dt><dd>' + escapeHtml(item.status) + '</dd></div><div><dt>Atualização</dt><dd>há poucos minutos</dd></div></dl><div class="event-checklist"><span class="detail-section-title">Checklist operacional</span><ul>' + checklist + '</ul></div><div class="dialog-actions"><button class="button secondary" type="button" data-close-dialog>Fechar</button><button class="button primary" type="button" data-event-action="' + escapeHtml(item.id) + '">' + (item.tone === "alert" ? "Criar tarefa para pendência" : "Criar acompanhamento") + icon("arrow") + '</button></div>';
+  openDialog($("#event-dialog"));
 }
 
 function showToast(message) {
@@ -826,6 +1234,72 @@ function setupEvents() {
       updateLayer(layerButton.dataset.layer);
       return;
     }
+    const taskFilter = event.target.closest("[data-task-filter]");
+    if (taskFilter) {
+      state.taskFilter = taskFilter.dataset.taskFilter;
+      renderTasks();
+      return;
+    }
+    const agendaFilter = event.target.closest("[data-agenda-view]");
+    if (agendaFilter) {
+      state.agendaView = agendaFilter.dataset.agendaView;
+      renderAgenda();
+      return;
+    }
+    const taskToggle = event.target.closest("[data-task-toggle]");
+    if (taskToggle) {
+      const detailDialog = taskToggle.closest("#task-dialog");
+      if (!detailDialog) {
+        openTask(taskToggle.dataset.taskToggle);
+        return;
+      }
+      toggleTask(taskToggle.dataset.taskToggle);
+      closeDialog(detailDialog);
+      return;
+    }
+    const taskOpen = event.target.closest("[data-task-open]");
+    if (taskOpen) {
+      openTask(taskOpen.dataset.taskOpen);
+      return;
+    }
+    const eventOpen = event.target.closest("[data-event-open]");
+    if (eventOpen) {
+      openEvent(eventOpen.dataset.eventOpen);
+      return;
+    }
+    const eventAction = event.target.closest("[data-event-action]");
+    if (eventAction) {
+      const item = findEvent(eventAction.dataset.eventAction);
+      if (item) {
+        closeDialog($("#event-dialog"));
+        const hasPending = item.tone === "alert";
+        const due = item.day === "hoje" ? "Hoje, 17h" : item.day === "amanha" ? "Amanhã, 10h" : "Até " + item.dayLabel + ", 10h";
+        openAction({ name: (hasPending ? "Resolver pendências de " : "Acompanhar ") + item.title, territory: item.territory, owner: "Operação", due: due });
+      }
+      return;
+    }
+    const demandButton = event.target.closest("[data-demand-index]");
+    if (demandButton) {
+      state.demandIndex = Number(demandButton.dataset.demandIndex);
+      renderDemands();
+      return;
+    }
+    const networkButton = event.target.closest("[data-network-index]");
+    if (networkButton) {
+      state.networkIndex = Number(networkButton.dataset.networkIndex);
+      renderNetwork();
+      return;
+    }
+    const demandAction = event.target.closest("[data-demand-action]");
+    if (demandAction) {
+      openAction({ name: "Encaminhar demandas de " + demandAction.dataset.demandAction, territory: state.territory, owner: "Coordenação territorial", due: "Amanhã, 14h" });
+      return;
+    }
+    const networkAction = event.target.closest("[data-network-action]");
+    if (networkAction) {
+      openAction({ name: "Organizar retorno de " + networkAction.dataset.networkAction, territory: networkAction.dataset.networkTerritory || state.territory, owner: "Relacionamento", due: "Amanhã, 11h" });
+      return;
+    }
     if (event.target.closest("[data-open-command]")) {
       openCommand();
       return;
@@ -862,12 +1336,20 @@ function setupEvents() {
       openAction();
       return;
     }
+    if (event.target.closest("[data-map-focus]")) {
+      const record = state.mapFeatures.get(state.territory);
+      if (record) focusBounds(record.bounds);
+      return;
+    }
     const zoomButton = event.target.closest("[data-map-zoom]");
-    if (zoomButton) zoomMap(zoomButton.dataset.mapZoom === "in" ? 0.78 : 1.28);
+    if (zoomButton) {
+      if (zoomButton.dataset.mapZoom === "reset") setMapViewBox({ x: 0, y: 0, width: MAP_FRAME.width, height: MAP_FRAME.height });
+      else zoomMap(zoomButton.dataset.mapZoom === "in" ? 0.78 : 1.28);
+    }
   });
 
   $("#territory-select").addEventListener("change", function (event) {
-    if (event.target.value) selectTerritory(event.target.value, true);
+    if (event.target.value) selectTerritory(event.target.value, false);
   });
 
   $("#command-form").addEventListener("submit", function (event) {
@@ -879,15 +1361,28 @@ function setupEvents() {
   $("#action-form").addEventListener("submit", function (event) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
+    const due = String(formData.get("due"));
+    const status = normalizeText(due).startsWith("hoje") ? "today" : "scheduled";
     state.createdActions[state.role].unshift({
-      icon: "check",
+      id: "created-" + state.role + "-" + Date.now(),
+      icon: "clock",
       title: String(formData.get("name")),
-      detail: String(formData.get("owner")) + " · " + String(formData.get("territory")),
-      due: String(formData.get("due")),
-      tone: "success",
+      detail: String(formData.get("territory")) + " · " + String(formData.get("owner")),
+      owner: String(formData.get("owner")),
+      territory: String(formData.get("territory")),
+      due: due,
+      status: status,
+      priority: "Média",
+      tone: status === "today" ? "today" : "neutral",
+      source: "Criação manual",
+      checklist: [0, 1],
+      evidence: 0,
+      updated: "agora",
       created: true
     });
+    persistPanelState();
     renderTasks();
+    renderOperationSummary();
     closeDialog($("#action-dialog"));
     showToast("Ação adicionada ao acompanhamento.");
     document.getElementById("operacao").scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
@@ -907,6 +1402,7 @@ function setupEvents() {
   document.addEventListener("keydown", function (event) {
     if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
       event.preventDefault();
+      if ($("dialog[open]")) return;
       openCommand();
     }
     if (event.key === "Escape" && document.body.classList.contains("menu-open")) closeMenu(true);
@@ -927,6 +1423,7 @@ function resolveInitialRole() {
 }
 
 function init() {
+  restorePanelState();
   state.role = resolveInitialRole();
   renderRole(false);
   setupNavigation();

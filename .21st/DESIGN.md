@@ -28,3 +28,12 @@ The primary mark is an abstract `P` built from a structural stem, one field node
 - Exact locations and identifiers remain masked in the public experience.
 - Status always combines text and icon, never color alone.
 - Support keyboard navigation, visible focus, reduced motion, empty/error states and responsive reflow.
+
+## Executive panel
+
+- Give each operational module a quiet atmospheric shell: cool green for execution, warm sand for agenda and blue-slate for relationships. Keep the actual data surfaces nearly solid so hierarchy never competes with legibility.
+- A territorial figure may sit behind the application at roughly four percent opacity. It is atmosphere, never an information layer.
+- Selecting a municipality changes only its polygon, label and briefing. The statewide frame stays intact until the user explicitly asks to zoom.
+- SVG focus follows the selected polygon through stroke and drop shadow; never use rectangular `box-shadow` focus on map paths.
+- Tasks, events, demands and network rows are interactive records, not decorative summaries. Their filters, detail views and confirmation steps must update the visible operation.
+- Preserve WCAG AA contrast across hover and selected states. On small screens, actionable controls target at least 44px and modules stack without horizontal overflow.
