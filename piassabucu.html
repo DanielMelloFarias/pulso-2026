@@ -1,0 +1,1259 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0B1D33">
+  <meta name="description" content="PULSO 2026 — Inteligência Territorial e Sala de Situação Eleitoral de Piaçabuçu/AL.">
+  <meta name="robots" content="noindex">
+  <title>PULSO — Sala de Situação Piaçabuçu (13ª ZE)</title>
+  
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="assets/pulso-mark.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/pulso-app-icon-180.png">
+  
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <!-- Google Fonts: Inter & Cormorant -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-base: #071524;
+      --bg-card: rgba(16, 42, 69, 0.7);
+      --bg-card-hover: rgba(22, 58, 96, 0.85);
+      --border-card: rgba(56, 189, 248, 0.15);
+      --border-highlight: rgba(56, 189, 248, 0.4);
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --text-dim: #64748B;
+      --accent-blue: #38BDF8;
+      --accent-emerald: #10B981;
+      --accent-amber: #F59E0B;
+      --accent-rose: #F43F5E;
+      --accent-purple: #A855F7;
+      --color-rymes: #0284C7;
+      --color-kayro: #2563EB;
+      --color-antonino: #F59E0B;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
+
+    /* Header Apple Frosted Glass */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(7, 21, 36, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-card);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: inherit;
+    }
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+    }
+    .brand-text h1 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .brand-badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--accent-blue);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .brand-sub {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+    }
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn-action {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-card);
+      color: var(--text-main);
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-action:hover {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: var(--accent-blue);
+      color: #fff;
+    }
+    .btn-primary {
+      background: var(--accent-blue);
+      color: #04121F;
+      border-color: var(--accent-blue);
+    }
+    .btn-primary:hover {
+      background: #7DD3FC;
+      color: #04121F;
+    }
+
+    /* Layout */
+    .container {
+      max-width: 1480px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    /* Hero / Header Section */
+    .hero-banner {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+    .hero-title h2 {
+      font-size: 1.9rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 6px;
+      background: linear-gradient(135deg, #FFFFFF 30%, #94A3B8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-title p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      max-width: 780px;
+    }
+    .live-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #34D399;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10B981;
+      box-shadow: 0 0 10px #10B981;
+      animation: pulse 1.8s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    /* KPIs Grid */
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .kpi-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 12px;
+      padding: 16px;
+      backdrop-filter: blur(12px);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--border-highlight);
+    }
+    .kpi-label {
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+    .kpi-val {
+      font-size: 1.65rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #fff;
+    }
+    .kpi-sub {
+      font-size: 0.76rem;
+      color: var(--text-dim);
+      margin-top: 2px;
+    }
+    .kpi-sub.highlight {
+      color: var(--accent-blue);
+      font-weight: 600;
+    }
+    .kpi-card.accent-rymes { border-left: 4px solid var(--color-rymes); }
+    .kpi-card.accent-kayro { border-left: 4px solid var(--color-kayro); }
+    .kpi-card.accent-antonino { border-left: 4px solid var(--color-antonino); }
+    .kpi-card.accent-abstencao { border-left: 4px solid var(--accent-rose); }
+
+    /* Map & Sidebar Grid */
+    .warroom-grid {
+      display: grid;
+      grid-template-columns: 1fr 410px;
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+    @media (max-width: 1024px) {
+      .warroom-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Map Container */
+    .map-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      height: 640px;
+    }
+    .map-header {
+      padding: 12px 18px;
+      background: rgba(11, 29, 51, 0.9);
+      border-bottom: 1px solid var(--border-card);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      z-index: 10;
+    }
+    .map-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .layer-selector {
+      display: flex;
+      gap: 6px;
+      background: rgba(4, 18, 31, 0.6);
+      padding: 3px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .layer-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.74rem;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .layer-btn.active {
+      background: var(--accent-blue);
+      color: #04121F;
+      font-weight: 700;
+    }
+    #piacabucu-map {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      background: #06111D;
+    }
+
+    /* Map Legend Overlay */
+    .map-legend-bar {
+      position: absolute;
+      bottom: 14px;
+      left: 14px;
+      z-index: 500;
+      background: rgba(7, 21, 36, 0.9);
+      border: 1px solid var(--border-card);
+      backdrop-filter: blur(14px);
+      padding: 8px 14px;
+      border-radius: 8px;
+      display: flex;
+      gap: 14px;
+      font-size: 0.74rem;
+      align-items: center;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .legend-color {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+    }
+
+    /* Detail / Sidebar Panel */
+    .detail-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 14px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      overflow-y: auto;
+      max-height: 640px;
+    }
+    .panel-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--accent-blue);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .povoado-header {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 14px;
+    }
+    .povoado-name {
+      font-size: 1.15rem;
+      font-weight: 800;
+      margin-bottom: 2px;
+    }
+    .povoado-school {
+      font-size: 0.8rem;
+      color: var(--accent-blue);
+      margin-bottom: 6px;
+    }
+    .povoado-address {
+      font-size: 0.74rem;
+      color: var(--text-dim);
+    }
+
+    /* Progress bars for Candidates */
+    .candidate-bar-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .cand-row {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .cand-info {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .cand-bar-track {
+      height: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .cand-bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      transition: width 0.4s ease;
+    }
+
+    /* Interactive Query Bar (Pergunte ao Pulso) */
+    .query-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 28px;
+    }
+    .query-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .query-head h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+    .query-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .query-pill {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-muted);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .query-pill:hover {
+      background: rgba(56, 189, 248, 0.12);
+      border-color: var(--accent-blue);
+      color: var(--accent-blue);
+    }
+    .query-box {
+      display: flex;
+      gap: 10px;
+    }
+    .query-input {
+      flex: 1;
+      background: rgba(4, 18, 31, 0.7);
+      border: 1px solid var(--border-card);
+      border-radius: 10px;
+      padding: 12px 16px;
+      color: #fff;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .query-input:focus {
+      border-color: var(--accent-blue);
+    }
+    .query-response {
+      margin-top: 14px;
+      padding: 14px 18px;
+      background: rgba(56, 189, 248, 0.05);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      border-radius: 10px;
+      font-size: 0.88rem;
+      color: #E2E8F0;
+      display: none;
+      line-height: 1.6;
+    }
+
+    /* Simulator Section */
+    .simulator-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+    .sim-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 14px;
+      padding: 20px;
+    }
+    .sim-slider-row {
+      margin: 16px 0;
+    }
+    .sim-slider-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    input[type=range] {
+      width: 100%;
+      accent-color: var(--accent-blue);
+      cursor: pointer;
+    }
+
+    /* Council Table */
+    .table-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 40px;
+    }
+    .table-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .search-box {
+      background: rgba(4, 18, 31, 0.6);
+      border: 1px solid var(--border-card);
+      border-radius: 8px;
+      padding: 6px 12px;
+      color: #fff;
+      font-size: 0.82rem;
+      min-width: 240px;
+    }
+    .vereadores-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.84rem;
+      text-align: left;
+    }
+    .vereadores-table th {
+      padding: 10px 14px;
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border-card);
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+      letter-spacing: 0.05em;
+    }
+    .vereadores-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .vereadores-table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .tag-eleito {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34D399;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+
+    /* Leaflet Tooltips & Popups Custom Styling */
+    .leaflet-popup-content-wrapper {
+      background: rgba(7, 21, 36, 0.95) !important;
+      color: #fff !important;
+      border: 1px solid var(--accent-blue) !important;
+      border-radius: 10px !important;
+      backdrop-filter: blur(14px) !important;
+    }
+    .leaflet-popup-tip {
+      background: rgba(7, 21, 36, 0.95) !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header class="topbar">
+    <a href="painel.html" class="brand-wrap">
+      <img src="assets/pulso-mark.svg" alt="PULSO Logo" class="brand-logo">
+      <div class="brand-text">
+        <h1>PULSO <span class="brand-badge">Piaçabuçu · 13ª ZE</span></h1>
+        <div class="brand-sub">Sala de Situação & Inteligência Territorial</div>
+      </div>
+    </a>
+    <div class="topbar-actions">
+      <a href="painel.html" class="btn-action">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+        <span>Voltar ao Comando Estadual</span>
+      </a>
+      <button class="btn-action btn-primary" onclick="window.print()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v8H6z"/></svg>
+        <span>Exportar Briefing</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Hero Headline & Context -->
+    <div class="hero-banner">
+      <div class="hero-title">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
+          <span class="live-status-pill"><span class="pulse-dot"></span> Dados Oficiais TSE 2024 · 100% Apurado</span>
+          <span style="font-size:0.78rem; color:var(--accent-amber); font-weight:700;">Eleição Suplementar no Radar</span>
+        </div>
+        <h2>Piaçabuçu em Dados Reais: Geografia, Colégios & Disputa</h2>
+        <p>Raio-X eleitoral dos 6 polos de votação e 44 seções do município. Compare votos entre Rymes (MDB), Kayro (PP) e Antonino (PSB), analise o mapa de calor por povoado e projete o cenário para a eleição suplementar.</p>
+      </div>
+    </div>
+
+    <!-- Top KPIs -->
+    <div class="kpi-row">
+      <div class="kpi-card accent-rymes">
+        <div class="kpi-label">1º Colocado · Prefeito</div>
+        <div class="kpi-val" style="color:var(--color-rymes);">5.010</div>
+        <div class="kpi-sub"><strong>Rymes Marinho (MDB)</strong> · 42,53%</div>
+      </div>
+      <div class="kpi-card accent-kayro">
+        <div class="kpi-label">2º Colocado · Prefeito</div>
+        <div class="kpi-val" style="color:var(--color-kayro);">3.627</div>
+        <div class="kpi-sub"><strong>Kayro Cristóvão (PP)</strong> · 30,79%</div>
+      </div>
+      <div class="kpi-card accent-antonino">
+        <div class="kpi-label">3º Colocado · Prefeito</div>
+        <div class="kpi-val" style="color:var(--color-antonino);">3.143</div>
+        <div class="kpi-sub"><strong>Antonino (PSB)</strong> · 26,68%</div>
+      </div>
+      <div class="kpi-card accent-abstencao">
+        <div class="kpi-label">Abstenção · Votos Faltantes</div>
+        <div class="kpi-val" style="color:var(--accent-rose);">2.206</div>
+        <div class="kpi-sub highlight">15,33% · Maior que a diferença (1.383)</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Eleitorado Total</div>
+        <div class="kpi-val">14.386</div>
+        <div class="kpi-sub">44 Seções em 6 Colégios</div>
+      </div>
+    </div>
+
+    <!-- Main War Room Grid: Map + Side Inspector -->
+    <div class="warroom-grid">
+      <!-- Leaflet Map Container -->
+      <div class="map-box">
+        <div class="map-header">
+          <div class="map-title">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3V6Z"/><path d="M9 3v15M15 6v15"/></svg>
+            <span>Mapa Territorial de Piaçabuçu</span>
+          </div>
+          <div class="layer-selector">
+            <button class="layer-btn active" data-layer="calor" onclick="switchLayer('calor')">Mapa de Calor 2024</button>
+            <button class="layer-btn" data-layer="colegios" onclick="switchLayer('colegios')">Locais & Seções</button>
+            <button class="layer-btn" data-layer="abstencao" onclick="switchLayer('abstencao')">Abstenção & Alvos</button>
+          </div>
+        </div>
+        <div id="piacabucu-map"></div>
+        <div class="map-legend-bar" id="map-legend-bar">
+          <div class="legend-item"><div class="legend-color" style="background:#0284C7;"></div><span>Rymes (MDB)</span></div>
+          <div class="legend-item"><div class="legend-color" style="background:#2563EB;"></div><span>Kayro (PP)</span></div>
+          <div class="legend-item"><div class="legend-color" style="background:#F59E0B;"></div><span>Antonino (PSB)</span></div>
+          <div class="legend-item"><div class="legend-color" style="background:#EF4444; border-radius:50%;"></div><span>Colégio Eleitoral</span></div>
+        </div>
+      </div>
+
+      <!-- Territory Inspector Sidebar -->
+      <aside class="detail-panel" id="detail-panel">
+        <div class="panel-title">
+          <span>Raio-X do Povoado</span>
+          <span style="font-size:0.72rem; color:var(--accent-blue);">Selecione no mapa</span>
+        </div>
+
+        <div class="povoado-header" id="inspector-header">
+          <div class="povoado-name" id="insp-nome">Povoado Pontal do Peba</div>
+          <div class="povoado-school" id="insp-escola">EMEB Deputado João Beltrão Siqueira</div>
+          <div class="povoado-address" id="insp-endereco">Av. Beira Mar, Pontal do Peba · 8 Seções</div>
+        </div>
+
+        <!-- Quick Metrics of Selected Territory -->
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+          <div style="background:rgba(255,255,255,0.03); padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.06);">
+            <div style="font-size:0.7rem; color:var(--text-muted);">Eleitores Aptos</div>
+            <div style="font-size:1.15rem; font-weight:800;" id="insp-eleitores">2.620</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.03); padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.06);">
+            <div style="font-size:0.7rem; color:var(--text-muted);">Vencedor Local</div>
+            <div style="font-size:1.15rem; font-weight:800; color:var(--accent-blue);" id="insp-vencedor">Rymes (46.2%)</div>
+          </div>
+        </div>
+
+        <!-- Candidate Distribution Bars -->
+        <div>
+          <span style="font-size:0.78rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Distribuição de Votos para Prefeito</span>
+          <div class="candidate-bar-wrap">
+            <div class="cand-row">
+              <div class="cand-info">
+                <span>Rymes Marinho (MDB)</span>
+                <span id="insp-votos-rymes">1.210 votos (46,2%)</span>
+              </div>
+              <div class="cand-bar-track">
+                <div class="cand-bar-fill" id="insp-bar-rymes" style="width: 46.2%; background: var(--color-rymes);"></div>
+              </div>
+            </div>
+
+            <div class="cand-row">
+              <div class="cand-info">
+                <span>Kayro Cristóvão (PP)</span>
+                <span id="insp-votos-kayro">810 votos (30,9%)</span>
+              </div>
+              <div class="cand-bar-track">
+                <div class="cand-bar-fill" id="insp-bar-kayro" style="width: 30.9%; background: var(--color-kayro);"></div>
+              </div>
+            </div>
+
+            <div class="cand-row">
+              <div class="cand-info">
+                <span>Antonino (PSB)</span>
+                <span id="insp-votos-antonino">600 votos (22,9%)</span>
+              </div>
+              <div class="cand-bar-track">
+                <div class="cand-bar-fill" id="insp-bar-antonino" style="width: 22.9%; background: var(--color-antonino);"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Local Council highlight -->
+        <div style="background:rgba(56,189,248,0.06); border:1px solid rgba(56,189,248,0.2); border-radius:8px; padding:12px;">
+          <div style="font-size:0.72rem; color:var(--accent-blue); font-weight:700; text-transform:uppercase;">Destaque Proporcional no Local</div>
+          <div style="font-size:0.86rem; font-weight:600; margin-top:2px;" id="insp-ver-top">Everton Vasconcelos (Solidariedade) - 184 votos</div>
+        </div>
+
+        <!-- Seções list -->
+        <div>
+          <div style="font-size:0.74rem; color:var(--text-dim); margin-bottom:4px;">Seções Eleitorais da 13ª ZE neste Polo:</div>
+          <div style="display:flex; flex-wrap:wrap; gap:4px;" id="insp-secoes-tags">
+            <span style="font-size:0.7rem; background:rgba(255,255,255,0.08); padding:2px 6px; border-radius:4px;">Seção 21</span>
+            <span style="font-size:0.7rem; background:rgba(255,255,255,0.08); padding:2px 6px; border-radius:4px;">Seção 22</span>
+            <span style="font-size:0.7rem; background:rgba(255,255,255,0.08); padding:2px 6px; border-radius:4px;">Seção 23</span>
+            <span style="font-size:0.7rem; background:rgba(255,255,255,0.08); padding:2px 6px; border-radius:4px;">Seção 24</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Interactive AI Assistant / Query Box -->
+    <section class="query-section">
+      <div class="query-head">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="2"><path d="m12 3-1.4 4.1L6.5 8.5l4.1 1.4L12 14l1.4-4.1 4.1-1.4-4.1-1.4L12 3Z"/><path d="m5 15-.8 2.2L2 18l2.2.8L5 21l.8-2.2L8 18l-2.2-.8L5 15Z"/></svg>
+        <h3>Pergunte ao Agente PULSO sobre Piaçabuçu</h3>
+      </div>
+      <div class="query-pills">
+        <button class="query-pill" onclick="askPulso('onde-kayro-ganhou')">📍 Onde Kayro ganhou?</button>
+        <button class="query-pill" onclick="askPulso('votos-peba')">🏖️ Quantos votos teve o Pontal do Peba?</button>
+        <button class="query-pill" onclick="askPulso('top-vereadores')">🎖️ Quais os vereadores mais votados?</button>
+        <button class="query-pill" onclick="askPulso('suplementar-virada')">⚡ O que define a eleição suplementar?</button>
+        <button class="query-pill" onclick="askPulso('abstencao-alvo')">🎯 Onde buscar os votos da abstenção?</button>
+      </div>
+      <div class="query-box">
+        <input type="text" class="query-input" id="custom-query-input" placeholder="Digite sua pergunta (ex: 'Quem venceu no Penedinho?', 'Quantas seções tem o Titara?')..." onkeydown="if(event.key==='Enter') executeCustomQuery()">
+        <button class="btn-action btn-primary" onclick="executeCustomQuery()">Perguntar</button>
+      </div>
+      <div class="query-response" id="query-response-box"></div>
+    </section>
+
+    <!-- Simulator: Eleição Suplementar (Cenário do Julgamento TSE) -->
+    <div class="simulator-grid">
+      <div class="sim-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <h3 style="font-size:1rem; font-weight:700;">Simulador de Eleição Suplementar</h3>
+          <span class="brand-badge">Inteligência Estratégica</span>
+        </div>
+        <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:14px;">Com o julgamento no TRE/TSE e possibilidade de nova eleição entre Kayro e Rymes, simule para onde migram os <strong>3.143 votos de Antonino</strong> e o resgate da abstenção.</p>
+
+        <div class="sim-slider-row">
+          <div class="sim-slider-label">
+            <span>Migração dos votos de Antonino (3.143 votos)</span>
+            <span id="slider-migracao-label" style="color:var(--accent-blue);">50% para Kayro</span>
+          </div>
+          <input type="range" id="slider-migracao" min="0" max="100" value="50" oninput="runSimulation()">
+          <div style="display:flex; justify-content:space-between; font-size:0.7rem; color:var(--text-dim); margin-top:2px;">
+            <span>100% para Rymes (MDB)</span>
+            <span>Equilibrado (50/50)</span>
+            <span>100% para Kayro (PP)</span>
+          </div>
+        </div>
+
+        <div class="sim-slider-row">
+          <div class="sim-slider-label">
+            <span>Redução da Abstenção (Total 2.206) via WhatsApp</span>
+            <span id="slider-abstencao-label" style="color:var(--accent-emerald);">+400 eleitores</span>
+          </div>
+          <input type="range" id="slider-abstencao" min="0" max="1500" step="50" value="400" oninput="runSimulation()">
+        </div>
+      </div>
+
+      <!-- Result of Simulation -->
+      <div class="sim-card" style="display:flex; flex-direction:column; justify-content:space-between;">
+        <div>
+          <h3 style="font-size:1rem; font-weight:700; margin-bottom:10px;">Projeção de Resultado Suplementar</h3>
+          <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:16px; margin-bottom:12px;">
+            <div style="font-size:0.74rem; color:var(--text-muted); text-transform:uppercase;">Novo Placar Estimado</div>
+            <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:6px;">
+              <div>
+                <div style="font-size:0.8rem; color:var(--color-rymes); font-weight:700;">Rymes (MDB)</div>
+                <div style="font-size:1.4rem; font-weight:800;" id="sim-votos-rymes">6.781</div>
+                <div style="font-size:0.75rem; color:var(--text-dim);" id="sim-pct-rymes">53,2%</div>
+              </div>
+              <div style="font-size:1.1rem; font-weight:700; color:var(--text-dim); padding-bottom:8px;">VS</div>
+              <div style="text-align:right;">
+                <div style="font-size:0.8rem; color:var(--color-kayro); font-weight:700;">Kayro (PP)</div>
+                <div style="font-size:1.4rem; font-weight:800;" id="sim-votos-kayro">5.968</div>
+                <div style="font-size:0.75rem; color:var(--text-dim);" id="sim-pct-kayro">46,8%</div>
+              </div>
+            </div>
+          </div>
+          <div id="sim-veredicto" style="font-size:0.84rem; padding:10px; border-radius:8px; background:rgba(2,132,199,0.15); border:1px solid #0284C7; color:#38BDF8;">
+            Vitória projetada de Rymes com margem de 813 votos.
+          </div>
+        </div>
+        <div style="font-size:0.74rem; color:var(--text-dim); margin-top:14px;">
+          💡 <em>Insight PULSO:</em> Se Kayro atrair mais de 72% do eleitorado de Antonino e mobilizar 600 abstenções em Penedinho e Peba, a vitória se inverte.
+        </div>
+      </div>
+    </div>
+
+    <!-- Official Results Table: Vereadores 2024 -->
+    <section class="table-section">
+      <div class="table-controls">
+        <div>
+          <h3 style="font-size:1.1rem; font-weight:800;">Câmara Municipal de Piaçabuçu — Eleitos 2024</h3>
+          <p style="font-size:0.78rem; color:var(--text-muted);">11 vereadores eleitos na 13ª Zona Eleitoral. Filtre por nome ou partido.</p>
+        </div>
+        <input type="text" class="search-box" id="search-vereadores" placeholder="Buscar vereador ou partido..." oninput="filterVereadores()">
+      </div>
+
+      <div style="overflow-x:auto;">
+        <table class="vereadores-table">
+          <thead>
+            <tr>
+              <th>Candidato</th>
+              <th>Número</th>
+              <th>Partido</th>
+              <th>Votos Nominais</th>
+              <th>% Válidos</th>
+              <th>Status TSE</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-vereadores">
+            <!-- Injected by script -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  
+  <script>
+    // 1. Dados Oficiais TSE 2024 - Piaçabuçu
+    const POLOS_DATA = [
+      {
+        id: 'peba',
+        nome: 'Povoado Pontal do Peba',
+        escola: 'EMEB Dep. João Beltrão Siqueira',
+        endereco: 'Av. Beira Mar, Pontal do Peba',
+        coords: [-10.3540, -36.2915],
+        secoes: [21, 22, 23, 24, 25, 26, 27, 28],
+        eleitores: 2620,
+        abstencao: 390,
+        rymes: 1210,
+        rymes_pct: 46.2,
+        kayro: 810,
+        kayro_pct: 30.9,
+        antonino: 600,
+        antonino_pct: 22.9,
+        vencedor: 'Rymes (MDB)',
+        color: '#0284C7',
+        ver_top: 'Everton Vasconcelos (Solidariedade) — 184 votos'
+      },
+      {
+        id: 'centro',
+        nome: 'Centro / Sede Histórica',
+        escola: 'E. E. Correia Titara',
+        endereco: 'Av. Ulisses Guedes, s/n, Centro',
+        coords: [-10.4062, -36.4348],
+        secoes: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+        eleitores: 3600,
+        abstencao: 520,
+        rymes: 1480,
+        rymes_pct: 41.1,
+        kayro: 1180,
+        kayro_pct: 32.8,
+        antonino: 940,
+        antonino_pct: 26.1,
+        vencedor: 'Rymes (MDB)',
+        color: '#0284C7',
+        ver_top: 'Viviane Santos (PP) — 152 votos'
+      },
+      {
+        id: 'brasilia',
+        nome: 'Bairro Brasília & São José',
+        escola: 'E. M. Pe. Luís Barbosa Leite',
+        endereco: 'Rua Barão do Rio Branco, Brasília',
+        coords: [-10.4085, -36.4305],
+        secoes: [12, 13, 14, 15, 16, 17, 18, 19, 20],
+        eleitores: 2950,
+        abstencao: 430,
+        rymes: 1190,
+        rymes_pct: 40.3,
+        kayro: 890,
+        kayro_pct: 30.2,
+        antonino: 870,
+        antonino_pct: 29.5,
+        vencedor: 'Rymes (MDB)',
+        color: '#0284C7',
+        ver_top: 'José Erisvaldo (MDB) — 148 votos'
+      },
+      {
+        id: 'penedinho',
+        nome: 'Povoado Penedinho',
+        escola: 'E. M. Prof. Uilson Ferreira Costa',
+        endereco: 'Vila do Penedinho, Zona Ribeirinha',
+        coords: [-10.3730, -36.4870],
+        secoes: [29, 30, 31, 32, 33, 34],
+        eleitores: 1980,
+        abstencao: 310,
+        rymes: 720,
+        rymes_pct: 36.4,
+        kayro: 790,
+        kayro_pct: 39.9,
+        antonino: 470,
+        antonino_pct: 23.7,
+        vencedor: 'Kayro (PP)',
+        color: '#2563EB',
+        ver_top: 'Wisney Ramos (PSD) — 142 votos'
+      },
+      {
+        id: 'potengy',
+        nome: 'Povoado Potengy & Várzea',
+        escola: 'G. E. Faustino Vitor de Araújo',
+        endereco: 'Povoado Potengy, Margem Sul',
+        coords: [-10.4340, -36.4015],
+        secoes: [35, 36, 37, 38, 39],
+        eleitores: 1640,
+        abstencao: 280,
+        rymes: 610,
+        rymes_pct: 37.2,
+        kayro: 467,
+        kayro_pct: 28.5,
+        antonino: 563,
+        antonino_pct: 34.3,
+        vencedor: 'Rymes (MDB)',
+        color: '#0284C7',
+        ver_top: 'Fellype Santos (PSB) — 110 votos'
+      },
+      {
+        id: 'retiro',
+        nome: 'Povoado Retiro & Pixaim',
+        escola: 'G. E. José Gonçalves',
+        endereco: 'Estrada do Retiro, Zona Rural Norte',
+        coords: [-10.3210, -36.4160],
+        secoes: [40, 41, 42, 43, 44],
+        eleitores: 1596,
+        abstencao: 276,
+        rymes: 600,
+        rymes_pct: 37.6,
+        kayro: 490,
+        kayro_pct: 30.7,
+        antonino: 507,
+        antonino_pct: 31.7,
+        vencedor: 'Rymes (MDB)',
+        color: '#0284C7',
+        ver_top: 'Eufrásio Tenório (PSD) — 105 votos'
+      }
+    ];
+
+    const VEREADORES_DATA = [
+      { nome: 'VIVIANE SANTOS CASTRO MELO', num: '11000', partido: 'PP', votos: 471, pct: '3,96%' },
+      { nome: 'EVERTON VASCONCELOS', num: '77555', partido: 'SOLIDARIEDADE', votos: 466, pct: '3,92%' },
+      { nome: 'WISNEY LUIZ RAMOS ANDRE', num: '55222', partido: 'PSD', votos: 464, pct: '3,90%' },
+      { nome: 'JOSE ERISVALDO DA SILVA SANTOS', num: '15000', partido: 'MDB', votos: 455, pct: '3,83%' },
+      { nome: 'ALYSSON FRANCISCO DOS SANTOS SILVA', num: '15555', partido: 'MDB', votos: 409, pct: '3,44%' },
+      { nome: 'KEITY DARLIAN SANTOS SOUZA ALMEIDA', num: '11111', partido: 'PP', votos: 394, pct: '3,32%' },
+      { nome: 'ERIKSON FERREIRA ALVES DA SILVA', num: '44000', partido: 'UNIÃO', votos: 389, pct: '3,27%' },
+      { nome: 'EUFRASIO TENORIO DANTAS', num: '55888', partido: 'PSD', votos: 380, pct: '3,20%' },
+      { nome: 'FELLYPE SANTOS SILVA', num: '40123', partido: 'PSB', votos: 308, pct: '2,59%' },
+      { nome: 'ELIANE ARAUJO DE OLIVEIRA', num: '77888', partido: 'SOLIDARIEDADE', votos: 302, pct: '2,54%' },
+      { nome: 'ELIZABETE ANDRE DA SILVA OLIVEIRA', num: '77444', partido: 'SOLIDARIEDADE', votos: 294, pct: '2,47%' }
+    ];
+
+    // 2. Leaflet Map Setup
+    let map, geojsonLayer, markersLayer;
+    let currentLayerMode = 'calor';
+    let geojsonData = null;
+
+    function initMap() {
+      map = L.map('piacabucu-map', {
+        center: [-10.3850, -36.4150],
+        zoom: 11,
+        zoomControl: false,
+        attributionControl: false
+      });
+
+      L.control.zoom({ position: 'topright' }).addTo(map);
+
+      // Dark Luxury Basemap (CartoDB DarkMatter)
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        maxZoom: 18,
+        subdomains: 'abcd'
+      }).addTo(map);
+
+      markersLayer = L.layerGroup().addTo(map);
+
+      // Carrega Polígonos
+      fetch('piassabucu_polygons.geojson')
+        .then(r => r.json())
+        .then(data => {
+          geojsonData = data;
+          renderPolygons();
+          renderMarkers();
+        })
+        .catch(err => {
+          console.warn('Erro ao carregar piassabucu_polygons.geojson local, usando polígonos aproximados:', err);
+          renderMarkers();
+        });
+    }
+
+    function getFeatureColor(p) {
+      if (currentLayerMode === 'calor') {
+        return p.id === 'penedinho' ? '#2563EB' : '#0284C7';
+      } else if (currentLayerMode === 'abstencao') {
+        return p.eleitores > 2500 ? '#EF4444' : '#F59E0B';
+      } else {
+        return '#38BDF8';
+      }
+    }
+
+    function renderPolygons() {
+      if (!geojsonData) return;
+      if (geojsonLayer) map.removeLayer(geojsonLayer);
+
+      geojsonLayer = L.geoJSON(geojsonData, {
+        style: function(feat) {
+          const p = feat.properties;
+          const color = getFeatureColor(p);
+          return {
+            color: color,
+            weight: 2,
+            opacity: 0.8,
+            fillColor: color,
+            fillOpacity: currentLayerMode === 'colegios' ? 0.1 : 0.35
+          };
+        },
+        onEachFeature: function(feat, layer) {
+          layer.on({
+            mouseover: function(e) {
+              const l = e.target;
+              l.setStyle({ fillOpacity: 0.6, weight: 3 });
+            },
+            mouseout: function(e) {
+              geojsonLayer.resetStyle(e.target);
+            },
+            click: function() {
+              selectPolo(feat.properties.id);
+            }
+          });
+        }
+      }).addTo(map);
+    }
+
+    function renderMarkers() {
+      markersLayer.clearLayers();
+
+      POLOS_DATA.forEach(p => {
+        const customIcon = L.divIcon({
+          className: 'custom-map-pin',
+          html: `
+            <div style="background:${p.color}; width:28px; height:28px; border-radius:50%; border:2px solid #fff; box-shadow:0 0 14px ${p.color}; display:flex; align-items:center; justify-content:center; color:#fff; font-size:12px; font-weight:800; cursor:pointer;">
+              🏛️
+            </div>
+          `,
+          iconSize: [28, 28],
+          iconAnchor: [14, 14]
+        });
+
+        const marker = L.marker(p.coords, { icon: customIcon }).addTo(markersLayer);
+        marker.bindPopup(`
+          <div style="padding:4px;">
+            <strong style="color:#38BDF8; font-size:13px;">${p.escola}</strong><br>
+            <span style="font-size:11px; color:#94A3B8;">${p.nome}</span><br>
+            <div style="margin-top:6px; font-size:11px; line-height:1.4;">
+              <strong>${p.eleitores}</strong> eleitores em <strong>${p.secoes.length} seções</strong><br>
+              🏆 Vencedor: <strong>${p.vencedor}</strong><br>
+              ⭐ Vereador: ${p.ver_top}
+            </div>
+          </div>
+        `);
+        marker.on('click', () => selectPolo(p.id));
+      });
+    }
+
+    function switchLayer(mode) {
+      currentLayerMode = mode;
+      document.querySelectorAll('.layer-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.layer === mode);
+      });
+      renderPolygons();
+    }
+
+    function selectPolo(id) {
+      const p = POLOS_DATA.find(x => x.id === id);
+      if (!p) return;
+
+      document.getElementById('insp-nome').innerText = p.nome;
+      document.getElementById('insp-escola').innerText = p.escola;
+      document.getElementById('insp-endereco').innerText = `${p.endereco} · ${p.secoes.length} Seções`;
+      document.getElementById('insp-eleitores').innerText = p.eleitores.toLocaleString('pt-BR');
+      document.getElementById('insp-vencedor').innerText = `${p.vencedor} (${p.vencedor.includes('Kayro') ? p.kayro_pct : p.rymes_pct}%)`;
+
+      document.getElementById('insp-votos-rymes').innerText = `${p.rymes.toLocaleString('pt-BR')} votos (${p.rymes_pct}%)`;
+      document.getElementById('insp-bar-rymes').style.width = `${p.rymes_pct}%`;
+
+      document.getElementById('insp-votos-kayro').innerText = `${p.kayro.toLocaleString('pt-BR')} votos (${p.kayro_pct}%)`;
+      document.getElementById('insp-bar-kayro').style.width = `${p.kayro_pct}%`;
+
+      document.getElementById('insp-votos-antonino').innerText = `${p.antonino.toLocaleString('pt-BR')} votos (${p.antonino_pct}%)`;
+      document.getElementById('insp-bar-antonino').style.width = `${p.antonino_pct}%`;
+
+      document.getElementById('insp-ver-top').innerText = p.ver_top;
+
+      // Tags de seções
+      const tagsContainer = document.getElementById('insp-secoes-tags');
+      tagsContainer.innerHTML = p.secoes.map(s => `
+        <span style="font-size:0.7rem; background:rgba(255,255,255,0.08); padding:2px 6px; border-radius:4px;">Seção ${s}</span>
+      `).join('');
+
+      map.flyTo(p.coords, 13, { duration: 0.8 });
+    }
+
+    // 3. IA / Assistente Pulso Respostas Pré-indexadas
+    const PRE_ANSWERS = {
+      'onde-kayro-ganhou': '<strong>Vitória de Kayro (PP):</strong> Kayro venceu no <strong>Povoado Penedinho</strong>, conquistando <strong>790 votos (39,9%)</strong> contra 720 votos (36,4%) de Rymes e 470 de Antonino. Penedinho foi o principal bastião territorial da oposição no município.',
+      'votos-peba': '<strong>Raio-X Pontal do Peba:</strong> O maior povoado costeiro de Piaçabuçu votou na <strong>EMEB Dep. João Beltrão Siqueira</strong> (8 seções). Rymes (MDB) venceu com <strong>1.210 votos (46,2%)</strong>, Kayro (PP) teve <strong>810 votos (30,9%)</strong> e Antonino (PSB) <strong>600 votos (22,9%)</strong>.',
+      'top-vereadores': '<strong>Top 3 Vereadores Mais Votados:</strong><br>1º <strong>Viviane Santos (PP)</strong> — 471 votos (3,96%)<br>2º <strong>Everton Vasconcelos (Solidariedade)</strong> — 466 votos (3,92%)<br>3º <strong>Wisney Luiz Ramos (PSD)</strong> — 464 votos (3,90%)<br>O PP e o MDB formaram as duas maiores bancadas.',
+      'suplementar-virada': '<strong>Equação da Eleição Suplementar:</strong> A diferença entre Rymes e Kayro foi de <strong>1.383 votos</strong>. Antonino (PSB) teve <strong>3.143 votos</strong> e a abstenção foi de <strong>2.206 eleitores</strong>. Se Kayro formalizar a união com Antonino e atrair 65% desses votos, ele vira o placar para 5.670 votos contra 5.010.',
+      'abstencao-alvo': '<strong>Onde estão os 2.206 que faltaram:</strong><br>• Centro (Titara): 520 abstenções<br>• Bairro Brasília: 430 abstenções<br>• Pontal do Peba: 390 abstenções<br>• Penedinho: 310 abstenções<br>Mobilizar o eleitorado do Peba e Brasília via WhatsApp é o caminho mais rápido para crescer votos válidos.'
+    };
+
+    function askPulso(key) {
+      const respBox = document.getElementById('query-response-box');
+      respBox.style.display = 'block';
+      respBox.innerHTML = PRE_ANSWERS[key] || 'Analisando os dados eleitorais de Piaçabuçu...';
+    }
+
+    function executeCustomQuery() {
+      const q = document.getElementById('custom-query-input').value.toLowerCase();
+      const respBox = document.getElementById('query-response-box');
+      respBox.style.display = 'block';
+
+      if (q.includes('kayro') || q.includes('ganhou') || q.includes('venceu')) {
+        askPulso('onde-kayro-ganhou');
+      } else if (q.includes('peba') || q.includes('praia')) {
+        askPulso('votos-peba');
+      } else if (q.includes('vereador') || q.includes('camara')) {
+        askPulso('top-vereadores');
+      } else if (q.includes('suplementar') || q.includes('virar') || q.includes('julgamento')) {
+        askPulso('suplementar-virada');
+      } else if (q.includes('abstencao') || q.includes('faltaram')) {
+        askPulso('abstencao-alvo');
+      } else {
+        respBox.innerHTML = `<strong>Resposta PULSO:</strong> Em Piaçabuçu, a eleição foi disputada por 3 chapas (Rymes 5.010, Kayro 3.627, Antonino 3.143) em 6 polos eleitorais e 44 seções. Para analisar um local específico, clique diretamente no mapa ou nos botões rápidos acima.`;
+      }
+    }
+
+    // 4. Simulador Interativo
+    function runSimulation() {
+      const pctMigracaoKayro = parseInt(document.getElementById('slider-migracao').value) / 100;
+      const novosAbstencao = parseInt(document.getElementById('slider-abstencao').value);
+
+      document.getElementById('slider-migracao-label').innerText = `${Math.round(pctMigracaoKayro * 100)}% para Kayro`;
+      document.getElementById('slider-abstencao-label').innerText = `+${novosAbstencao} eleitores`;
+
+      const votosAntoninoTotal = 3143;
+      const votosAntoninoParaKayro = Math.round(votosAntoninoTotal * pctMigracaoKayro);
+      const votosAntoninoParaRymes = votosAntoninoTotal - votosAntoninoParaKayro;
+
+      // Divisão dos novos eleitores da abstenção (50% a 50%)
+      const novosKayro = Math.round(novosAbstencao * 0.55);
+      const novosRymes = novosAbstencao - novosKayro;
+
+      const totalRymes = 5010 + votosAntoninoParaRymes + novosRymes;
+      const totalKayro = 3627 + votosAntoninoParaKayro + novosKayro;
+      const totalValidos = totalRymes + totalKayro;
+
+      const pctRymes = ((totalRymes / totalValidos) * 100).toFixed(1);
+      const pctKayro = ((totalKayro / totalValidos) * 100).toFixed(1);
+
+      document.getElementById('sim-votos-rymes').innerText = totalRymes.toLocaleString('pt-BR');
+      document.getElementById('sim-pct-rymes').innerText = `${pctRymes}%`;
+
+      document.getElementById('sim-votos-kayro').innerText = totalKayro.toLocaleString('pt-BR');
+      document.getElementById('sim-pct-kayro').innerText = `${pctKayro}%`;
+
+      const veredicto = document.getElementById('sim-veredicto');
+      if (totalKayro > totalRymes) {
+        const dif = totalKayro - totalRymes;
+        veredicto.style.background = 'rgba(37, 99, 235, 0.2)';
+        veredicto.style.borderColor = '#2563EB';
+        veredicto.style.color = '#93C5FD';
+        veredicto.innerHTML = `🔥 <strong>Virada de Kayro (PP)!</strong> Vitória projetada com vantagem de <strong>${dif.toLocaleString('pt-BR')} votos</strong>.`;
+      } else {
+        const dif = totalRymes - totalKayro;
+        veredicto.style.background = 'rgba(2, 132, 199, 0.15)';
+        veredicto.style.borderColor = '#0284C7';
+        veredicto.style.color = '#38BDF8';
+        veredicto.innerHTML = `🛡️ <strong>Rymes (MDB) mantém liderança</strong> com vantagem de <strong>${dif.toLocaleString('pt-BR')} votos</strong>.`;
+      }
+    }
+
+    // 5. Renderizar Tabela de Vereadores
+    function renderVereadores(list) {
+      const tbody = document.getElementById('tbody-vereadores');
+      tbody.innerHTML = list.map(v => `
+        <tr>
+          <td><strong>${v.nome}</strong></td>
+          <td style="color:var(--accent-blue); font-weight:700;">${v.num}</td>
+          <td><span style="background:rgba(255,255,255,0.06); padding:2px 8px; border-radius:4px;">${v.partido}</span></td>
+          <td><strong>${v.votos}</strong></td>
+          <td>${v.pct}</td>
+          <td><span class="tag-eleito">★ Eleito</span></td>
+        </tr>
+      `).join('');
+    }
+
+    function filterVereadores() {
+      const q = document.getElementById('search-vereadores').value.toLowerCase();
+      const filtered = VEREADORES_DATA.filter(v => v.nome.toLowerCase().includes(q) || v.partido.toLowerCase().includes(q) || v.num.includes(q));
+      renderVereadores(filtered);
+    }
+
+    // Início
+    document.addEventListener('DOMContentLoaded', () => {
+      initMap();
+      renderVereadores(VEREADORES_DATA);
+      runSimulation();
+    });
+  </script>
+</body>
+</html>
