@@ -1712,8 +1712,10 @@
     // =========================================================
     function initMap() {
       map = L.map('piacabucu-map', {
-        center: [-10.3800, -36.4100],
-        zoom: 11,
+        center: [-10.3880, -36.4020],
+        zoom: 11.5,
+        zoomSnap: 0.1,
+        zoomDelta: 0.5,
         zoomControl: false,
         attributionControl: false
       });
@@ -1746,9 +1748,9 @@
 
     function fitMapToMunicipality() {
       if (geojsonLayer) {
-        map.fitBounds(geojsonLayer.getBounds(), { padding: [25, 25] });
+        map.fitBounds(geojsonLayer.getBounds(), { padding: [15, 15] });
       } else {
-        map.setView([-10.3800, -36.4100], 11);
+        map.setView([-10.3880, -36.4020], 11.5);
       }
     }
 

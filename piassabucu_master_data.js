@@ -44,7 +44,7 @@ const PIACABUCU_MASTER = {
   territorio_rotulos: [
     { id: "peba", nome: "PONTAL DO PEBA", sub: "8 Seções · Orla & Pesca", coords: [-10.3630, -36.3348] },
     { id: "centro", nome: "CENTRO HISTÓRICO", sub: "11 Seções · Sede Administrativa", coords: [-10.3968, -36.4457] },
-    { id: "brasilia", nome: "BAIRRO BRASÍLIA", sub: "9 Seções · Urbana & São José", coords: [-10.3841, -36.4029] },
+    { id: "brasilia", nome: "BAIRRO BRASÍLIA", sub: "9 Seções · Urbana & São José", coords: [-10.3950, -36.4100] },
     { id: "penedinho", nome: "PENEDINHO", sub: "6 Seções · Ribeira São Francisco", coords: [-10.3608, -36.4684] },
     { id: "potengy", nome: "POTENGY & VÁRZEA", sub: "5 Seções · Polo Rizicultura", coords: [-10.4385, -36.3893] },
     { id: "retiro", nome: "RETIRO & PIXAIM", sub: "5 Seções · Rural Norte", coords: [-10.3430, -36.3852] }
@@ -329,7 +329,7 @@ const PIACABUCU_MASTER = {
       nome: "Bairro Brasília & São José",
       escola: "E. M. Pe. Luís Barbosa Leite",
       endereco: "Rua Barão do Rio Branco, Brasília",
-      coords: [-10.3841, -36.4029],
+      coords: [-10.3950, -36.4100],
       secoes: [12, 13, 14, 15, 16, 17, 18, 19, 20],
       eleitores: 2950,
       comparecimento: 2520,
