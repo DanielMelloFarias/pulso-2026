@@ -40,14 +40,14 @@ const PIACABUCU_MASTER = {
     { nome: "ELIZABETE ANDRE DA SILVA OLIVEIRA", num: "77444", partido: "SOLIDARIEDADE", votos: 294, pct: "2,47%", polo_forte: "Brasília" }
   ],
 
-  // Rótulos Centrais dos Polígonos de Piaçabuçu para o Mapa (Pontos interiores exatos)
+  // Rótulos Centrais dos Polígonos de Piaçabuçu para o Mapa (Pontos interiores com máxima folga das bordas)
   territorio_rotulos: [
-    { id: "peba", nome: "PONTAL DO PEBA", sub: "8 Seções · Orla & Pesca", coords: [-10.3639, -36.3363] },
-    { id: "centro", nome: "CENTRO HISTÓRICO", sub: "11 Seções · Sede Administrativa", coords: [-10.3788, -36.4412] },
-    { id: "brasilia", nome: "BAIRRO BRASÍLIA", sub: "9 Seções · Urbana & São José", coords: [-10.3735, -36.4153] },
-    { id: "penedinho", nome: "PENEDINHO", sub: "6 Seções · Ribeira São Francisco", coords: [-10.3587, -36.4678] },
-    { id: "potengy", nome: "POTENGY & VÁRZEA", sub: "5 Seções · Polo Rizicultura", coords: [-10.4381, -36.3912] },
-    { id: "retiro", nome: "RETIRO & PIXAIM", sub: "5 Seções · Rural Norte", coords: [-10.3421, -36.3885] }
+    { id: "peba", nome: "PONTAL DO PEBA", sub: "8 Seções · Orla & Pesca", coords: [-10.3630, -36.3348] },
+    { id: "centro", nome: "CENTRO HISTÓRICO", sub: "11 Seções · Sede Administrativa", coords: [-10.3968, -36.4457] },
+    { id: "brasilia", nome: "BAIRRO BRASÍLIA", sub: "9 Seções · Urbana & São José", coords: [-10.3841, -36.4029] },
+    { id: "penedinho", nome: "PENEDINHO", sub: "6 Seções · Ribeira São Francisco", coords: [-10.3608, -36.4684] },
+    { id: "potengy", nome: "POTENGY & VÁRZEA", sub: "5 Seções · Polo Rizicultura", coords: [-10.4385, -36.3893] },
+    { id: "retiro", nome: "RETIRO & PIXAIM", sub: "5 Seções · Rural Norte", coords: [-10.3430, -36.3852] }
   ],
 
   // Projeção PULSO 2026 para Piaçabuçu (Metodologia: Algoritmo Preditivo Territorial)
@@ -275,7 +275,7 @@ const PIACABUCU_MASTER = {
       nome: "Povoado Pontal do Peba",
       escola: "EMEB Dep. João Beltrão Siqueira",
       endereco: "Av. Beira Mar, Pontal do Peba",
-      coords: [-10.3639, -36.3363],
+      coords: [-10.3630, -36.3348],
       secoes: [21, 22, 23, 24, 25, 26, 27, 28],
       eleitores: 2620,
       comparecimento: 2230,
@@ -302,7 +302,7 @@ const PIACABUCU_MASTER = {
       nome: "Centro / Sede Histórica",
       escola: "E. E. Correia Titara",
       endereco: "Av. Ulisses Guedes, s/n, Centro",
-      coords: [-10.3788, -36.4412],
+      coords: [-10.3968, -36.4457],
       secoes: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       eleitores: 3600,
       comparecimento: 3080,
@@ -329,7 +329,7 @@ const PIACABUCU_MASTER = {
       nome: "Bairro Brasília & São José",
       escola: "E. M. Pe. Luís Barbosa Leite",
       endereco: "Rua Barão do Rio Branco, Brasília",
-      coords: [-10.3735, -36.4153],
+      coords: [-10.3841, -36.4029],
       secoes: [12, 13, 14, 15, 16, 17, 18, 19, 20],
       eleitores: 2950,
       comparecimento: 2520,
@@ -356,7 +356,7 @@ const PIACABUCU_MASTER = {
       nome: "Povoado Penedinho",
       escola: "E. M. Prof. Uilson Ferreira Costa",
       endereco: "Vila do Penedinho, Zona Ribeirinha",
-      coords: [-10.3587, -36.4678],
+      coords: [-10.3608, -36.4684],
       secoes: [29, 30, 31, 32, 33, 34],
       eleitores: 1980,
       comparecimento: 1670,
@@ -383,7 +383,7 @@ const PIACABUCU_MASTER = {
       nome: "Povoado Potengy & Várzea",
       escola: "G. E. Faustino Vitor de Araújo",
       endereco: "Povoado Potengy, Margem Sul",
-      coords: [-10.4381, -36.3912],
+      coords: [-10.4385, -36.3893],
       secoes: [35, 36, 37, 38, 39],
       eleitores: 1640,
       comparecimento: 1360,
@@ -410,7 +410,7 @@ const PIACABUCU_MASTER = {
       nome: "Povoado Retiro & Pixaim",
       escola: "G. E. José Gonçalves",
       endereco: "Estrada do Retiro, Zona Rural Norte",
-      coords: [-10.3421, -36.3885],
+      coords: [-10.3430, -36.3852],
       secoes: [40, 41, 42, 43, 44],
       eleitores: 1596,
       comparecimento: 1320,

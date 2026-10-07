@@ -557,44 +557,12 @@
       color: #FFFFFF;
     }
     .polo-marker-meta {
-      font-size: 0.6rem;
-      color: var(--accent-blue);
+      font-size: 0.62rem;
+      color: #94A3B8;
       font-weight: 600;
-    }
-    .polo-marker-tag {
-      font-size: 0.6rem;
-      font-weight: 700;
-      padding: 2px 7px;
-      border-radius: 999px;
-      margin-left: 2px;
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      white-space: nowrap;
-    }
-    .polo-marker-tag.winner-rymes {
-      background: rgba(16, 185, 129, 0.18);
-      color: #34D399;
-      border: 1px solid rgba(16, 185, 129, 0.4);
-    }
-    .polo-marker-tag.winner-kayro {
-      background: rgba(37, 99, 235, 0.2);
-      color: #93C5FD;
-      border: 1px solid rgba(37, 99, 235, 0.45);
-    }
-    .polo-marker-tag.abstencao {
-      background: rgba(244, 63, 94, 0.18);
-      color: #FB7185;
-      border: 1px solid rgba(244, 63, 94, 0.4);
-    }
-    .polo-marker-tag.demandas {
-      background: rgba(56, 189, 248, 0.18);
-      color: #38BDF8;
-      border: 1px solid rgba(56, 189, 248, 0.4);
-    }
-    .polo-marker-tag.colegios {
-      background: rgba(245, 158, 11, 0.18);
-      color: #FCD34D;
-      border: 1px solid rgba(245, 158, 11, 0.4);
+      gap: 4px;
     }
 
     /* Map Legend Overlay */
@@ -1835,39 +1803,47 @@
       }).addTo(map);
     }
 
-    // Marcador Unificado dos 6 Polos (100% Dentro dos Polígonos, Zero Sobreposição)
+    // Marcador Unificado dos 6 Polos (100% Dentro dos Polígonos - Detalhe Fino GovTech)
     function renderPoloMarkers() {
       markersLayer.clearLayers();
 
+      const SHORT_NAMES = {
+        peba: 'PONTAL DO PEBA',
+        centro: 'CENTRO HISTÓRICO',
+        brasilia: 'BAIRRO BRASÍLIA',
+        penedinho: 'PENEDINHO',
+        potengy: 'POTENGY & VÁRZEA',
+        retiro: 'RETIRO & PIXAIM'
+      };
+
       POLOS.forEach(p => {
         const isSelected = selectedPoloId === p.id;
+        const displayName = SHORT_NAMES[p.id] || p.nome.toUpperCase();
         
-        // Tag dinâmica por camada do mapa
-        let tagHtml = '';
+        let metaHtml = '';
         if (currentLayerMode === 'calor') {
           const isKayro = p.vencedor.includes('Kayro');
           const pct = isKayro ? p.kayro_pct : p.rymes_pct;
-          const cls = isKayro ? 'winner-kayro' : 'winner-rymes';
-          tagHtml = `<span class="polo-marker-tag ${cls}">🏆 ${p.vencedor.split(' ')[0]} ${pct}%</span>`;
+          const color = isKayro ? '#93C5FD' : '#34D399';
+          metaHtml = `<span>${p.secoes.length} Seções</span> · <span style="color:${color}; font-weight:700;">🏆 ${p.vencedor.split(' ')[0]} ${pct}%</span>`;
         } else if (currentLayerMode === 'abstencao') {
           const abstPct = ((p.abstencao / p.eleitores) * 100).toFixed(1);
-          tagHtml = `<span class="polo-marker-tag abstencao">⚠️ ${p.abstencao} faltaram (${abstPct}%)</span>`;
+          metaHtml = `<span>${p.secoes.length} Seções</span> · <span style="color:#FB7185; font-weight:700;">⚠️ ${abstPct}% abst.</span>`;
         } else if (currentLayerMode === 'demandas') {
-          tagHtml = `<span class="polo-marker-tag demandas">💬 ${p.total_demandas} chamados</span>`;
+          metaHtml = `<span>${p.secoes.length} Seções</span> · <span style="color:#38BDF8; font-weight:700;">💬 ${p.total_demandas} chamados</span>`;
         } else {
-          tagHtml = `<span class="polo-marker-tag colegios">👥 ${p.eleitores.toLocaleString('pt-BR')} aptos</span>`;
+          metaHtml = `<span>${p.secoes.length} Seções</span> · <span style="color:#FCD34D; font-weight:700;">👥 ${p.eleitores.toLocaleString('pt-BR')} aptos</span>`;
         }
 
         const markerHtml = `
-          <div class="govtech-polo-marker ${isSelected ? 'selected' : ''}">
+          <div class="govtech-polo-marker ${isSelected ? 'selected' : ''}" onclick="selectPolo('${p.id}')">
             <div class="polo-pin-icon" style="background:${p.color};">
               🏛️
             </div>
             <div class="polo-marker-text">
-              <span class="polo-marker-title">${p.nome.toUpperCase()}</span>
-              <span class="polo-marker-meta">${p.secoes.length} Seções · ${p.escola.split('-')[0].trim()}</span>
+              <span class="polo-marker-title">${displayName}</span>
+              <span class="polo-marker-meta">${metaHtml}</span>
             </div>
-            ${tagHtml}
           </div>
         `;
 
@@ -1879,6 +1855,9 @@
         });
 
         const marker = L.marker(p.coords, { icon: customIcon }).addTo(markersLayer);
+        marker.on('click', () => {
+          selectPolo(p.id);
+        });
         marker.bindPopup(`
           <div style="padding:6px; max-width:240px;">
             <strong style="color:#38BDF8; font-size:13px;">${p.escola}</strong><br>
