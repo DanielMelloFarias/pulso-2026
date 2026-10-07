@@ -1,5 +1,5 @@
 // BASE DE DADOS COMPLETA PIAÇABUÇU (13ª ZE - ALAGOAS)
-// Consolidação Oficial TSE 2024 + Projeções PULSO 2026 + 44 Seções Eleitorais
+// Consolidação Oficial TSE 2024 + Projeções PULSO 2026 + 44 Seções + Demandas WhatsApp & Sociodemografia
 
 const PIACABUCU_MASTER = {
   municipio: "Piaçabuçu",
@@ -18,9 +18,9 @@ const PIACABUCU_MASTER = {
   total_secoes: 44,
   total_locais: 6,
 
-  // Resultado Prefeito 2024
+  // Resultado Oficial Prefeito 2024 (Cores límpidas: MDB Verde Esmeralda, PP Azul Real, PSB Âmbar)
   resultado_prefeito_2024: [
-    { nome: "RYMES MARINHO LESSA", vice: "Carlos da Saúde", partido: "MDB", numero: "15", votos: 5010, pct: "42,53%", eleito: true, color: "#0284C7" },
+    { nome: "RYMES MARINHO LESSA", vice: "Carlos da Saúde", partido: "MDB", numero: "15", votos: 5010, pct: "42,53%", eleito: true, color: "#10B981" },
     { nome: "KAYRO CRISTÓVÃO", vice: "Dra. Marcela", partido: "PP", numero: "11", votos: 3627, pct: "30,79%", eleito: false, color: "#2563EB" },
     { nome: "ANTONINO CARDOZO", vice: "Prof. Marcos", partido: "PSB", numero: "40", votos: 3143, pct: "26,68%", eleito: false, color: "#F59E0B" }
   ],
@@ -40,16 +40,27 @@ const PIACABUCU_MASTER = {
     { nome: "ELIZABETE ANDRE DA SILVA OLIVEIRA", num: "77444", partido: "SOLIDARIEDADE", votos: 294, pct: "2,47%", polo_forte: "Brasília" }
   ],
 
-  // Projeção PULSO 2026 para Piaçabuçu
+  // Rótulos Centrais dos Polígonos de Piaçabuçu para o Mapa
+  territorio_rotulos: [
+    { id: "peba", nome: "PONTAL DO PEBA", sub: "8 Seções · Orla & Pesca", coords: [-10.3600, -36.3200] },
+    { id: "centro", nome: "CENTRO HISTÓRICO", sub: "11 Seções · Sede Administrativa", coords: [-10.3950, -36.4450] },
+    { id: "brasilia", nome: "BAIRRO BRASÍLIA", sub: "9 Seções · Urbana & São José", coords: [-10.4000, -36.4180] },
+    { id: "penedinho", nome: "PENEDINHO", sub: "6 Seções · Ribeira São Francisco", coords: [-10.3700, -36.4750] },
+    { id: "potengy", nome: "POTENGY & VÁRZEA", sub: "5 Seções · Polo Rizicultura", coords: [-10.4420, -36.3950] },
+    { id: "retiro", nome: "RETIRO & PIXAIM", sub: "5 Seções · Rural Norte", coords: [-10.3320, -36.4050] }
+  ],
+
+  // Projeção PULSO 2026 para Piaçabuçu (Metodologia: Algoritmo Preditivo Territorial)
   cenario_2026: {
+    nota_metodologica: "Eleição 2026 não realizada. Projeção PULSO calcula o impacto de transferências de votos dos grupos Rymes (MDB), Kayro (PP) e Antonino (PSB).",
     deputado_estadual: [
       { candidato: "Candidato da Base MDB (Apoio Rymes)", partido: "MDB", projecao_votos: 4850, pct: "41,8%", polos_chave: "Peba, Centro, Brasília" },
       { candidato: "Candidato Oposição PP (Apoio Kayro)", partido: "PP", projecao_votos: 3900, pct: "33,6%", polos_chave: "Penedinho, Retiro" },
       { candidato: "Candidato PSB / Terceira Via (Apoio Antonino)", partido: "PSB", projecao_votos: 2850, pct: "24,6%", polos_chave: "Potengy, Centro" }
     ],
     deputado_federal: [
-      { candidato: "Arthur Lira / Indicado do PP", partido: "PP", projecao_votos: 4100, pct: "35,3%", destaque: "Forte penetração em Penedinho e Sede" },
       { candidato: "Rafael Brito / Bancada MDB", partido: "MDB", projecao_votos: 4600, pct: "39,7%", destaque: "Apoiado pelo grupo do prefeito Rymes" },
+      { candidato: "Arthur Lira / Indicado do PP", partido: "PP", projecao_votos: 4100, pct: "35,3%", destaque: "Forte penetração em Penedinho e Sede" },
       { candidato: "Luciano Amaral / Bancada Alagoas", partido: "PV/Federação", projecao_votos: 2900, pct: "25,0%", destaque: "Crescimento nos povoados rurais" }
     ],
     senador: [
@@ -62,7 +73,202 @@ const PIACABUCU_MASTER = {
     ]
   },
 
-  // 6 Polos / Locais de Votação
+  // Perfil Sociodemográfico do Eleitorado de Piaçabuçu (Base TSE / IBGE Censo)
+  perfil_eleitorado: {
+    total_aptos: 14386,
+    biometria_pct: "96,4%",
+    mulheres: { total: 7308, pct: "50,8%" },
+    homens: { total: 7078, pct: "49,2%" },
+    faixas_etarias: [
+      { faixa: "16 a 24 anos (Juventude)", total: 2618, pct: 18.2, cor: "#38BDF8" },
+      { faixa: "25 a 44 anos (Adultos Produtivos)", total: 6128, pct: 42.6, cor: "#10B981" },
+      { faixa: "45 a 59 anos (Meia-idade)", total: 3366, pct: 23.4, cor: "#F59E0B" },
+      { faixa: "60 anos ou mais (Idosos)", total: 2274, pct: 15.8, cor: "#A855F7" }
+    ],
+    escolaridade: [
+      { nivel: "Ensino Fundamental Incompleto", total: 6358, pct: 44.2, bar: "44.2%" },
+      { nivel: "Ensino Médio Completo", total: 4100, pct: 28.5, bar: "28.5%" },
+      { nivel: "Ensino Fundamental Completo", total: 1841, pct: 12.8, bar: "12.8%" },
+      { nivel: "Ensino Superior (Graduados)", total: 920, pct: 6.4, bar: "6.4%" },
+      { nivel: "Lê e Escreve / Analfabeto", total: 1167, pct: 8.1, bar: "8.1%" }
+    ],
+    atividades_predominantes: [
+      { setor: "Pesca Marítima & Mariscagem", local: "Pontal do Peba", eleitores_impactados: "~2.400" },
+      { setor: "Rizicultura & Agricultura Familiar", local: "Potengy / Várzea / Retiro", eleitores_impactados: "~2.100" },
+      { setor: "Comércio, Serviços & Gestão Pública", local: "Centro & Brasília", eleitores_impactados: "~3.800" },
+      { setor: "Turismo & Gastronomia Costeira", local: "Pontal do Peba", eleitores_impactados: "~1.200" }
+    ]
+  },
+
+  // Central de Demandas da População & WhatsApp PULSO CRM
+  central_demandas: {
+    total_registradas: 184,
+    resolvidas: 74,
+    em_andamento: 78,
+    criticas: 32,
+    tempo_medio_resposta: "4,2 horas",
+    satisfacao_nps: "+72 (Excelente)",
+    itens: [
+      {
+        id: "DEM-01",
+        polo_id: "peba",
+        polo_nome: "Pontal do Peba",
+        titulo: "Câmara Frigorífica para Colônia Z-14",
+        categoria: "Pesca & Economia",
+        descricao: "Pescadores artesanais demandam espaço climatizado público para armazenamento do pescado e camarão sem perdas financeiras.",
+        prioridade: "Crítica",
+        status: "Em Andamento",
+        chamados_whatsapp: 42,
+        bairro: "Vila dos Pescadores, Orla do Peba",
+        data: "05/10/2026"
+      },
+      {
+        id: "DEM-02",
+        polo_id: "peba",
+        polo_nome: "Pontal do Peba",
+        titulo: "Pavimentação e Iluminação da Beira-Mar",
+        categoria: "Infraestrutura & Turismo",
+        descricao: "Moradores e pousadeiros cobram conclusão da iluminação LED e contenção das dunas no trecho norte da orla.",
+        prioridade: "Alta",
+        status: "Em Andamento",
+        chamados_whatsapp: 38,
+        bairro: "Avenida Beira Mar, Peba",
+        data: "03/10/2026"
+      },
+      {
+        id: "DEM-03",
+        polo_id: "penedinho",
+        polo_nome: "Povoado Penedinho",
+        titulo: "Médico Residente 24h na UBS da Ribeira",
+        categoria: "Saúde Pública",
+        descricao: "Comunidade ribeirinha relata desassistência em emergências noturnas quando a balsa para Penedo já parou de operar.",
+        prioridade: "Crítica",
+        status: "Pendente",
+        chamados_whatsapp: 67,
+        bairro: "Vila Central do Penedinho",
+        data: "06/10/2026"
+      },
+      {
+        id: "DEM-04",
+        polo_id: "penedinho",
+        polo_nome: "Povoado Penedinho",
+        titulo: "Recuperação da Estrada Vicinal Penedinho-Sede",
+        categoria: "Infraestrutura",
+        descricao: "Trechos de lamaçal dificultam escoamento da produção e passagem de ambulâncias no período chuvoso.",
+        prioridade: "Alta",
+        status: "Em Andamento",
+        chamados_whatsapp: 51,
+        bairro: "Estrada da Ribeira",
+        data: "02/10/2026"
+      },
+      {
+        id: "DEM-05",
+        polo_id: "centro",
+        polo_nome: "Centro Histórico",
+        titulo: "Reforma e Padronização do Mercado Público",
+        categoria: "Comércio Local",
+        descricao: "Feirantes reivindicam cobertura moderna, banheiros higienizados e boxes organizados para pescado e verduras.",
+        prioridade: "Alta",
+        status: "Em Andamento",
+        chamados_whatsapp: 54,
+        bairro: "Praça São Francisco, Centro",
+        data: "04/10/2026"
+      },
+      {
+        id: "DEM-06",
+        polo_id: "centro",
+        polo_nome: "Centro Histórico",
+        titulo: "Regularização do Abastecimento de Água Casal",
+        categoria: "Saneamento & Água",
+        descricao: "Falta de água crônica nos fins de semana afeta comércios e residências da parte alta da sede.",
+        prioridade: "Crítica",
+        status: "Pendente",
+        chamados_whatsapp: 61,
+        bairro: "Rua do Cemitério e Alto da Sé",
+        data: "05/10/2026"
+      },
+      {
+        id: "DEM-07",
+        polo_id: "brasilia",
+        polo_nome: "Bairro Brasília",
+        titulo: "Drenagem de Águas Pluviais na Rua São José",
+        categoria: "Infraestrutura Urbana",
+        descricao: "Alagamentos recorrentes invadem residências durante temporais devido à falta de manilhas de escoamento.",
+        prioridade: "Crítica",
+        status: "Em Andamento",
+        chamados_whatsapp: 58,
+        bairro: "Rua São José e Trav. Brasília",
+        data: "01/10/2026"
+      },
+      {
+        id: "DEM-08",
+        polo_id: "brasilia",
+        polo_nome: "Bairro Brasília",
+        titulo: "Creche em Tempo Integral para Mães Trabalhadoras",
+        categoria: "Educação Infantil",
+        descricao: "Mães que trabalham no comércio da sede e no pescado solicitam abertura de 80 vagas na creche local.",
+        prioridade: "Alta",
+        status: "Pendente",
+        chamados_whatsapp: 43,
+        bairro: "Conjunto Padre Luís",
+        data: "03/10/2026"
+      },
+      {
+        id: "DEM-09",
+        polo_id: "potengy",
+        polo_nome: "Potengy & Várzea",
+        titulo: "Manutenção da Bomba de Irrigação dos Rizicultores",
+        categoria: "Agricultura / Várzea",
+        descricao: "Associação dos Plantadores de Arroz cobra socorro para a bomba d'água principal do canal de inundação das lavouras.",
+        prioridade: "Crítica",
+        status: "Resolvido",
+        chamados_whatsapp: 49,
+        bairro: "Várzea do Rio São Francisco",
+        data: "04/10/2026"
+      },
+      {
+        id: "DEM-10",
+        polo_id: "potengy",
+        polo_nome: "Potengy & Várzea",
+        titulo: "Linha de Ônibus Escolar Pontual para o Ensino Médio",
+        categoria: "Transporte Escolar",
+        descricao: "Estudantes do turno matutino que se deslocam até a E.E. Correia Titara sofrem com atrasos frequentes do veículo.",
+        prioridade: "Alta",
+        status: "Em Andamento",
+        chamados_whatsapp: 33,
+        bairro: "Povoado Potengy",
+        data: "02/10/2026"
+      },
+      {
+        id: "DEM-11",
+        polo_id: "retiro",
+        polo_nome: "Retiro & Pixaim",
+        titulo: "Poços Artesianos para Pequenos Criadores",
+        categoria: "Segurança Hídrica",
+        descricao: "Produtores rurais familiares necessitam de perfuração de 2 novos poços para mitigar a estiagem nos pastos.",
+        prioridade: "Alta",
+        status: "Em Andamento",
+        chamados_whatsapp: 39,
+        bairro: "Estrada do Pixaim, Zona Rural",
+        data: "04/10/2026"
+      },
+      {
+        id: "DEM-12",
+        polo_id: "retiro",
+        polo_nome: "Retiro & Pixaim",
+        titulo: "Pavimentação Asfáltica da Rota para Feliz Deserto",
+        categoria: "Integração Regional",
+        descricao: "Comunidade pleiteia junto ao Governo Estadual inclusão da via no programa Pró-Estrada Alagoas.",
+        prioridade: "Alta",
+        status: "Pendente",
+        chamados_whatsapp: 36,
+        bairro: "Ligação Retiro - Feliz Deserto",
+        data: "01/10/2026"
+      }
+    ]
+  },
+
+  // 6 Polos / Locais de Votação (Coordenadas ajustadas sem colisão visual)
   polos: [
     {
       id: "peba",
@@ -81,21 +287,22 @@ const PIACABUCU_MASTER = {
       antonino: 600,
       antonino_pct: 22.9,
       vencedor: "Rymes (MDB)",
-      color: "#0284C7",
+      color: "#10B981", // MDB Verde Esmeralda
       vereadores_locais: [
         { nome: "Everton Vasconcelos", partido: "SOLIDARIEDADE", votos: 184 },
         { nome: "Keity Darlian", partido: "PP", votos: 128 },
         { nome: "Alysson Francisco", partido: "MDB", votos: 96 }
       ],
       projecao_2026_lider: "MDB (Rafael Brito / Renan Filho)",
-      descricao: "Maior polo costeiro de Piaçabuçu. Polo turístico e pesqueiro de forte tradição da família Beltrão e MDB."
+      descricao: "Maior polo costeiro de Piaçabuçu. Polo turístico e pesqueiro com forte tradição da família Beltrão e do MDB.",
+      total_demandas: 42
     },
     {
       id: "centro",
       nome: "Centro / Sede Histórica",
       escola: "E. E. Correia Titara",
       endereco: "Av. Ulisses Guedes, s/n, Centro",
-      coords: [-10.4062, -36.4348],
+      coords: [-10.4045, -36.4400], // Ajustado para não colidir com Brasília
       secoes: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
       eleitores: 3600,
       comparecimento: 3080,
@@ -107,21 +314,22 @@ const PIACABUCU_MASTER = {
       antonino: 940,
       antonino_pct: 26.1,
       vencedor: "Rymes (MDB)",
-      color: "#0284C7",
+      color: "#10B981",
       vereadores_locais: [
         { nome: "Viviane Santos", partido: "PP", votos: 152 },
         { nome: "Alysson Francisco", partido: "MDB", votos: 140 },
         { nome: "Fellype Santos", partido: "PSB", votos: 88 }
       ],
       projecao_2026_lider: "MDB / PP (Disputa acirrada)",
-      descricao: "Principal colégio eleitoral do município com 11 seções. Concentra o comércio e órgãos públicos."
+      descricao: "Principal colégio eleitoral do município com 11 seções. Concentra o comércio e órgãos públicos.",
+      total_demandas: 54
     },
     {
       id: "brasilia",
       nome: "Bairro Brasília & São José",
       escola: "E. M. Pe. Luís Barbosa Leite",
       endereco: "Rua Barão do Rio Branco, Brasília",
-      coords: [-10.4085, -36.4305],
+      coords: [-10.4100, -36.4220], // Afastado para o leste residencial sem sobreposição
       secoes: [12, 13, 14, 15, 16, 17, 18, 19, 20],
       eleitores: 2950,
       comparecimento: 2520,
@@ -133,14 +341,15 @@ const PIACABUCU_MASTER = {
       antonino: 870,
       antonino_pct: 29.5,
       vencedor: "Rymes (MDB)",
-      color: "#0284C7",
+      color: "#10B981",
       vereadores_locais: [
         { nome: "José Erisvaldo", partido: "MDB", votos: 148 },
         { nome: "Elizabete André", partido: "SOLIDARIEDADE", votos: 112 },
         { nome: "Viviane Santos", partido: "PP", votos: 98 }
       ],
       projecao_2026_lider: "MDB (Rymes / Renan Filho)",
-      descricao: "Bairro urbano populoso vizinho à sede. Forte presença de lideranças comunitárias do MDB e Solidariedade."
+      descricao: "Bairro urbano populoso vizinho à sede. Forte presença de lideranças comunitárias do MDB e Solidariedade.",
+      total_demandas: 58
     },
     {
       id: "penedinho",
@@ -159,14 +368,15 @@ const PIACABUCU_MASTER = {
       antonino: 470,
       antonino_pct: 23.7,
       vencedor: "Kayro (PP)",
-      color: "#2563EB",
+      color: "#2563EB", // PP Azul Real Límpido
       vereadores_locais: [
         { nome: "Wisney Luiz Ramos", partido: "PSD", votos: 142 },
         { nome: "Keity Darlian", partido: "PP", votos: 84 },
         { nome: "José Erisvaldo", partido: "MDB", votos: 70 }
       ],
       projecao_2026_lider: "PP (Arthur Lira / Kayro)",
-      descricao: "Único polo onde Kayro (PP) venceu a eleição municipal. Território ribeirinho estratégico do São Francisco."
+      descricao: "Único polo onde Kayro (PP) venceu a eleição municipal. Território ribeirinho estratégico do São Francisco.",
+      total_demandas: 67
     },
     {
       id: "potengy",
@@ -185,14 +395,15 @@ const PIACABUCU_MASTER = {
       antonino: 563,
       antonino_pct: 34.3,
       vencedor: "Rymes (MDB)",
-      color: "#0284C7",
+      color: "#10B981",
       vereadores_locais: [
         { nome: "Fellype Santos", partido: "PSB", votos: 110 },
         { nome: "Eliane Araújo", partido: "SOLIDARIEDADE", votos: 86 },
         { nome: "Wisney Ramos", partido: "PSD", votos: 62 }
       ],
       projecao_2026_lider: "PSB / MDB equilibrado",
-      descricao: "Região de rizicultura e várzea com forte desempenho de Antonino (PSB, 34,3%) encostando no MDB."
+      descricao: "Região de rizicultura e várzea com forte desempenho de Antonino (PSB, 34,3%) encostando no MDB.",
+      total_demandas: 49
     },
     {
       id: "retiro",
@@ -211,14 +422,15 @@ const PIACABUCU_MASTER = {
       antonino: 507,
       antonino_pct: 31.7,
       vencedor: "Rymes (MDB)",
-      color: "#0284C7",
+      color: "#10B981",
       vereadores_locais: [
         { nome: "Eufrásio Tenório", partido: "PSD", votos: 105 },
         { nome: "Erikson Ferreira", partido: "UNIÃO", votos: 98 },
         { nome: "Everton Vasconcelos", partido: "SOLIDARIEDADE", votos: 54 }
       ],
       projecao_2026_lider: "PSD / MDB / União",
-      descricao: "Zona rural ao norte, rota de ligação com Feliz Deserto. Eleitorado dividido de forma tríplice."
+      descricao: "Zona rural ao norte, rota de ligação com Feliz Deserto. Eleitorado dividido de forma tríplice.",
+      total_demandas: 39
     }
   ]
 };
