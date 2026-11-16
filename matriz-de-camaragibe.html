@@ -1066,6 +1066,9 @@
       </div>
     </a>
     <div class="topbar-actions">
+      <a href="olhodagua.html" class="btn-action" title="Ir para Sala de Situação Olho d'Água das Flores">
+        📍 <span>Olho d'Água (11ª ZE)</span>
+      </a>
       <a href="piassabucu.html" class="btn-action" title="Ir para Sala de Situação Piaçabuçu">
         📍 <span>Piaçabuçu (13ª ZE)</span>
       </a>
@@ -1401,6 +1404,21 @@
           </div>
         </div>
 
+        <!-- Dynamic Filter Bar by Polo Escolar for 2026 Deputies -->
+        <div style="margin-top:22px; background:rgba(4,18,31,0.65); border:1px solid var(--border-card); border-radius:12px; padding:12px 16px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:8px;">
+            <span style="font-size:0.78rem; font-weight:800; color:var(--accent-blue); text-transform:uppercase;">🎯 Filtro Dinâmico por Colégio Eleitoral (Recalcula Votos e Ranking 2026 em Tempo Real):</span>
+            <span style="font-size:0.74rem; color:var(--text-muted);" id="active-polo-filter-label">Exibindo: Total Consolidado do Município (53 Seções)</span>
+          </div>
+          <div class="demand-filter-bar" style="margin-bottom:0;" id="deputies-polo-filter-bar">
+            <button class="filter-chip active" onclick="setDeputiesPoloFilter('all', this)">Todos os 4 Polos (Município)</button>
+            <button class="filter-chip" onclick="setDeputiesPoloFilter('sofia_goes', this)">Sofia de Góes · NURE (16s)</button>
+            <button class="filter-chip" onclick="setDeputiesPoloFilter('muniz_falcao', this)">Colégio Muniz Falcão (14s)</button>
+            <button class="filter-chip" onclick="setDeputiesPoloFilter('saturnino', this)">E. E. Saturnino de Souza (13s)</button>
+            <button class="filter-chip" onclick="setDeputiesPoloFilter('maria_antonia', this)">E. E. Maria Antônia (10s)</button>
+          </div>
+        </div>
+
         <!-- Dual Tables: Deputado Estadual 2026 & Deputado Federal 2026 -->
         <div class="deputies-dual-grid">
           <!-- Table 1: Deputado Estadual 2026 -->
@@ -1419,7 +1437,7 @@
                     <th>#</th>
                     <th>Candidato</th>
                     <th>Partido</th>
-                    <th>Votos 2026</th>
+                    <th id="th-votos-est">Votos 2026</th>
                     <th>% Vál.</th>
                     <th>Votos 2022</th>
                     <th>Polo Mais Forte</th>
@@ -1447,7 +1465,7 @@
                     <th>#</th>
                     <th>Candidato</th>
                     <th>Partido</th>
-                    <th>Votos 2026</th>
+                    <th id="th-votos-fed">Votos 2026</th>
                     <th>% Vál.</th>
                     <th>Votos 2022</th>
                     <th>Polo Mais Forte</th>
@@ -2141,23 +2159,56 @@
     // =========================================================
     // TABELAS DE DEPUTADOS 2026 E VEREADORES 2024
     // =========================================================
+    let activeDeputiesPoloFilter = 'all';
+
+    function setDeputiesPoloFilter(poloId, btnEl) {
+      activeDeputiesPoloFilter = poloId;
+      document.querySelectorAll('#deputies-polo-filter-bar .filter-chip').forEach(b => b.classList.remove('active'));
+      if (btnEl) btnEl.classList.add('active');
+
+      const labelEl = document.getElementById('active-polo-filter-label');
+      if (poloId === 'all') {
+        labelEl.innerText = 'Exibindo: Total Consolidado do Município (53 Seções)';
+        document.getElementById('th-votos-est').innerText = 'Votos 2026';
+        document.getElementById('th-votos-fed').innerText = 'Votos 2026';
+      } else {
+        const p = POLOS.find(x => x.id === poloId);
+        labelEl.innerText = `Exibindo Urnas do Polo: ${p ? p.escola : poloId}`;
+        document.getElementById('th-votos-est').innerText = 'Votos no Polo';
+        document.getElementById('th-votos-fed').innerText = 'Votos no Polo';
+      }
+      filterDeputados('est');
+      filterDeputados('fed');
+    }
+
     function renderDeputadosTable(type, list) {
       const tbody = document.getElementById(type === 'est' ? 'tbody-dep-estadual' : 'tbody-dep-federal');
       if (!tbody) return;
-      tbody.innerHTML = list.map(d => {
+      let working = list.map(d => {
+        const vPolo = activeDeputiesPoloFilter === 'all' ? d.votos : (d.por_polo[activeDeputiesPoloFilter] || 0);
+        return { ...d, vDisplay: vPolo };
+      });
+      if (activeDeputiesPoloFilter !== 'all') {
+        working.sort((a, b) => b.vDisplay - a.vDisplay);
+      }
+      tbody.innerHTML = working.map((d, idx) => {
         const badge = d.eleito
           ? `<span class="tag-eleito">★ ${d.situacao}</span>`
           : `<span class="tag-suplente">${d.situacao || 'Não Eleito'}</span>`;
         const v22Txt = d.votos_2022 > 0
           ? `${d.votos_2022.toLocaleString('pt-BR')}v`
           : (d.numero === '15555' ? '6.705v (Flávia)' : '—');
+        const rankShow = activeDeputiesPoloFilter === 'all' ? d.rank : (idx + 1);
+        const pctShow = activeDeputiesPoloFilter === 'all'
+          ? d.pct
+          : `${((d.vDisplay / d.votos) * 100).toFixed(1).replace('.', ',')}% dos votos dele`;
         return `
           <tr>
-            <td style="color:var(--text-muted); font-weight:700;">${d.rank}º</td>
+            <td style="color:var(--text-muted); font-weight:700;">${rankShow}º</td>
             <td><strong>${d.urna}</strong> <span style="color:var(--text-dim); font-size:0.72rem;">(${d.numero})</span></td>
             <td><span style="background:rgba(255,255,255,0.06); padding:2px 8px; border-radius:4px; font-weight:600;">${d.partido}</span></td>
-            <td style="font-size:0.9rem;"><strong>${d.votos.toLocaleString('pt-BR')}</strong></td>
-            <td style="color:var(--accent-blue); font-weight:700;">${d.pct}</td>
+            <td style="font-size:0.9rem;"><strong>${d.vDisplay.toLocaleString('pt-BR')}</strong></td>
+            <td style="color:var(--accent-blue); font-weight:700;">${pctShow}</td>
             <td style="color:var(--text-muted);">${v22Txt}</td>
             <td style="color:var(--text-dim); font-size:0.75rem;">${d.polo_forte}</td>
             <td>${badge}</td>

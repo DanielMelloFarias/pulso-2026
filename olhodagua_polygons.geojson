@@ -1,0 +1,584 @@
+{
+  "type": "FeatureCollection",
+  "municipio": "Olho d'Água das Flores",
+  "codigo_tse": "28134",
+  "codigo_ibge": "2705705",
+  "zona_eleitoral": "011ª ZE",
+  "total_eleitores_2024": 16469,
+  "total_eleitores_2026": 16238,
+  "total_secoes": 47,
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -37.26747978751261,
+              -9.520031360746238
+            ],
+            [
+              -37.23592876710445,
+              -9.5121436056442
+            ],
+            [
+              -37.20890706023989,
+              -9.542167724382603
+            ],
+            [
+              -37.25497978751261,
+              -9.561364694079574
+            ],
+            [
+              -37.26747978751261,
+              -9.547475805190686
+            ],
+            [
+              -37.26747978751261,
+              -9.520031360746238
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "maria_augusta",
+        "codigo_local": "1040",
+        "nome": "Polo Centro · Maria Augusta (Imaculada)",
+        "escola": "E. M. Maria Augusta Silva Melo (Col. Imaculada)",
+        "endereco": "Rua 06 de Fevereiro, s/n — Centro",
+        "coords": [
+          -37.2436,
+          -9.5361
+        ],
+        "secoes": [
+          107,
+          108,
+          109,
+          110,
+          111,
+          113,
+          114,
+          115
+        ],
+        "qtd_secoes": 8,
+        "eleitores": 3041,
+        "zeluiz": 1586,
+        "zeluiz_pct": "71.4%",
+        "alyson": 589,
+        "alyson_pct": "26.5%",
+        "renan_2026": 1221,
+        "renan_pct_2026": "58.6%",
+        "jhc_2026": 860,
+        "jhc_pct_2026": "41.3%",
+        "lider_est_2026": "Paulinho Mendonça (534v)",
+        "lider_fed_2026": "Luciano Amaral (933v)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -37.16300797906571,
+              -9.553096077043122
+            ],
+            [
+              -37.1208,
+              -9.5389
+            ],
+            [
+              -37.1199,
+              -9.5381
+            ],
+            [
+              -37.12947943351413,
+              -9.561079064079212
+            ],
+            [
+              -37.16300797906571,
+              -9.553096077043122
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "domicio_silva",
+        "codigo_local": "1104",
+        "nome": "Polo Cônego Bulhões · Domício Silva",
+        "escola": "Creche de Educ. Inf. Empresário Domício Silva",
+        "endereco": "Rua Cônego José Bulhões, s/n — Centro / Leste",
+        "coords": [
+          -37.1375,
+          -9.5509
+        ],
+        "secoes": [
+          95,
+          96,
+          97,
+          98,
+          99,
+          100,
+          101,
+          102
+        ],
+        "qtd_secoes": 8,
+        "eleitores": 2559,
+        "zeluiz": 1459,
+        "zeluiz_pct": "71.8%",
+        "alyson": 537,
+        "alyson_pct": "26.4%",
+        "renan_2026": 1075,
+        "renan_pct_2026": "58.6%",
+        "jhc_2026": 755,
+        "jhc_pct_2026": "41.2%",
+        "lider_est_2026": "Paulinho Mendonça (454v)",
+        "lider_fed_2026": "Luciano Amaral (834v)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -37.27097978751261,
+              -9.516531360746239
+            ],
+            [
+              -37.26747978751261,
+              -9.520031360746238
+            ],
+            [
+              -37.26747978751261,
+              -9.547475805190686
+            ],
+            [
+              -37.2866195881486,
+              -9.552792416478457
+            ],
+            [
+              -37.3049,
+              -9.5361
+            ],
+            [
+              -37.3136,
+              -9.5531
+            ],
+            [
+              -37.3731,
+              -9.5248
+            ],
+            [
+              -37.375818456740966,
+              -9.516531360746239
+            ],
+            [
+              -37.27097978751261,
+              -9.516531360746239
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "angelo_abreu",
+        "codigo_local": "1066",
+        "nome": "Polo Av. 2 de Dezembro · Ângelo de Abreu",
+        "escola": "Grupo Escolar Ângelo de Abreu",
+        "endereco": "Av. Dois de Dezembro, s/n — Centro Oeste",
+        "coords": [
+          -37.313,
+          -9.5307
+        ],
+        "secoes": [
+          124,
+          125,
+          126,
+          127,
+          128,
+          136,
+          143
+        ],
+        "qtd_secoes": 7,
+        "eleitores": 2698,
+        "zeluiz": 1374,
+        "zeluiz_pct": "68.4%",
+        "alyson": 600,
+        "alyson_pct": "29.9%",
+        "renan_2026": 1122,
+        "renan_pct_2026": "55.0%",
+        "jhc_2026": 906,
+        "jhc_pct_2026": "44.4%",
+        "lider_est_2026": "Paulinho Mendonça (471v)",
+        "lider_fed_2026": "Luciano Amaral (776v)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -37.23592876710445,
+              -9.5121436056442
+            ],
+            [
+              -37.26747978751261,
+              -9.520031360746238
+            ],
+            [
+              -37.27097978751261,
+              -9.516531360746239
+            ],
+            [
+              -37.275052032899666,
+              -9.462234755585449
+            ],
+            [
+              -37.2733,
+              -9.4646
+            ],
+            [
+              -37.2703,
+              -9.4574
+            ],
+            [
+              -37.2691,
+              -9.4571
+            ],
+            [
+              -37.2497,
+              -9.4881
+            ],
+            [
+              -37.23501049961669,
+              -9.509318167220332
+            ],
+            [
+              -37.23592876710445,
+              -9.5121436056442
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "padre_duarte",
+        "codigo_local": "1015",
+        "nome": "Polo Norte · Padre Antônio Duarte",
+        "escola": "Grupo Escolar Padre Antônio Duarte",
+        "endereco": "Av. 02 de Dezembro, s/n — Centro Norte",
+        "coords": [
+          -37.2597,
+          -9.4944
+        ],
+        "secoes": [
+          87,
+          88,
+          89,
+          90,
+          91,
+          94
+        ],
+        "qtd_secoes": 6,
+        "eleitores": 2382,
+        "zeluiz": 1180,
+        "zeluiz_pct": "68.7%",
+        "alyson": 504,
+        "alyson_pct": "29.4%",
+        "renan_2026": 907,
+        "renan_pct_2026": "57.4%",
+        "jhc_2026": 670,
+        "jhc_pct_2026": "42.4%",
+        "lider_est_2026": "Paulinho Mendonça (366v)",
+        "lider_fed_2026": "Luciano Amaral (670v)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -37.25497978751261,
+              -9.561364694079574
+            ],
+            [
+              -37.20890706023989,
+              -9.542167724382603
+            ],
+            [
+              -37.20505021254439,
+              -9.54308602145296
+            ],
+            [
+              -37.1874,
+              -9.5613
+            ],
+            [
+              -37.16300797906571,
+              -9.553096077043122
+            ],
+            [
+              -37.12947943351413,
+              -9.561079064079212
+            ],
+            [
+              -37.153,
+              -9.6175
+            ],
+            [
+              -37.1539,
+              -9.6161
+            ],
+            [
+              -37.1529,
+              -9.6143
+            ],
+            [
+              -37.1542,
+              -9.6129
+            ],
+            [
+              -37.1556,
+              -9.6138
+            ],
+            [
+              -37.1572,
+              -9.6128
+            ],
+            [
+              -37.1577,
+              -9.6113
+            ],
+            [
+              -37.1589,
+              -9.6106
+            ],
+            [
+              -37.1607,
+              -9.6107
+            ],
+            [
+              -37.1628,
+              -9.6127
+            ],
+            [
+              -37.1654,
+              -9.6111
+            ],
+            [
+              -37.1655,
+              -9.609
+            ],
+            [
+              -37.1626,
+              -9.6044
+            ],
+            [
+              -37.1602,
+              -9.6032
+            ],
+            [
+              -37.25497978751261,
+              -9.574379207470656
+            ],
+            [
+              -37.25497978751261,
+              -9.561364694079574
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "elisa_abreu",
+        "codigo_local": "1058",
+        "nome": "Polo Sul · Grupo Escolar Elisa Abreu",
+        "escola": "Grupo Escolar Elisa Abreu",
+        "endereco": "Rua Ismael de Abreu, s/n — Eixo Sul",
+        "coords": [
+          -37.1882,
+          -9.5738
+        ],
+        "secoes": [
+          116,
+          117,
+          118,
+          119,
+          120,
+          121,
+          122
+        ],
+        "qtd_secoes": 7,
+        "eleitores": 2140,
+        "zeluiz": 1161,
+        "zeluiz_pct": "71.3%",
+        "alyson": 430,
+        "alyson_pct": "26.4%",
+        "renan_2026": 888,
+        "renan_pct_2026": "59.4%",
+        "jhc_2026": 602,
+        "jhc_pct_2026": "40.3%",
+        "lider_est_2026": "Paulinho Mendonça (363v)",
+        "lider_fed_2026": "Luciano Amaral (703v)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -37.26747978751261,
+              -9.547475805190686
+            ],
+            [
+              -37.25497978751261,
+              -9.561364694079574
+            ],
+            [
+              -37.25497978751261,
+              -9.574379207470656
+            ],
+            [
+              -37.2582,
+              -9.5734
+            ],
+            [
+              -37.2594,
+              -9.5742
+            ],
+            [
+              -37.2563,
+              -9.5794
+            ],
+            [
+              -37.25497978751261,
+              -9.580060106243696
+            ],
+            [
+              -37.25497978751261,
+              -9.581427337117391
+            ],
+            [
+              -37.2554,
+              -9.5813
+            ],
+            [
+              -37.2866195881486,
+              -9.552792416478457
+            ],
+            [
+              -37.26747978751261,
+              -9.547475805190686
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "izidro_pereira",
+        "codigo_local": "1082",
+        "nome": "Polo 7 de Setembro · Izidro Pereira Filho",
+        "escola": "Escola Vereador Izidro Pereira Filho",
+        "endereco": "Rua 07 de Setembro, s/n — Sudoeste",
+        "coords": [
+          -37.2673,
+          -9.5609
+        ],
+        "secoes": [
+          129,
+          130,
+          131,
+          132,
+          133,
+          134
+        ],
+        "qtd_secoes": 6,
+        "eleitores": 1816,
+        "zeluiz": 965,
+        "zeluiz_pct": "68.6%",
+        "alyson": 410,
+        "alyson_pct": "29.2%",
+        "renan_2026": 747,
+        "renan_pct_2026": "58.1%",
+        "jhc_2026": 538,
+        "jhc_pct_2026": "41.8%",
+        "lider_est_2026": "Paulinho Mendonça (280v)",
+        "lider_fed_2026": "Luciano Amaral (524v)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -37.27097978751261,
+              -9.516531360746239
+            ],
+            [
+              -37.375818456740966,
+              -9.516531360746239
+            ],
+            [
+              -37.3803,
+              -9.5029
+            ],
+            [
+              -37.3127,
+              -9.4711
+            ],
+            [
+              -37.2793,
+              -9.4565
+            ],
+            [
+              -37.275052032899666,
+              -9.462234755585449
+            ],
+            [
+              -37.27097978751261,
+              -9.516531360746239
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "ednaldo_miguel",
+        "codigo_local": "1112",
+        "nome": "Polo Bairro Pedro Sales · Ednaldo Miguel",
+        "escola": "Núcleo Infantil Ednaldo Miguel da Silva",
+        "endereco": "Rua João Batista, s/n — Bairro Pedro Sales",
+        "coords": [
+          -37.3151,
+          -9.495
+        ],
+        "secoes": [
+          103,
+          104,
+          105,
+          106,
+          123
+        ],
+        "qtd_secoes": 5,
+        "eleitores": 1651,
+        "zeluiz": 886,
+        "zeluiz_pct": "71.3%",
+        "alyson": 330,
+        "alyson_pct": "26.5%",
+        "renan_2026": 627,
+        "renan_pct_2026": "57.8%",
+        "jhc_2026": 452,
+        "jhc_pct_2026": "41.7%",
+        "lider_est_2026": "Paulinho Mendonça (248v)",
+        "lider_fed_2026": "Luciano Amaral (490v)"
+      }
+    }
+  ]
+}
